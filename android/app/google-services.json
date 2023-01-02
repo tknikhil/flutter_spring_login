@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "445867964327",
+    "project_id": "flutter--signin-e3dad",
+    "storage_bucket": "flutter--signin-e3dad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445867964327:android:cb5165233f803fbf1a2882",
+        "android_client_info": {
+          "package_name": "com.ultimate.flutter_spring_login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445867964327-p6qvfg63jps22pqda0rtodislbj1e2im.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjJuFNuiSmdkePwAtdqNcnKoJDEVsFRjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445867964327-p6qvfg63jps22pqda0rtodislbj1e2im.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

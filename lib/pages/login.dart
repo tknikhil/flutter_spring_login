@@ -20,6 +20,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueGrey.shade200,
       body: SingleChildScrollView(
         child: Form(
             key: _formkey,
@@ -57,6 +58,14 @@ class _LoginState extends State<Login> {
                         PasswordTextField(inputController: passwordController, label: "Password"),
                         const SizedBox(height: 30),
                         Text(
+                          "Forget Password !",
+                          style: GoogleFonts.roboto(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: const Color.fromRGBO(255, 201, 187, 1)),
+                        ),
+                        const SizedBox(height: 15),
+                        Text(
                           "Don't have account?",
                           style: GoogleFonts.roboto(
                               fontSize: 20,
@@ -73,8 +82,7 @@ class _LoginState extends State<Login> {
                   width: 70,
                   child: TextButton(
                     onPressed: () {  },
-
-                    child: Icon(Icons.arrow_forward_ios,size: 20,),
+                    child: Icon(Icons.arrow_forward_ios,size: 50,color: Colors.green,),
                   ),
                 )
               ],
