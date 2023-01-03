@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spring_login/app_widget/form_button.dart';
 import 'package:flutter_spring_login/app_widget/form_textfield.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,8 +15,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formkey = GlobalKey<FormState>();
 
-  TextEditingController emailController= TextEditingController();
-  TextEditingController passwordController= TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +54,12 @@ class _LoginState extends State<Login> {
                                 fontSize: 40,
                                 color: const Color.fromRGBO(255, 201, 187, 1))),
                         const SizedBox(height: 40),
-                        FormTextField(inputController: emailController, label: "Email"),
+                        FormTextField(
+                            inputController: emailController, label: "Email"),
                         const SizedBox(height: 20),
-                        PasswordTextField(inputController: passwordController, label: "Password"),
+                        PasswordTextField(
+                            inputController: passwordController,
+                            label: "Password"),
                         const SizedBox(height: 30),
                         Text(
                           "Forget Password !",
@@ -76,15 +80,15 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-
-                Container(
-                  height: 70,
-                  width: 70,
-                  child: TextButton(
-                    onPressed: () {  },
-                    child: Icon(Icons.arrow_forward_ios,size: 50,color: Colors.green,),
-                  ),
-                )
+                const SizedBox(height: 25),
+                FormButton(
+                    buttonIcon: Icons.login,
+                    textcolor: Colors.white,
+                    backgroundColor: Colors.green,
+                    borderColor: Colors.greenAccent,
+                    text: "Login",
+                    heightSize: 60,
+                    widthSize: 150)
               ],
             )),
       ),

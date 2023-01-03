@@ -48,6 +48,8 @@ dependencies:
 
   #State Management
   provider: ^5.0.0
+  #injectable:
+  injectable: ^2.1.0
 
 dev_dependencies:
   flutter_test:
