@@ -18,8 +18,13 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+
+
+
   @override
   Widget build(BuildContext context) {
+    String email=emailController.text;
+    String paswword=passwordController.text;
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade200,
       body: SingleChildScrollView(
@@ -88,7 +93,13 @@ class _LoginState extends State<Login> {
                     borderColor: Colors.greenAccent,
                     text: "Login",
                     heightSize: 60,
-                    widthSize: 150)
+                    widthSize: 150,
+                  // emailController,
+                  // password
+                  //need to work on this
+                  email: emailController.text,
+                  password: passwordController.text,
+                )
               ],
             )),
       ),

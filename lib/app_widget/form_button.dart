@@ -10,6 +10,8 @@ class FormButton extends StatelessWidget {
   double heightSize;
   double widthSize;
   bool? isIcon;
+  String email;
+  String password;
 
   FormButton(
       {Key? key,
@@ -20,7 +22,9 @@ class FormButton extends StatelessWidget {
       required this.text,
       required this.heightSize,
       required this.widthSize,
-      this.isIcon=false})
+      this.isIcon=false,
+      required this.email,
+      required this.password})
       : super(key: key);
 
   @override
@@ -41,7 +45,7 @@ class FormButton extends StatelessWidget {
             padding: EdgeInsets.all(2)
         ),
           onPressed: (){
-          loginService.save();
+          loginService.save(email!,password!);
           },
         child: Row(
         mainAxisSize: MainAxisSize.min,
