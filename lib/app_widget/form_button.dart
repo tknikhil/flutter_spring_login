@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spring_login/app_widget/form_textfield.dart';
 import 'package:flutter_spring_login/service/loginService.dart';
+
+import 'form_password_textfield.dart';
 
 class FormButton extends StatelessWidget {
   IconData? buttonIcon;
@@ -10,21 +13,20 @@ class FormButton extends StatelessWidget {
   double heightSize;
   double widthSize;
   bool? isIcon;
-  String email;
-  String password;
+  String? email;
+  String? password;
+  final VoidCallback onPressed;
 
   FormButton(
       {Key? key,
+        required this.onPressed,
       this.buttonIcon,
       required this.textcolor,
       required this.backgroundColor,
       required this.borderColor,
       required this.text,
       required this.heightSize,
-      required this.widthSize,
-      this.isIcon=false,
-      required this.email,
-      required this.password})
+      required this.widthSize,})
       : super(key: key);
 
   @override
@@ -37,16 +39,14 @@ class FormButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
 
           backgroundColor: backgroundColor,
-            side: BorderSide(width:3, color:Colors.lightGreen), //border width and color
+            side: BorderSide(width:3, color:borderColor), //border width and color
             elevation: 3, //elevation of button
             shape: RoundedRectangleBorder( //to set border radius to button
                 borderRadius: BorderRadius.circular(15)
             ),
             padding: EdgeInsets.all(2)
         ),
-          onPressed: (){
-          loginService.save(email!,password!);
-          },
+          onPressed:onPressed,
         child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

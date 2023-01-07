@@ -20,6 +20,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       controller: widget.inputController,
       obscureText: pass,
 
+
       validator: (value) {
         if (value!.isEmpty) {
           return "please enter your ${widget.label} !";
@@ -33,13 +34,19 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       decoration: InputDecoration(
           labelText:widget.label,
           hintText: "Please enter your ${widget.label} ",
-          hintStyle: const TextStyle(color: Color.fromRGBO(255, 255, 255, .3)),
+          hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5)),
           labelStyle: const TextStyle(
-            fontSize: 30,
-            color: Color.fromRGBO(255, 255, 255, 0.8),
+            fontSize: 25,
+            color: Color.fromRGBO(183, 135, 39, 1),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Color.fromRGBO(183, 135, 39, 1),),
+              borderRadius:BorderRadius.all(Radius.circular(9
+              )
+              )
           ),
           filled: true,
-          fillColor: const Color.fromRGBO(199, 44, 65, .4),
+          fillColor: Colors.white24,
           border: const OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius:
