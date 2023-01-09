@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spring_login/src/presentation/pages/search.dart';
 import 'package:flutter_spring_login/src/service/loginService.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
@@ -19,6 +20,7 @@ class _LoginState extends State<Login> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     String email=emailController.text;
@@ -35,21 +37,7 @@ class _LoginState extends State<Login> {
                 Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    gradient:const RadialGradient(
-                      colors: [Palette.white,Palette.gold, ],
-                      radius: 0.90,
-                      focal: Alignment(0.9, -0.7),
-                      tileMode: TileMode.clamp,
-                    ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.shade600,
-                          spreadRadius: 3,
-                          blurRadius: 6,
-                          offset: const Offset(0, 5),
-                        )
-                      ]),
+                  decoration: Palette.backgroundGradient,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -81,24 +69,36 @@ class _LoginState extends State<Login> {
                           // email: emailController.text,
                           // password: passwordController.text,
                           onPressed: (){
-                            LoginService().save(email, password);
+                            var login=LoginService().login(email, password);
+                            login.then((value) =>
+                            {
+                              if(value=="Success"){
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const Search()))
+                              }else{
+                                print(value),
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text("Login Failed "),
+                            ))
+                              }
+                            }
+                            );
                             print(email);
                           },
                         ),
-                        const SizedBox(height: 25),
-                        Text(
-                          "Forget Password !",
-                          style: GoogleFonts.roboto(
-                              fontSize: 20,
-                              color: Colors.black45),
-                        ),
-                        const SizedBox(height: 15),
-                        Text(
-                          "Don't have account?",
-                          style: GoogleFonts.roboto(
-                              fontSize: 20,
-                              color: Colors.black45),
-                        )
+                        // const SizedBox(height: 25),
+                        // Text(
+                        //   "Forget Password !",
+                        //   style: GoogleFonts.roboto(
+                        //       fontSize: 20,
+                        //       color: Colors.black45),
+                        // ),
+                        // const SizedBox(height: 15),
+                        // Text(
+                        //   "Don't have account?",
+                        //   style: GoogleFonts.roboto(
+                        //       fontSize: 20,
+                        //       color: Colors.black45),
+                        // )
                       ],
                     ),
                   ),
