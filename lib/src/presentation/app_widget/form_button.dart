@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spring_login/app_widget/form_textfield.dart';
-import 'package:flutter_spring_login/service/loginService.dart';
 
-import 'form_password_textfield.dart';
 
 class FormButton extends StatelessWidget {
   IconData? buttonIcon;
@@ -31,7 +28,6 @@ class FormButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  LoginService loginService=LoginService();
     return SizedBox(
       height: heightSize,
       width: widthSize,
@@ -51,7 +47,7 @@ class FormButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(text,style: TextStyle(color: textcolor,fontSize: 25)), // <-- Text
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Icon( // <-- Icon

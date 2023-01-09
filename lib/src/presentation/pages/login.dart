@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spring_login/app_widget/form_button.dart';
-import 'package:flutter_spring_login/app_widget/form_textfield.dart';
-import 'package:flutter_spring_login/service/loginService.dart';
+import 'package:flutter_spring_login/src/service/loginService.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../app_widget/form_password_textfield.dart';
+import 'package:flutter_spring_login/src/presentation/presentation.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -40,12 +37,11 @@ class _LoginState extends State<Login> {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     gradient:const RadialGradient(
-                      colors: [Colors.white,Color.fromRGBO(183, 135, 39, 1), ],
+                      colors: [Palette.white,Palette.gold, ],
                       radius: 0.90,
                       focal: Alignment(0.9, -0.7),
                       tileMode: TileMode.clamp,
                     ),
-                      color: Colors.blueGrey,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.shade600,
@@ -63,7 +59,7 @@ class _LoginState extends State<Login> {
                             style: GoogleFonts.oswald(
                                 // fontWeight: FontWeight.bold,
                                 fontSize: 40,
-                                color: const Color.fromRGBO(183, 135, 39, 1),)),
+                                color: Palette.text)),
                         const SizedBox(height: 40),
                         emailF,
                         const SizedBox(height: 20),

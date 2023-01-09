@@ -29,7 +29,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependency_overrides:
-  firebase_core_platform_interface: 4.5.1
+  firebase_core_platform_interface: 4.5.2
 dependencies:
   google_fonts: ^3.0.1
   http: ^0.13.0
