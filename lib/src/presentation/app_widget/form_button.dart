@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-class FormButton extends StatelessWidget {
+class FormButton extends StatefulWidget {
   IconData? buttonIcon;
   final Color textcolor;
   final Color backgroundColor;
@@ -9,9 +9,6 @@ class FormButton extends StatelessWidget {
   final String text;
   double heightSize;
   double widthSize;
-  bool? isIcon;
-  String? email;
-  String? password;
   final VoidCallback onPressed;
 
   FormButton(
@@ -27,32 +24,42 @@ class FormButton extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<FormButton> createState() => _FormButtonState();
+}
+
+class _FormButtonState extends State<FormButton> {
+  bool? isIcon;
+  String? email;
+  String? password;
+
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: heightSize,
-      width: widthSize,
+      height: widget.heightSize,
+      width: widget.widthSize,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
 
-          backgroundColor: backgroundColor,
-            side: BorderSide(width:3, color:borderColor), //border width and color
+          backgroundColor: widget.backgroundColor,
+            side: BorderSide(width:3, color:widget.borderColor), //border width and color
             elevation: 3, //elevation of button
             shape: RoundedRectangleBorder( //to set border radius to button
                 borderRadius: BorderRadius.circular(15)
             ),
             padding: EdgeInsets.all(2)
         ),
-          onPressed:onPressed,
+          onPressed:widget.onPressed,
         child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(text,style: TextStyle(color: textcolor,fontSize: 25)), // <-- Text
+          Text(widget.text,style: TextStyle(color: widget.textcolor,fontSize: 25)), // <-- Text
           const SizedBox(
             width: 5,
           ),
           Icon( // <-- Icon
-            buttonIcon,
-            color: textcolor,
+            widget.buttonIcon,
+            color: widget.textcolor,
             size: 25,
           ),
         ],

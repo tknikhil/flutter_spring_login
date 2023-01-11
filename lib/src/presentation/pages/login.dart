@@ -16,7 +16,29 @@ class _LoginState extends State<Login> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  var _isLoading = false;
 
+  // void _onSubmit(){
+  //   setState(() =>_isLoading=true);
+  //   Future.delayed(const Duration(seconds: 2),()=>setState(()=>_isLoading=false));
+  // }
+  //  _nextPage(String email,String password){
+  //   var login=LoginService().login(email, password);
+  //   login.then((value) =>
+  //   {
+  //     if(value=="Success"){
+  //       Navigator.push(context, MaterialPageRoute(builder: (context)=>const Search()))
+  //     }else{
+  //       print(value),
+  //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //         content: Text("Login Failed ",style: TextStyle(fontSize: 20),),
+  //
+  //       ))
+  //     }
+  //   }
+  //   );
+  //   print(email);
+  // }
 
 
 
@@ -26,7 +48,7 @@ class _LoginState extends State<Login> {
     String email=emailController.text;
     String password=passwordController.text;
     FormTextField emailF=FormTextField(
-        inputController: emailController, label: "Email");
+        inputController: emailController, label: "Username");
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade200,
       body: SingleChildScrollView(
@@ -48,9 +70,9 @@ class _LoginState extends State<Login> {
                                 // fontWeight: FontWeight.bold,
                                 fontSize: 40,
                                 color: Palette.text)),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 30),
                         emailF,
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 30),
                         PasswordTextField(
                             inputController: passwordController,
                             label: "Password"),
@@ -68,21 +90,28 @@ class _LoginState extends State<Login> {
                           //need to work on this
                           // email: emailController.text,
                           // password: passwordController.text,
+        //                   onPressed:(){
+        //                     var login=LoginService().login(email, password);
+        //               login.then((value) =>
+        //     {
+        //     if(value=="Success"){
+        //     Navigator.push(context, MaterialPageRoute(builder: (context)=>const Search()))
+        //     }else{
+        //     print(value),
+        //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //     content: Text("Login Failed "),
+        //     ))
+        //     }
+        //     }
+        // );
+        //   print(email);
+        //                   },
                           onPressed: (){
-                            var login=LoginService().login(email, password);
-                            login.then((value) =>
-                            {
-                              if(value=="Success"){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const Search()))
-                              }else{
-                                print(value),
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Login Failed "),
-                            ))
-                              }
+                            if(emailController.text=='nikhil'&&passwordController.text=='12345'){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const Search()));
+                            }else{
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login Failed "),));
                             }
-                            );
-                            print(email);
                           },
                         ),
                         // const SizedBox(height: 25),

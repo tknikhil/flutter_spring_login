@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spring_login/src/presentation/presentation.dart';
 
 class PasswordTextField extends StatefulWidget {
   final TextEditingController inputController;
@@ -29,7 +30,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
 
       style: const TextStyle(
         fontSize: 20,
-        color: Color.fromRGBO(255, 255, 255, 0.8),
+        color: Palette.text,
       ),
       decoration: InputDecoration(
           labelText:widget.label,
@@ -37,10 +38,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5)),
           labelStyle: const TextStyle(
             fontSize: 25,
-            color: Color.fromRGBO(183, 135, 39, 1),
+            color: Palette.text,
           ),
           focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromRGBO(183, 135, 39, 1),),
+            borderSide: BorderSide(color: Palette.gold,),
               borderRadius:BorderRadius.all(Radius.circular(9
               )
               )
