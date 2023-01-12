@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spring_login/src/presentation/pages/add_item.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
@@ -10,18 +11,29 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  int _index=0;
   @override
   Widget build(BuildContext context) {
     String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
+    switch (_index) {
+      case 0:
+        var child = _onBottomNavigationBarTap(context);
+        break;
+      case 1:
+        var child = _onBottomNavigationBarTap(context);
+        break;
+
+    }
     return Scaffold(
       backgroundColor: const Color(0xfffd4af37),
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (newIndex) => setState(() => _index = newIndex),
+        currentIndex: _index,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add New'),
           // BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
         ],
-        onTap: _onBottomNavigationBarTap(),
       ),
       body: SafeArea(
         child: Column(
@@ -122,10 +134,12 @@ class _SearchState extends State<Search> {
             //   height: 15,
             // ),
             Expanded(
+
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(50),
                     topRight: Radius.circular(50)),
+
                 child: Container(
                   color: Color(0xffff0ead6),
 
@@ -135,24 +149,25 @@ class _SearchState extends State<Search> {
                         children: [
                           Padding(
                              padding: const EdgeInsets.all(15.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'Order List',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.brown),
-                                ),
-                                Icon(
-                                  Icons.more_horiz,
-                                  size: 25,
-                                  color: Colors.brown,
-                                )
-                              ],
-                            ),
+
+                            // child: Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   crossAxisAlignment: CrossAxisAlignment.start,
+                            //   children: const [
+                            //     Text(
+                            //       'Order List',
+                            //       style: TextStyle(
+                            //           fontSize: 20,
+                            //           fontWeight: FontWeight.bold,
+                            //           color: Colors.brown),
+                            //     ),
+                            //     Icon(
+                            //       Icons.more_horiz,
+                            //       size: 25,
+                            //       color: Colors.brown,
+                            //     )
+                            //   ],
+                            // ),
                           ),
                           SizedBox(
                             height: 20,
@@ -286,14 +301,21 @@ class _SearchState extends State<Search> {
     );
   }
 
-  _onBottomNavigationBarTap() {
-    Fluttertoast.showToast(
-        msg: "Work in Progress!!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+  _onBottomNavigationBarTap(BuildContext context) {
+    // Fluttertoast.showToast(
+    //     msg: "Work in Progress!!",
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.BOTTOM,
+    //     timeInSecForIosWeb: 1,
+    //     textColor: Colors.white,
+    //     fontSize: 16.0
+    // );
+    setState(() {
+      Future.delayed(Duration.zero,(){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddItem()));
+      });
+
+    });
+
   }
 }
