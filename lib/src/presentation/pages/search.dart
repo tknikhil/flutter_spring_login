@@ -17,10 +17,10 @@ class _SearchState extends State<Search> {
     String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
     switch (_index) {
       case 0:
-        var child = _onBottomNavigationBarTap(context);
+        var child = print(_index);
         break;
       case 1:
-        var child = _onBottomNavigationBarTap(context);
+        var child =print(_index);
         break;
 
     }

@@ -1,6 +1,6 @@
 class User {
-  late String email;
+  late String username;
   late String password;
 
-  User(this.email, this.password);
+  User(this.username, this.password);
 }

@@ -7,24 +7,29 @@ import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class LoginService {
-  var url = "http://10.0.2.2:9090/login";
-  Future login(String email,String password) async {
+  var url = "http://192.168.0.233:8081/salesorder/login";
+  Future login(String username,String password) async {
     var val;
-    print("save()");
+
     await http.post(
         Uri.parse(url),
-        headers:<String, String>{"Content-type":"application/json"},
+        headers:<String, String>{
+          "Content-type":"application/json"
+        },
         body: json.encode({
-          'email': email,
+        "data": {
+        "loginData": {
+          'username': username,
           'password': password
-        })
+        }}})
     ).then((value) =>{
-    print (value.statusCode),
+    print (value),
       if(value.statusCode==200){
         val= "Success",
 
       }else{
-       val="Error"
+       val="Error",
+        print(value.body)
       }
     }
     ).onError((error, stackTrace) => {
