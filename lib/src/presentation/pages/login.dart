@@ -16,37 +16,12 @@ class _LoginState extends State<Login> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  var _isLoading = false;
-  //
-  // void _onSubmit(){
-  //   setState(() =>_isLoading=true);
-  //   Future.delayed(const Duration(seconds: 2),()=>setState(()=>_isLoading=false));
-  // }
-  //  _nextPage(String username,String password){
-  //   var login=LoginService().login(username, password);
-  //   login.then((value) =>
-  //   {
-  //     if(value=="Success"){
-  //       Navigator.push(context, MaterialPageRoute(builder: (context)=>const Search()))
-  //     }else{
-  //       print(value+" :_onSubmit()"),
-  //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //         content: Text("Login Failed ",style: TextStyle(fontSize: 20),),
-  //
-  //       ))
-  //     }
-  //   }
-  //   );
-  //   print(username+" :_onSubmit()");
-  // }
-
-
 
 
   @override
   Widget build(BuildContext context) {
-    String username=emailController.text;
-    String password=passwordController.text;
+    String username=emailController.text!;
+    String password=passwordController.text!;
     FormTextField emailF=FormTextField(
         inputController: emailController, label: "Username");
     return Scaffold(
@@ -85,43 +60,15 @@ class _LoginState extends State<Login> {
                           text: "Login",
                           heightSize: 50,
                           widthSize: 200,
-                          // emailController,
-                          // password
-                          // need to work on this
-                          // email: emailController.text,
-                          // password: passwordController.text,
                           onPressed:(){
                             isLogin(username, password, context);
 
                           },
-        //                   onPressed: (){
-        //                     if(emailController.text=='nikhil'&&passwordController.text=='12345'){
-        //                       Navigator.push(context, MaterialPageRoute(builder: (context)=>const Search()));
-        //                     }else{
-        //                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login Failed "),));
-        //                     }
-        //                   },
                         ),
-                        // const SizedBox(height: 25),
-                        // Text(
-                        //   "Forget Password !",
-                        //   style: GoogleFonts.roboto(
-                        //       fontSize: 20,
-                        //       color: Colors.black45),
-                        // ),
-                        // const SizedBox(height: 15),
-                        // Text(
-                        //   "Don't have account?",
-                        //   style: GoogleFonts.roboto(
-                        //       fontSize: 20,
-                        //       color: Colors.black45),
-                        // )
                       ],
                     ),
                   ),
                 ),
-
-
               ],
             )),
       ),
