@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
 
 class FormTextField extends StatelessWidget {
-  final  TextEditingController inputController;
+    final  TextEditingController inputController;
   final String label;
 
-TextEditingController get inputController2 =>this.inputController;
+ TextEditingController get inputController2 =>this.inputController;
   const FormTextField(
-      {Key? key, required this.inputController, required this.label})
+      {Key? key,
+         required this.inputController,
+        required this.label})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        controller: inputController,
+         controller: inputController,
 
         validator: (value) {
           if (value!.isEmpty) {

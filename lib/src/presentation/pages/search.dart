@@ -1,9 +1,16 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spring_login/src/presentation/pages/add_item.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
+import '../../service/loginService.dart';
+import '../app_widget/appbar_widget.dart';
 import '../app_widget/side_menu.dart';
+import 'package:http/http.dart' as http;
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -13,6 +20,38 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+
+
+
+  final _baseUrl = "http://192.168.0.233:8081/salesorder/";
+  // String? stringResponce;
+  Map? mapResponse;
+  Map? dataResponse;
+  List? listResponse;
+  Future screenOnLoad() async{
+    var val;
+    http.Response response;
+    response= await http.get(Uri.parse('${_baseUrl}orderdetails/srcOnLoadOrderDtl'));
+    if(response.statusCode==200){
+      setState((){
+
+        // stringResponce=response.body;
+        mapResponse=json.decode(response.body);
+        listResponse=mapResponse!['data'];
+        print(listResponse.toString()+"screenOnLoad()");
+      });
+
+    }
+
+  }
+
+@override
+void initState() {
+  screenOnLoad();
+    super.initState();
+  }
+
+
   int _index=0;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
@@ -31,18 +70,20 @@ class _SearchState extends State<Search> {
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Scaffold(
-        drawer: const Drawer(child: SideMenu()),
+        drawer: const Drawer(child:
+          SideMenu(),),
+          appBar:AppBarWidget(cdate: cdate),
         backgroundColor: const Color(0xfffd4af37),
-        // bottomNavigationBar: BottomNavigationBar(
-        //   onTap: (newIndex) => setState(() => _index = newIndex),
-        //   currentIndex: _index,
-        //   items: const [
-        //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        //     BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add New'),
-        //     // BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-        //   ],
-        // ),
-        body: SafeArea(
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: (newIndex) => setState(() => _index = newIndex),
+          currentIndex: _index,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add New'),
+            // BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          ],
+        ),
+         body:SafeArea(
           child: Column(
             children: [
               Padding(
@@ -51,66 +92,7 @@ class _SearchState extends State<Search> {
                   children: [
                     //greeting bar
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        //menu
-                        InkWell(
-                          child: Container(
-                              padding: EdgeInsets.all(12),
-                              child: const Icon(
-                                Icons.menu,
-                                color: Colors.brown,
-                                size: 25,
-                              ),
-                          ),
-                          onTap: (){
-                            Scaffold.of(context).openDrawer();
-                          },
-                        ),
-                        //Hi Nikhil
-                        Row(children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Hi Nikhil",
-                                style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.brown),
-                              ),
-                              const SizedBox(
-                                height: 2,
-                              ),
-                              Text(
-                                cdate,
-                                style: const TextStyle(
-                                    color: Color(0xffffbf1de),
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            children: const [
-                              CircleAvatar(
-                                backgroundColor: Colors.yellow,
-                                maxRadius: 25.0,
-                                child: Icon(
-                                  Icons.account_circle_outlined,
-                                  color: Colors.brown,
-                                  size: 50,
-                                ),
-                              )
-                            ],
-                          ),
-                        ])
-                      ],
-                    ),
+
 
                     const SizedBox(
                       height: 15,
@@ -174,25 +156,33 @@ class _SearchState extends State<Search> {
                                 ),
                                 elevation: 4,
                                 shadowColor: Colors.grey,
-                                child: DataTable(
-                                  columns: const [
-                                    DataColumn(label: Text("Ref no.:1000",style: TextStyle(fontSize: 23),)),
-                                    DataColumn(label: Text("Status",style: TextStyle(fontSize: 23),)),
-                                  ],
-                                  rows: [
 
-                                    DataRow(cells: [
-                                      DataCell(Text('Order Date: $cdate',style: TextStyle(fontSize: 17),),),
-                                      DataCell(Text('',style: TextStyle(fontSize: 15,color: Colors.blue),))
-                                    ]),
-                                    const DataRow(
-                                        cells: [
-                                          DataCell(Text('Item code: NC',style: TextStyle(fontSize: 17),),),
-                                          DataCell(Text('Send',style: TextStyle(fontSize: 17,color: Colors.blue),))
-                                        ]
-                                    )
-                                  ],
-                                ),
+                                    // stringResponce.toString()
+                                  child:listResponse==null?
+                                  Container():
+                                  Text(listResponse![0].toString()
+                                  )
+                                ,
+                                // child: DataTable(
+                                //   columns: const [
+                                //     DataColumn(label: Text("Ref no.:1000",style: TextStyle(fontSize: 23),)),
+                                //     DataColumn(label: Text("Status",style: TextStyle(fontSize: 23),)),
+                                //   ],
+                                //   rows: [
+                                //
+                                //     DataRow(cells: [
+                                //       DataCell(Text('Order Date: $cdate',style: TextStyle(fontSize: 17),),),
+                                //       DataCell(Text('',style: TextStyle(fontSize: 15,color: Colors.blue),))
+                                //     ]),
+                                //     const DataRow(
+                                //         cells: [
+                                //           DataCell(Text('Item code: NC',style: TextStyle(fontSize: 17),),),
+                                //           DataCell(Text('Send',style: TextStyle(fontSize: 17,color: Colors.blue),))
+                                //         ]
+                                //     )
+                                //   ],
+                                // ),
+
                               ),
                             ),
                             SizedBox(
@@ -314,3 +304,6 @@ class _SearchState extends State<Search> {
   //
   // }
 }
+
+
+

@@ -22,8 +22,10 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     String username=emailController.text!;
     String password=passwordController.text!;
+
     FormTextField emailF=FormTextField(
-        inputController: emailController, label: "Username");
+         inputController: emailController,
+        label: "Username");
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade200,
       body: SingleChildScrollView(
@@ -49,7 +51,7 @@ class _LoginState extends State<Login> {
                         emailF,
                         const SizedBox(height: 30),
                         PasswordTextField(
-                            inputController: passwordController,
+                             inputController: passwordController,
                             label: "Password"),
                         const SizedBox(height: 30),
                         FormButton(
@@ -61,7 +63,10 @@ class _LoginState extends State<Login> {
                           heightSize: 50,
                           widthSize: 200,
                           onPressed:(){
-                            isLogin(username, password, context);
+                            print(username+"FormButton");
+                            print(password+"FormButton");
+                            print(passwordController.text+"FormButton");
+                            isLogin(emailController.text, passwordController.text, context);
 
                           },
                         ),
@@ -91,5 +96,11 @@ class _LoginState extends State<Login> {
                 }
             );
               print(username+" :onPressed()");
+
+  }
+
+  void clearFieldText(){
+    emailController.clear();
+    passwordController.clear();
   }
 }

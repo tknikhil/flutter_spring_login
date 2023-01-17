@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
 
 class PasswordTextField extends StatefulWidget {
-  final TextEditingController inputController;
+   final TextEditingController inputController;
   final String label;
-
-   const PasswordTextField({Key? key, required this.inputController, required this.label}) : super(key: key);
+  // TextEditingController get inputController2 =>this.inputController;
+    PasswordTextField({Key? key,
+      required this.inputController,
+     required this.label}) : super(key: key);
 
   @override
   State<PasswordTextField> createState() => _PasswordTextFieldState();
@@ -16,19 +18,21 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.text,
-      controller: widget.inputController,
-      obscureText: pass,
 
+    return TextFormField(
+       keyboardType: TextInputType.text,
+       controller: widget.inputController,
+      obscureText: pass,
 
       validator: (value) {
         if (value!.isEmpty) {
           return "please enter your ${widget.label} !";
         }
+        return null;
       },
 
       style: const TextStyle(
+
         fontSize: 20,
         color: Palette.text,
       ),

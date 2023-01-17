@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
+// @lazySingleton
 class LoginService {
-  final _baseUrl = "http://192.168.0.233:8081/";
+  final _baseUrl = "http://192.168.0.233:8081/salesorder/";
   Future login(String username,String password) async {
     var val;
 
     await http.post(
-        Uri.parse('${_baseUrl}salesorder/login'),
+        Uri.parse('${_baseUrl}login'),
         headers:<String, String>{
           "Content-type":"application/json"
         },
@@ -41,6 +41,8 @@ class LoginService {
 return val;
     // print(res.body);
   }
+
+
 
 
 }

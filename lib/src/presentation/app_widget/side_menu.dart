@@ -13,8 +13,9 @@ class SideMenu extends StatefulWidget {
 class _SideMenuState extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    print("Drawer");
+    return Drawer(
+      child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Color(0xfffd4af37),
