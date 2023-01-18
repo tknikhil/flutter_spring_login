@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spring_login/src/presentation/pages/search.dart';
-import 'package:flutter_spring_login/src/service/loginService.dart';
+import 'package:flutter_spring_login/src/service/login_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
 
@@ -20,8 +20,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    String username=emailController.text!;
-    String password=passwordController.text!;
 
     FormTextField emailF=FormTextField(
          inputController: emailController,
@@ -63,11 +61,7 @@ class _LoginState extends State<Login> {
                           heightSize: 50,
                           widthSize: 200,
                           onPressed:(){
-                            print(username+"FormButton");
-                            print(password+"FormButton");
-                            print(passwordController.text+"FormButton");
                             isLogin(emailController.text, passwordController.text, context);
-
                           },
                         ),
                       ],

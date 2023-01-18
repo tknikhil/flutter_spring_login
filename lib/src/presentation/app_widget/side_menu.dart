@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spring_login/src/presentation/app_widget/side_menu_tile.dart';
 
-import 'InfoCard.dart';
+import 'info_card.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
