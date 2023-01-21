@@ -10,5 +10,5 @@ class GetScreenLoadCubit extends Cubit<List<OrderDetail>> {
   final _orderService = OrderService();
   GetScreenLoadCubit():super([]);
 
-  void get orderDetails async => emit(await _orderService.getscreenOnLoad());
+  get orderDetails async => emit(await _orderService.getScreenOnLoad());
 }

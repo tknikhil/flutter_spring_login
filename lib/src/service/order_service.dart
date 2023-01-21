@@ -1,11 +1,8 @@
-import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter_spring_login/src/constrainst/api_constraints.dart';
-import 'package:flutter_spring_login/src/model/order_detail.dart';
+import 'package:flutter_spring_login/src/constrainst/constraints.dart';
+import 'package:flutter_spring_login/src/model/model.dart';
 import 'package:http/http.dart' as http;
-
- import 'package:dio/dio.dart ';
 class OrderService{
 //
 //   // // String? stringResponce;
@@ -33,13 +30,14 @@ class OrderService{
 //   // }
 //
 //   final Dio _dio=Dio();
-  Future<List<OrderDetail>> getscreenOnLoad() async{
+   getScreenOnLoad() async{
     try{
       final uri= Uri.parse(testBaseUrl);
       final response= await http.get(uri);
       if(response.statusCode==200){
         final json=jsonDecode(response.body);
-        final orderDetails = json.map((e) => OrderDetail.fromJson(e)).toList();
+        final listResponse=json?['data'];
+        final orderDetails = listResponse.map<OrderDetail>((e) => OrderDetail.fromJson(e)).toList()  as List<OrderDetail>;
         return orderDetails;
       }else{
         throw Exception('Unable to load data');

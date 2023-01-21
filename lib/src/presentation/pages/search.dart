@@ -1,15 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spring_login/src/cubit/get_screen_load_cubit.dart';
-import 'package:flutter_spring_login/src/model/order_detail.dart';
-import 'package:flutter_spring_login/src/service/order_service.dart';
 import 'package:intl/intl.dart';
 
-import '../app_widget/appbar_widget.dart';
-import '../app_widget/order_detail_card_widget.dart';
-import '../app_widget/side_menu.dart';
+import '../app_widget/app_widget.dart';
+
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -19,27 +12,22 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  late Future<List> screenOnLoads;
-  late List orderDetails;
-
-
-
+  //for bottom navigation bar
   int _index = 0;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  //initState is called before widget tree
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   print('initState()');
+  //   Future.delayed(const Duration(seconds: 10), () {
+  //     setState(() {
+  //        BlocProvider(create: (BuildContext context)=>GetScreenLoadCubit());
+  //     });
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
-    @override
-    void initState() {
-      super.initState();
-      print('initState()');
-      Future.delayed(const Duration(seconds: 10), () {
-        setState(() {
-          BlocProvider(create: (BuildContext context)=>GetScreenLoadCubit());
-          // screenOnLoads = OrderService().screenOnLoad() as Future<List?>;
-        });
-      });
-    }
     String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
     switch (_index) {
       case 0:
@@ -50,14 +38,16 @@ class _SearchState extends State<Search> {
         break;
     }
     return SizedBox(
+      //takes host mobile complete screen size
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Scaffold(
-        drawer: const Drawer(
-          child: SideMenu(),
-        ),
+        //drawer
+        drawer: MenuDrawer(),
+        //appbar
         appBar: AppBarWidget(cdate: cdate),
         backgroundColor: const Color(0xfffd4af37),
+        //bottom navigation bar
         bottomNavigationBar: BottomNavigationBar(
           onTap: (newIndex) => setState(() => _index = newIndex),
           currentIndex: _index,
@@ -74,14 +64,10 @@ class _SearchState extends State<Search> {
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
                   children: [
-                    //greeting bar
-
                     const SizedBox(
                       height: 15,
                     ),
-
                     //  Search Bar
-
                     Container(
                       decoration: BoxDecoration(
                           color: Color(0xffffbf1de),
@@ -107,12 +93,9 @@ class _SearchState extends State<Search> {
                   ],
                 ),
               ),
-              // SizedBox(
-              //   height: 15,
-              // ),
               Expanded(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(50),
                       topRight: Radius.circular(50)),
                   child: Container(
@@ -120,136 +103,15 @@ class _SearchState extends State<Search> {
                     child: Center(
                       child: SingleChildScrollView(
                         child: Column(
-                          children: [
+                          children: const [
                             Padding(
-                              padding: const EdgeInsets.all(15.0),
+                              padding: EdgeInsets.all(15.0),
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                elevation: 4,
-                                shadowColor: Colors.grey,
-
-                                // stringResponce.toString()
-                                // child:listResponse==null?
-                                // Container():
-                                // Text(listResponse![0].toString())
-                                // ,
-                              ),
-                            ),
-                            OrderDetailCardWidget(
-                              cdate: cdate,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                elevation: 4,
-                                shadowColor: Colors.grey,
-                                child: DataTable(
-                                  columns: const [
-                                    DataColumn(
-                                        label: Text(
-                                      "Ref no.:1300",
-                                      style: TextStyle(fontSize: 23),
-                                    )),
-                                    DataColumn(
-                                        label: Text(
-                                      "Status",
-                                      style: TextStyle(fontSize: 23),
-                                    )),
-                                  ],
-                                  rows: [
-                                    DataRow(cells: [
-                                      DataCell(
-                                        Text(
-                                          'Order Date: $cdate',
-                                          style: TextStyle(fontSize: 17),
-                                        ),
-                                      ),
-                                      DataCell(Text(
-                                        '',
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.blue),
-                                      ))
-                                    ]),
-                                    const DataRow(cells: [
-                                      DataCell(
-                                        Text(
-                                          'Item code: NC',
-                                          style: TextStyle(fontSize: 17),
-                                        ),
-                                      ),
-                                      DataCell(Text(
-                                        'Progress',
-                                        style: TextStyle(
-                                            fontSize: 17, color: Colors.red),
-                                      ))
-                                    ])
-                                  ],
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                                elevation: 4,
-                                shadowColor: Colors.grey,
-                                child: DataTable(
-                                  columns: const [
-                                    DataColumn(
-                                        label: Text(
-                                      "Ref no.:1400",
-                                      style: TextStyle(fontSize: 23),
-                                    )),
-                                    DataColumn(
-                                        label: Text(
-                                      "Status",
-                                      style: TextStyle(fontSize: 23),
-                                    )),
-                                  ],
-                                  rows: [
-                                    DataRow(cells: [
-                                      DataCell(
-                                        Text(
-                                          'Order Date: $cdate',
-                                          style: TextStyle(fontSize: 17),
-                                        ),
-                                      ),
-                                      DataCell(Text(
-                                        '',
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.blue),
-                                      ))
-                                    ]),
-                                    const DataRow(cells: [
-                                      DataCell(
-                                        Text(
-                                          'Item code: NC',
-                                          style: TextStyle(fontSize: 17),
-                                        ),
-                                      ),
-                                      DataCell(Text(
-                                        'Send',
-                                        style: TextStyle(
-                                            fontSize: 17, color: Colors.blue),
-                                      ))
-                                    ])
-                                  ],
-                                ),
-                              ),
-                            ),
+                            //card
+                            OrderDetailCardWidget(),
                           ],
                         ),
                       ),
