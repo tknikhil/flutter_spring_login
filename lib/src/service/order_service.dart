@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_spring_login/src/constrainst/constraints.dart';
 import 'package:flutter_spring_login/src/model/model.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 class OrderService{
 //
 //   // // String? stringResponce;
@@ -32,15 +33,17 @@ class OrderService{
 //   final Dio _dio=Dio();
    getScreenOnLoad() async{
     try{
-      final uri= Uri.parse(testBaseUrl);
+      // final uri= Uri.parse('$baseUrl$orderUrl');
+      final uri= Uri.parse('$testBaseUrl');
+      print(uri);
       final response= await http.get(uri);
       if(response.statusCode==200){
         final json=jsonDecode(response.body);
-        final listResponse=json?['data'];
+        final listResponse=json['data'];
         final orderDetails = listResponse.map<OrderDetail>((e) => OrderDetail.fromJson(e)).toList()  as List<OrderDetail>;
         return orderDetails;
       }else{
-        throw Exception('Unable to load data');
+        throw Exception('Unable to load data ${response.body}');
       }
     }catch(err){
       print("Error :$err");

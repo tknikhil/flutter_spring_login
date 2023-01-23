@@ -38,9 +38,9 @@ class SideMenuTile extends StatelessWidget {
           leading: SizedBox(
             height: 30,
             width: 30,
-            child:Icon(Icons.contacts,color: Colors.brown,),
+            child:Icon(Icons.logout,color: Colors.brown,),
           ),
-          title: Text("Contact Us",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
+          title: Text("LogOut",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
           onTap: (){},
         ),
       ],

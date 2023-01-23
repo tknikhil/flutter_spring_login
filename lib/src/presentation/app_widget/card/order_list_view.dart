@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spring_login/src/cubit/get_screen_load_cubit.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../model/order_detail.dart';
-
 
 class OrderListView extends StatefulWidget {
   const OrderListView({
@@ -17,75 +18,112 @@ class OrderListView extends StatefulWidget {
 }
 
 class _OrderListViewState extends State<OrderListView> {
-   List<OrderDetail> _orderDetail=[];
+//initState is called before widget tree
+  @override
+  void initState() {
+    super.initState();
+    print('initState()');
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final cubit = context.read<GetScreenLoadCubit>();
+      cubit.loadCustmrOrdrData();
+    });
+  }
+
+  List<OrderDetail> _orderDetail = [];
+
   // final BuildContext context ;
   @override
   Widget build(BuildContext context) {
-    return Column(
-
-      children:[
-      buildBlocBuilder()
-      ]);
-
+    return Column(children: [buildBlocBuilder()]);
   }
 
-  BlocBuilder<GetScreenLoadCubit, List<OrderDetail>> buildBlocBuilder() {
-    return BlocBuilder<GetScreenLoadCubit, List<OrderDetail> > (
-
+  //List<OrderDetail> instead of cubit state
+  BlocBuilder<GetScreenLoadCubit, GetScreenLoadState> buildBlocBuilder() {
+    return BlocBuilder<GetScreenLoadCubit, GetScreenLoadState>(
       builder: (context, state) {
-  if(state.isEmpty){
-  return Center(child:CircularProgressIndicator());
-  }else{
-    _orderDetail=state.toList() ;
-    return SingleChildScrollView(
-      child: ListView.builder(
-           // scrollDirection: Axis.vertical,
-        physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-          itemCount: _orderDetail.length-1,
-          itemBuilder: (context,index) =>SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: buildCard(index),
-          )
-      ),
-    );
-  }
+        if (state is GetScreenLoadInitial || state is LoadingScreenLoadState) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is ResponseScreenLoadState) {
+          if (kDebugMode) {
+            print("${state.orderDetial} else if ResponseScreenLoadState");
+          }
+          _orderDetail = state.orderDetial;
 
-  },
-  );
+          return SingleChildScrollView(
+            child: ListView.builder(
+                // scrollDirection: Axis.vertical,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: _orderDetail.length - 1,
+                itemBuilder: (context, index) => SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: buildCard(index),
+                    )),
+          );
+        } else if (state is ErrorScreenLoadState) {
+          return Center(
+            child: Text(state.message),
+          );
+        } else {
+          return Center(
+            child: Text(state.toString()),
+          );
+        }
+      },
+    );
   }
 
   Card buildCard(int index) {
     return Card(
-
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          elevation: 4,
-          shadowColor: Colors.grey,
-          child: buildDataTable(index),
-        );
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      elevation: 4,
+      shadowColor: Colors.grey,
+      child: buildDataTable(index),
+    );
   }
 
   DataTable buildDataTable(int index) {
     return DataTable(
-          columns: [
-            DataColumn(label: Text('Ref no.:${_orderDetail?[index].firstName.toString()}',style: TextStyle(fontSize: 23),)),
-             DataColumn(label: Text('${_orderDetail?[index].lastName.toString()}',style: TextStyle(fontSize: 23),)),
-          ],
-          rows: [
-
-            DataRow(cells: [
-            DataCell(Text('Order Date: ${_orderDetail?[index].id.toString()}',style: TextStyle(fontSize: 17),),),
-            DataCell(Text('',style: TextStyle(fontSize: 15,color: Colors.blue),))
-            ]),
-            DataRow(
-            cells: [
-            DataCell(Text('Item code: ${_orderDetail?[index].email.toString()}',style: TextStyle(fontSize: 17),),),
-            DataCell(Text('Approved ',style: TextStyle(fontSize: 17,color: Colors.green),))
-            ]
-            )
-          ],
-        );
+      columns: [
+        DataColumn(
+            label: Text(
+          'Ref no.:${_orderDetail?[index].firstName.toString()}',
+          style: TextStyle(fontSize: 23),
+        )),
+        DataColumn(
+            label: Text(
+          '${_orderDetail?[index].lastName.toString()}',
+          style: TextStyle(fontSize: 23),
+        )),
+      ],
+      rows: [
+        DataRow(cells: [
+          DataCell(
+            Text(
+              'Order Date: ${_orderDetail?[index].id.toString()}',
+              style: TextStyle(fontSize: 17),
+            ),
+          ),
+          DataCell(Text(
+            '',
+            style: TextStyle(fontSize: 15, color: Colors.blue),
+          ))
+        ]),
+        DataRow(cells: [
+          DataCell(
+            Text(
+              'Item code: ${_orderDetail?[index].email.toString()}',
+              style: TextStyle(fontSize: 17),
+            ),
+          ),
+          DataCell(Text(
+            'Approved ',
+            style: TextStyle(fontSize: 17, color: Colors.green),
+          ))
+        ])
+      ],
+    );
   }
 }

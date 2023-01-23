@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spring_login/src/cubit/cubit.dart';
 import 'package:intl/intl.dart';
 
 import '../app_widget/app_widget.dart';
@@ -15,17 +17,7 @@ class _SearchState extends State<Search> {
   //for bottom navigation bar
   int _index = 0;
 
-  //initState is called before widget tree
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   print('initState()');
-  //   Future.delayed(const Duration(seconds: 10), () {
-  //     setState(() {
-  //        BlocProvider(create: (BuildContext context)=>GetScreenLoadCubit());
-  //     });
-  //   });
-  // }
+
   @override
   Widget build(BuildContext context) {
     String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
