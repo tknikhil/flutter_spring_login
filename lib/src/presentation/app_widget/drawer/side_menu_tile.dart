@@ -9,38 +9,38 @@ class SideMenuTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left:24),
+        const Padding(
+          padding: EdgeInsets.only(left:24),
           child: Divider(
             color: Colors.brown,
             height: 15,
           ),
         ),
         ListTile(
-          leading: SizedBox(
+          leading: const SizedBox(
             height: 30,
             width: 30,
             child:Icon(Icons.home,color: Colors.brown,),
           ),
-          title: Text("Home",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
+          title: const Text("Home",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
           onTap: (){},
         ),
         ListTile(
-          leading: SizedBox(
+          leading: const SizedBox(
             height: 30,
             width: 30,
             child:Icon(Icons.settings,color: Colors.brown,),
           ),
-          title: Text("Setting",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
+          title: const Text("Setting",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
           onTap: (){},
         ),
         ListTile(
-          leading: SizedBox(
+          leading: const SizedBox(
             height: 30,
             width: 30,
             child:Icon(Icons.logout,color: Colors.brown,),
           ),
-          title: Text("LogOut",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
+          title: const Text("LogOut",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
           onTap: (){},
         ),
       ],

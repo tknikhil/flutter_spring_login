@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spring_login/src/presentation/pages/search.dart';
 import 'package:flutter_spring_login/src/service/login_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
@@ -90,7 +90,9 @@ class _LoginState extends State<Login> {
                 }
                 }
             );
-              print(username+" :onPressed()");
+              if (kDebugMode) {
+                print("$username :onPressed()");
+              }
 
   }
 

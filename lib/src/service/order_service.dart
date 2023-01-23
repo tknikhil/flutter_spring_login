@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_spring_login/src/constrainst/constraints.dart';
 import 'package:flutter_spring_login/src/model/model.dart';
 import 'package:http/http.dart' as http;
-import 'package:injectable/injectable.dart';
 class OrderService{
 //
 //   // // String? stringResponce;
@@ -34,8 +34,10 @@ class OrderService{
    getScreenOnLoad() async{
     try{
       // final uri= Uri.parse('$baseUrl$orderUrl');
-      final uri= Uri.parse('$testBaseUrl');
-      print(uri);
+      final uri= Uri.parse(testBaseUrl);
+      if (kDebugMode) {
+        print(uri);
+      }
       final response= await http.get(uri);
       if(response.statusCode==200){
         final json=jsonDecode(response.body);
@@ -46,7 +48,9 @@ class OrderService{
         throw Exception('Unable to load data ${response.body}');
       }
     }catch(err){
-      print("Error :$err");
+      if (kDebugMode) {
+        print("Error :$err");
+      }
       rethrow; //other wise it say's method has potential of returning null
     }
   }

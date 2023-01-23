@@ -1,6 +1,6 @@
 part of 'get_screen_load_cubit.dart';
 
-@immutable
+
 abstract class GetScreenLoadState {}
 
 class GetScreenLoadInitial extends GetScreenLoadState {}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 
+// ignore: must_be_immutable
 class FormButton extends StatefulWidget {
   IconData? buttonIcon;
   final Color textcolor;
@@ -47,7 +48,7 @@ class _FormButtonState extends State<FormButton> {
             shape: RoundedRectangleBorder( //to set border radius to button
                 borderRadius: BorderRadius.circular(15)
             ),
-            padding: EdgeInsets.all(2)
+            padding: const EdgeInsets.all(2)
         ),
           onPressed:widget.onPressed,
         child: Row(

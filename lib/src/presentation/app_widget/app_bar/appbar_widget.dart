@@ -11,10 +11,10 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xfffd4af37),
+      backgroundColor: const Color(0xfffd4af37),
       leading: Builder(builder: (context) =>
           IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               color: Colors.brown,
               onPressed: () => Scaffold.of(context).openDrawer()
           ),
@@ -25,7 +25,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
           children: [
             //menu
             Container(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
 
             ),
             //Hi Nikhil
@@ -52,7 +52,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Column(
@@ -75,5 +75,5 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

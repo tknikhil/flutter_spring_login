@@ -5,7 +5,7 @@ class FormTextField extends StatelessWidget {
     final  TextEditingController inputController;
   final String label;
 
- TextEditingController get inputController2 =>this.inputController;
+ TextEditingController get inputController2 =>inputController;
   const FormTextField(
       {Key? key,
          required this.inputController,
@@ -21,6 +21,7 @@ class FormTextField extends StatelessWidget {
           if (value!.isEmpty) {
             return "please enter your $label !";
           }
+          return null;
         },
 
     style: const TextStyle(
@@ -30,7 +31,7 @@ class FormTextField extends StatelessWidget {
     decoration: InputDecoration(
     labelText:label,
     hintText: "Please enter your $label ",
-    hintStyle: TextStyle(color: Color.fromRGBO(105, 105,105, 0.5)),
+    hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5)),
     labelStyle: const TextStyle(
     fontSize: 25,
     color: Palette.text,

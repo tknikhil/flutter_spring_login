@@ -1,6 +1,4 @@
-import 'package:bloc/bloc.dart';
-import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/order_detail.dart';
 import '../service/order_service.dart';

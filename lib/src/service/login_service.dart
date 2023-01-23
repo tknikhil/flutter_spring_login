@@ -1,19 +1,17 @@
-import 'dart:convert';
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_spring_login/src/constrainst/api_constraints.dart';
 import 'package:http/http.dart' as http;
-import 'package:injectable/injectable.dart';
+
 import '../json_request/json_req.dart';
 
 // @lazySingleton
 class LoginService {
   Future login(String username,String password) async {
-    var val;
+    Object? val;
 
     await http.post(
-        Uri.parse('$baseUrl$login_posts'),
+        Uri.parse('$baseUrl$loginPosts'),
         headers:<String, String>{
           "Content-type":"application/json"
         },
@@ -25,7 +23,6 @@ class LoginService {
 
       }else{
        val="Error",
-        print(value.body)
       }
     }
     ).onError((error, stackTrace) => {

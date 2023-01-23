@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spring_login/src/cubit/cubit.dart';
 import 'package:intl/intl.dart';
 
 import '../app_widget/app_widget.dart';
@@ -23,9 +21,11 @@ class _SearchState extends State<Search> {
     String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
     switch (_index) {
       case 0:
+        // ignore: unused_local_variable
         var child = print(_index);
         break;
       case 1:
+        // ignore: unused_local_variable
         var child = print(_index);
         break;
     }
@@ -35,7 +35,7 @@ class _SearchState extends State<Search> {
       width: MediaQuery.of(context).size.width,
       child: Scaffold(
         //drawer
-        drawer: MenuDrawer(),
+        drawer: const MenuDrawer(),
         //appbar
         appBar: AppBarWidget(cdate: cdate),
         backgroundColor: const Color(0xfffd4af37),
@@ -62,9 +62,9 @@ class _SearchState extends State<Search> {
                     //  Search Bar
                     Container(
                       decoration: BoxDecoration(
-                          color: Color(0xffffbf1de),
+                          color: const Color(0xffffbf1de),
                           borderRadius: BorderRadius.circular(12)),
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Row(
                         children: const [
                           Icon(Icons.search, color: Colors.grey),
@@ -91,7 +91,7 @@ class _SearchState extends State<Search> {
                       topLeft: Radius.circular(50),
                       topRight: Radius.circular(50)),
                   child: Container(
-                    color: Color(0xffff0ead6),
+                    color: const Color(0xffff0ead6),
                     child: Center(
                       child: SingleChildScrollView(
                         child: Column(

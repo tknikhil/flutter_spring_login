@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spring_login/src/cubit/get_screen_load_cubit.dart';
-import 'package:injectable/injectable.dart';
+import '../../../cubit/cubit.dart';
 
-import '../../../model/order_detail.dart';
+import 'package:flutter_spring_login/src/model/model.dart';
 
 class OrderListView extends StatefulWidget {
   const OrderListView({
@@ -22,7 +20,9 @@ class _OrderListViewState extends State<OrderListView> {
   @override
   void initState() {
     super.initState();
-    print('initState()');
+    if (kDebugMode) {
+      print('initState()');
+    }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final cubit = context.read<GetScreenLoadCubit>();
       cubit.loadCustmrOrdrData();
@@ -89,24 +89,24 @@ class _OrderListViewState extends State<OrderListView> {
       columns: [
         DataColumn(
             label: Text(
-          'Ref no.:${_orderDetail?[index].firstName.toString()}',
-          style: TextStyle(fontSize: 23),
+          'Ref no.:${_orderDetail[index].firstName.toString()}',
+          style: const TextStyle(fontSize: 23),
         )),
         DataColumn(
             label: Text(
-          '${_orderDetail?[index].lastName.toString()}',
-          style: TextStyle(fontSize: 23),
+          _orderDetail[index].lastName.toString(),
+          style: const TextStyle(fontSize: 23),
         )),
       ],
       rows: [
         DataRow(cells: [
           DataCell(
             Text(
-              'Order Date: ${_orderDetail?[index].id.toString()}',
-              style: TextStyle(fontSize: 17),
+              'Order Date: ${_orderDetail[index].id.toString()}',
+              style: const TextStyle(fontSize: 17),
             ),
           ),
-          DataCell(Text(
+          const DataCell(Text(
             '',
             style: TextStyle(fontSize: 15, color: Colors.blue),
           ))
@@ -114,11 +114,11 @@ class _OrderListViewState extends State<OrderListView> {
         DataRow(cells: [
           DataCell(
             Text(
-              'Item code: ${_orderDetail?[index].email.toString()}',
-              style: TextStyle(fontSize: 17),
+              'Item code: ${_orderDetail[index].email.toString()}',
+              style: const TextStyle(fontSize: 17),
             ),
           ),
-          DataCell(Text(
+          const DataCell(Text(
             'Approved ',
             style: TextStyle(fontSize: 17, color: Colors.green),
           ))
