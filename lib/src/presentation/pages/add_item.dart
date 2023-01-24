@@ -24,6 +24,10 @@ class _AddItemState extends State<AddItem> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffffbf1de),
+      appBar: AppBar(
+          title: const Center(child: Text("Add Item")),
+          backgroundColor: const Color(0xfffd4af37),
+      ),
       body: Container(
         padding: EdgeInsets.all(20.0),
         child: ListView(
