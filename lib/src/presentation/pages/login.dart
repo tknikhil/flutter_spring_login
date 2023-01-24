@@ -4,6 +4,8 @@ import 'package:flutter_spring_login/src/service/login_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
 
+import 'bottom_navigation_bar_page.dart';
+
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -81,7 +83,7 @@ class _LoginState extends State<Login> {
                 {
                 if(value=="Success"){
                   print(value+'if'),
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const Search()))
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>const BottomNavigationBarPage()))
                 }else{
                 print(value+" :onPressed()"),
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../model/order_detail.dart';
-import '../service/order_service.dart';
+import '../../model/order_detail.dart';
+import '../../service/order_service.dart';
 
 part 'get_screen_load_state.dart';
 

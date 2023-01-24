@@ -7,7 +7,7 @@ class JsonReq{
     return json.encode({
       "data": {
         "loginData": {
-          'username': username,
+          'userName': username,
           'password': password
         }}
     });

@@ -12,23 +12,10 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  //for bottom navigation bar
-  int _index = 0;
-
 
   @override
   Widget build(BuildContext context) {
     String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
-    switch (_index) {
-      case 0:
-        // ignore: unused_local_variable
-        var child = print(_index);
-        break;
-      case 1:
-        // ignore: unused_local_variable
-        var child = print(_index);
-        break;
-    }
     return SizedBox(
       //takes host mobile complete screen size
       height: MediaQuery.of(context).size.height,
@@ -39,16 +26,6 @@ class _SearchState extends State<Search> {
         //appbar
         appBar: AppBarWidget(cdate: cdate),
         backgroundColor: const Color(0xfffd4af37),
-        //bottom navigation bar
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: (newIndex) => setState(() => _index = newIndex),
-          currentIndex: _index,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.add), label: 'Add New'),
-            // BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          ],
-        ),
         body: SafeArea(
           child: Column(
             children: [
@@ -117,22 +94,4 @@ class _SearchState extends State<Search> {
       ),
     );
   }
-
-// _onBottomNavigationBarTap(BuildContext context) {
-//   // Fluttertoast.showToast(
-//   //     msg: "Work in Progress!!",
-//   //     toastLength: Toast.LENGTH_SHORT,
-//   //     gravity: ToastGravity.BOTTOM,
-//   //     timeInSecForIosWeb: 1,
-//   //     textColor: Colors.white,
-//   //     fontSize: 16.0
-//   // );
-//   setState(() {
-//     Future.delayed(Duration.zero,(){
-//       Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddItem()));
-//     });
-//
-//   });
-//
-// }
 }

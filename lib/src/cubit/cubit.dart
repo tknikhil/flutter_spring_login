@@ -1,1 +1,1 @@
-export 'get_screen_load_cubit.dart';
+export 'screen_on_load/screen_on_load.dart';
