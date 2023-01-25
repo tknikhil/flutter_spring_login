@@ -43,7 +43,8 @@ class _OrderListViewState extends State<OrderListView> {
       builder: (context, state) {
         if (state is GetScreenLoadInitial || state is LoadingScreenLoadState) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is ResponseScreenLoadState) {
+        } //GetScreenLoadInitial, LoadingScreenLoadState
+        else if (state is ResponseScreenLoadState) {
           if (kDebugMode) {
             print("${state.orderDetial} else if ResponseScreenLoadState");
           }
@@ -60,7 +61,8 @@ class _OrderListViewState extends State<OrderListView> {
                       child: buildCard(index),
                     )),
           );
-        } else if (state is ErrorScreenLoadState) {
+        } //ResponseScreenLoadState
+        else if (state is ErrorScreenLoadState) {
           return Center(
             child: Text(state.message),
           );

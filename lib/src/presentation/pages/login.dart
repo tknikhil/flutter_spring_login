@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spring_login/src/cubit/login/login_data_cubit.dart';
 import 'package:flutter_spring_login/src/service/login_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
 
 import 'bottom_navigation_bar_page.dart';
-
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -20,13 +21,10 @@ class _LoginState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
-
-    FormTextField emailF=FormTextField(
-         inputController: emailController,
-        label: "Username");
+    FormTextField emailF =
+        FormTextField(inputController: emailController, label: "Username");
     return Scaffold(
       backgroundColor: Colors.blueGrey.shade200,
       body: SingleChildScrollView(
@@ -52,7 +50,7 @@ class _LoginState extends State<Login> {
                         emailF,
                         const SizedBox(height: 30),
                         PasswordTextField(
-                             inputController: passwordController,
+                            inputController: passwordController,
                             label: "Password"),
                         const SizedBox(height: 30),
                         FormButton(
@@ -63,8 +61,9 @@ class _LoginState extends State<Login> {
                           text: "Login",
                           heightSize: 50,
                           widthSize: 200,
-                          onPressed:(){
-                            isLogin(emailController.text, passwordController.text, context);
+                          onPressed: () {
+                            isLogin(emailController.text,
+                                passwordController.text, context);
                           },
                         ),
                       ],
@@ -78,27 +77,34 @@ class _LoginState extends State<Login> {
   }
 
   void isLogin(String username, String password, BuildContext context) {
-     var login=LoginService().login(username, password);
-                          login.then((value) =>
-                {
-                if(value=="Success"){
-                  print(value+'if'),
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const BottomNavigationBarPage()))
-                }else{
-                print(value+" :onPressed()"),
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    var login = LoginService().login(username, password);
+    login.then((value) => {
+          if (value == "Success")
+            {
+              print(value + 'if'),
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BottomNavigationBarPage())),
+              WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                final cubit = context.read<LoginDataCubit>();
+                cubit.loadLoginData();
+              })
+            }
+          else
+            {
+              print(value + " :onPressed()"),
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("Login Failed "),
-                ))
-                }
-                }
-            );
-              if (kDebugMode) {
-                print("$username :onPressed()");
-              }
-
+              ))
+            }
+        });
+    if (kDebugMode) {
+      print("$username :onPressed()");
+    }
   }
 
-  void clearFieldText(){
+  void clearFieldText() {
     emailController.clear();
     passwordController.clear();
   }

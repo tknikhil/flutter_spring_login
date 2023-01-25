@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../model/login.dart';
 import '../app_widget/app_widget.dart';
 
 
@@ -12,7 +13,7 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-
+  // String? username=Login.userName.toString();
   @override
   Widget build(BuildContext context) {
     String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
