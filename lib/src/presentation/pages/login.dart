@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spring_login/src/cubit/login/login_data_cubit.dart';
+// import 'package:flutter_spring_login/src/cubit/login/login_data_cubit.dart';
 import 'package:flutter_spring_login/src/service/login_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
@@ -86,10 +86,7 @@ class _LoginState extends State<Login> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const BottomNavigationBarPage())),
-              WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                final cubit = context.read<LoginDataCubit>();
-                cubit.loadLoginData();
-              })
+
             }
           else
             {

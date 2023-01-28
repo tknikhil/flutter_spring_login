@@ -11,19 +11,27 @@ import '../json_request/json_req.dart';
 // @lazySingleton
 class LoginService {
   late final response;
+  static var  loginval;
   Future login(String username,String password) async {
     Object val;
 
-     response =await http.post(
-        Uri.parse('$baseUrl$loginPosts'),
-        headers:<String, String>{
-          "Content-type":"application/json"
-        },
-        body: JsonReq().loginEncode(username, password)
-    );
-    final json=jsonDecode(response.body);
+    //  response =await http.post(
+    //     Uri.parse('$testBaseUrl$loginPosts'),
+    //     headers:<String, String>{
+    //       "Content-type":"application/json"
+    //     },
+    //     body: JsonReq().loginEncode(username, password)
+    // );
+    response = '{"result":{"errNo":200,"errMsg":"Login Success"},"data":{"userDtls":{"userName":"Test User1","groupNo":3,"userCode":"TestUSer"}}}';
+    final json=jsonDecode(response);
+    // final json=jsonDecode(response.body);
+    print(json);
     final resultbody = json['result'];
+print(resultbody);
+print(resultbody['errNo']);
+print(resultbody['errNo']==200);
      if(resultbody['errNo']==200){
+
        print('login success');
        val='Success';
        loginResponse();
@@ -72,8 +80,9 @@ class LoginService {
 
   loginResponse() {
     print ("${response} Post Login response");
-    print ("${response.body} Post Login");
-    final json=jsonDecode(response.body);
+    print ("${response} Post Login");
+    final json=jsonDecode(response);
+    // final json=jsonDecode(response.body);
     // final customer=jsonDecode(response.);
     // final resultbody = json['result'];
     final loginData=json['data'];
@@ -82,11 +91,12 @@ class LoginService {
      print('$customerDate customer Data');
     // print('$resultbody login result');
     print('${Login.fromJson(customerDate).userName.toString()} Customer Name');
-    final loginval = Login(Login.fromJson(customerDate).userCode.toString(), Login.fromJson(customerDate).groupNo?.toInt(), Login.fromJson(customerDate).userName.toString());
+    loginval = Login.fromJson(customerDate);
+    // final loginval = Login(Login.fromJson(customerDate).userCode.toString(), Login.fromJson(customerDate).groupNo?.toInt(), Login.fromJson(customerDate).userName.toString());
     // loginval.userName=Login.fromJson(customerDate).userName.toString();
     // loginval.userCode=Login.fromJson(customerDate).userCode.toString();
     // loginval.groupNo=Login.fromJson(customerDate).groupNo?.toInt();
-    // print('${loginval.userName}  ${loginval.userCode}  ${loginval.groupNo}');
+     print('${loginval.userName} username');
      return loginval;
   }
 

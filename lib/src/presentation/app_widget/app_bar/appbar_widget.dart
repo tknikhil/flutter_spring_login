@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spring_login/src/cubit/login/login_data_cubit.dart';
+// import 'package:flutter_spring_login/src/cubit/login/login_data_cubit.dart';
 import 'package:flutter_spring_login/src/model/login.dart';
 import 'package:flutter_spring_login/src/service/login_service.dart';
 
@@ -13,7 +13,6 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   }) : super(key: key);
 
   final String cdate;
-  // final String username;
 
 
 
@@ -21,37 +20,38 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
 
     // String? username=login?.userName.toString();
-    return BlocProvider<LoginDataCubit>(
-      create: (context) => LoginDataCubit(LoginService()),
-      child: BlocBuilder<LoginDataCubit, LoginDataState>(
-        builder: (context, state) {
-          if(state is LoginDataInitial||state is LoadingLoginDataState){
-            return const Center(child: CircularProgressIndicator());
-          }
-          else if(state is ResponseLoginDataState){
-            print('$state ResponseLoginDataState');
+    // return BlocProvider<LoginDataCubit>(
+    //   create: (context) => LoginDataCubit(LoginService()),
+    //   child: BlocBuilder<LoginDataCubit, LoginDataState>(
+    //     builder: (context, state) {
+          // if(state is LoginDataInitial||state is LoadingLoginDataState){
+          //   return const Center(child: CircularProgressIndicator());
+          // }
+          // else if(state is ResponseLoginDataState){
+          //   print('$state ResponseLoginDataState');
 
-            return buildAppBar(state);
-          }//ResponseLoginDataState
-          else if(state is ErrorLoginDataState){
-            return Center(
-              child: Text(state.message),
-            );
-          }else{
+             return
+              buildAppBar();
+          // }//ResponseLoginDataState
+          // else if(state is ErrorLoginDataState){
+          //   return Center(
+          //     child: Text(state.message),
+          //   );
+          // }else{
 
-            return Center(child: Text(state.toString()));
-          }
-        },
-      ),
-    );
+            // return Center(child: Text(state.toString()));
+        //   }
+        // },
+      // ),
+    // );
   }
 
-  AppBar buildAppBar(ResponseLoginDataState state) {
-    Login login;
-    List<Login> _login=state.loginData;
+  AppBar buildAppBar() {
+
+    // List<Login> _login=state.loginData;
     print('App bar ');
     // print(login.userName);
-    print(' ${_login[0].userName.toString()} AppBar buildAppBar');
+    // print(' ${_login[0].userName.toString()} AppBar buildAppBar');
     return AppBar(
           backgroundColor: const Color(0xfffd4af37),
           leading: Builder(builder: (context) =>
@@ -76,7 +76,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _login[0].userName.toString(),
+                        'Hi ${LoginService.loginval.userName.toString()}',
                         style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,

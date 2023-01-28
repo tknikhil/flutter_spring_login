@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spring_login/src/presentation/app_widget/drawer/side_menu_tile.dart';
 
+import '../../../service/login_service.dart';
 import 'info_card.dart';
 
 class SideMenu extends StatefulWidget {
@@ -25,7 +26,7 @@ class _SideMenuState extends State<SideMenu> {
         child: SafeArea(
           child: Column(
             children:  [
-              const InfoCard(name:"Nikhil",profession: "Developer"),
+               InfoCard(name:LoginService.loginval.userName.toString()),
             Padding(
               padding: const EdgeInsets.only(left: 24,top: 32),
               child: Text("Browser".toUpperCase(),style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.brown)),

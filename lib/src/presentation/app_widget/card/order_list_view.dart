@@ -1,9 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spring_login/src/presentation/pages/order_detail.dart';
+import 'package:flutter_spring_login/src/service/order_service.dart';
+import 'package:flutter_spring_login/src/service/order_summery_service.dart';
+import 'package:provider/provider.dart';
 import '../../../cubit/cubit.dart';
 
 import 'package:flutter_spring_login/src/model/model.dart';
+
+import '../../../cubit/order_summery/order_summery_cubit.dart';
+import '../../../service/login_service.dart';
 
 class OrderListView extends StatefulWidget {
   const OrderListView({
@@ -16,6 +23,8 @@ class OrderListView extends StatefulWidget {
 }
 
 class _OrderListViewState extends State<OrderListView> {
+  late OrderSummeryService orderSummeryService;
+  late final cubit;
 //initState is called before widget tree
   @override
   void initState() {
@@ -24,8 +33,12 @@ class _OrderListViewState extends State<OrderListView> {
       print('initState()');
     }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final cubit = context.read<GetScreenLoadCubit>();
-      cubit.loadCustmrOrdrData();
+       cubit = context.read<GetScreenLoadCubit>();
+      if(LoginService.loginval.groupNo==2 )
+      //cubit.loadCustmrOrdrData();
+        print(LoginService.loginval.userName.toString());
+      else
+        cubit.loadCustmrOrdrData();
     });
   }
 
@@ -34,6 +47,7 @@ class _OrderListViewState extends State<OrderListView> {
   // final BuildContext context ;
   @override
   Widget build(BuildContext context) {
+
     return Column(children: [buildBlocBuilder()]);
   }
 
@@ -86,46 +100,57 @@ class _OrderListViewState extends State<OrderListView> {
     );
   }
 
-  DataTable buildDataTable(int index) {
-    return DataTable(
-      columns: [
-        DataColumn(
-            label: Text(
-          'Ref no.:${_orderDetail[index].firstName.toString()}',
-          style: const TextStyle(fontSize: 23),
-        )),
-        DataColumn(
-            label: Text(
-          _orderDetail[index].lastName.toString(),
-          style: const TextStyle(fontSize: 23),
-        )),
-      ],
-      rows: [
-        DataRow(cells: [
-          DataCell(
-            Text(
-              'Order Date: ${_orderDetail[index].id.toString()}',
-              style: const TextStyle(fontSize: 17),
+  ListTile buildDataTable(int index) {
+    return ListTile(
+      onTap: (){
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const OrderDetailPage()));
+ // orderSummeryService.getOrderDetail(_orderDetail[index].refNo);
+        cubit=context.read()<OrderSummeryCubit>();
+        cubit.loadOrderSummery(_orderDetail[index].refNo);
+        },
+      title: DataTable(
+        columns: [
+          DataColumn(
+              label: Text(
+            'Ref no.:${_orderDetail[index].refNo.toString()}',
+            style: const TextStyle(fontSize: 23),
+          )),
+          DataColumn(
+              label: Text(
+            _orderDetail[index].orderStatus.toString(),
+            style: const TextStyle(fontSize: 23),
+          )),
+        ],
+        rows: [
+          DataRow(cells: [
+            DataCell(
+              Text(
+                'Order Date: ${_orderDetail[index].orderDate.toString()}',
+                style: const TextStyle(fontSize: 17),
+              ),
             ),
-          ),
-          const DataCell(Text(
-            '',
-            style: TextStyle(fontSize: 15, color: Colors.blue),
-          ))
-        ]),
-        DataRow(cells: [
-          DataCell(
-            Text(
-              'Item code: ${_orderDetail[index].email.toString()}',
-              style: const TextStyle(fontSize: 17),
+            const DataCell(Text(
+              '',
+              style: TextStyle(fontSize: 15, color: Colors.blue),
+            ))
+          ]),
+          DataRow(cells: [
+            DataCell(
+              Text(
+                'Item code: ${_orderDetail[index].itemCode.toString()}',
+                style: const TextStyle(fontSize: 17),
+              ),
             ),
-          ),
-          const DataCell(Text(
-            'Approved ',
-            style: TextStyle(fontSize: 17, color: Colors.green),
-          ))
-        ])
-      ],
+            const DataCell(Text(
+              'Approved ',
+              style: TextStyle(fontSize: 17, color: Colors.green),
+            ))
+          ])
+        ],
+      ),
     );
   }
 }

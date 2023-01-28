@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 class InfoCard extends StatefulWidget {
   const InfoCard({
-    Key? key,required this.name,required this.profession
+    Key? key,required this.name
   }) : super(key: key);
 
-  final String name,profession;
+  final String name;
 
   @override
   State<InfoCard> createState() => _InfoCardState();
@@ -21,7 +21,7 @@ class _InfoCardState extends State<InfoCard> {
         child: Icon(CupertinoIcons.person,color: Colors.brown,),
       ),
       title: Text(widget.name,style: const TextStyle(color: Colors.brown,fontSize: 20,fontWeight:FontWeight.bold),),
-      subtitle: Text(widget.profession,style: const TextStyle(color: Colors.brown,fontSize: 15),),
+
     );
   }
 }
