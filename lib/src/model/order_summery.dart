@@ -23,4 +23,6 @@ class OrderSummery{
       this.custCode);
 
   OrderSummery.fromJson(Map<String,dynamic> json):itemCode=json['itemCode'],itemUnit=json['itemUnit'],refNo=json['refNo'],fixRate=json['fixRate'],orderStatus=json['orderStatus'],orderTyp=json['orderTyp'],rowStatus=json['rowStatus'],itemPrice=json['itemPrice'],orderDate=json['orderDate'],custCode=json['custCode'];
+
+
 }

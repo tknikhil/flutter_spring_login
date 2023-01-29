@@ -10,7 +10,7 @@ class ErrorOrderSummeryState extends OrderSummeryState{
   ErrorOrderSummeryState(this.message);
 }
 class ResponseOrderSummeryState extends OrderSummeryState{
-  final List<OrderSummery> orderSummery;
+  final OrderSummery orderSummery;
   ResponseOrderSummeryState(this.orderSummery);
 }
 

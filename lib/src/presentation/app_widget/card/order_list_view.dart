@@ -106,10 +106,10 @@ class _OrderListViewState extends State<OrderListView> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const OrderDetailPage()));
+                builder: (context) =>  OrderDetailPage(refNo: _orderDetail[index].refNo)));
  // orderSummeryService.getOrderDetail(_orderDetail[index].refNo);
-        cubit=context.read()<OrderSummeryCubit>();
-        cubit.loadOrderSummery(_orderDetail[index].refNo);
+        print('${_orderDetail[index].refNo} refno');
+
         },
       title: DataTable(
         columns: [

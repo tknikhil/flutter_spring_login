@@ -6,14 +6,15 @@ import 'package:flutter_spring_login/src/service/login_service.dart';
 
 
 class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
-  const AppBarWidget({
+   AppBarWidget({
     Key? key,
     required this.cdate,
+    required this.builder
     // required this.username
   }) : super(key: key);
 
   final String cdate;
-
+Builder builder;
 
 
   @override
@@ -54,13 +55,8 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
     // print(' ${_login[0].userName.toString()} AppBar buildAppBar');
     return AppBar(
           backgroundColor: const Color(0xfffd4af37),
-          leading: Builder(builder: (context) =>
-              IconButton(
-                  icon: const Icon(Icons.menu),
-                  color: Colors.brown,
-                  onPressed: () => Scaffold.of(context).openDrawer()
-              ),
-          ),
+          // leading: buildBuilder(),
+      leading: builder,
           actions: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -115,6 +111,20 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
             ),
           ],);
   }
+
+  // @override
+  // // TODO: implement preferredSize
+  // Size get preferredSize => throw UnimplementedError();
+
+  // Builder buildBuilder() {
+  //   return Builder(builder: (context) =>
+  //           IconButton(
+  //               icon: const Icon(Icons.menu),
+  //               color: Colors.brown,
+  //               onPressed: () => Scaffold.of(context).openDrawer()
+  //           ),
+  //       );
+  // }
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);

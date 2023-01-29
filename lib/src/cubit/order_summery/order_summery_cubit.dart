@@ -9,20 +9,23 @@ import '../../service/order_summery_service.dart';
 part 'order_summery_state.dart';
 
 class OrderSummeryCubit extends Cubit<OrderSummeryState> {
-  final OrderSummeryService _orderSummerySevice;
-  OrderSummeryCubit(this._orderSummerySevice
+  final OrderSummeryService orderSummerySevice;
+  OrderSummeryCubit(this.orderSummerySevice
       ):super(OrderSummeryInitial());
 
   //when ever this method call it emits LoadingScreenLoadState()
-  Future<void> loadOrderSummery(refNo)async{
+  Future<OrderSummery> loadOrderSummery(refNo)async{
     emit(LoadingOrderSummeryState());
     //when gets response
     try{
-      final response=await _orderSummerySevice.getOrderDetail(refNo);
-      print('$response ==================from cubit');
+      print('${orderSummerySevice.getOrderDetail(refNo)} ==================from cubit');
+      OrderSummery response=await orderSummerySevice.getOrderDetail(refNo);
+      print('${response.itemCode} ==================from loadOrderSummery');
       emit(ResponseOrderSummeryState(response));
+      return response;
     }catch(error){
       emit(ErrorOrderSummeryState(error.toString()));
+      rethrow;
     }
   }
 }

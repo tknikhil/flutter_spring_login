@@ -25,7 +25,13 @@ class _SearchState extends State<Search> {
         //drawer
         drawer: const MenuDrawer(),
         //appbar
-        appBar: AppBarWidget(cdate: cdate),
+        appBar: AppBarWidget(cdate: cdate,builder: Builder(builder: (context) =>
+                    IconButton(
+                        icon: const Icon(Icons.menu),
+                        color: Colors.brown,
+                        onPressed: () => Scaffold.of(context).openDrawer()
+                    ),
+                )),
         backgroundColor: const Color(0xfffd4af37),
         body: SafeArea(
           child: Column(

@@ -15,16 +15,16 @@ class LoginService {
   Future login(String username,String password) async {
     Object val;
 
-    //  response =await http.post(
-    //     Uri.parse('$testBaseUrl$loginPosts'),
-    //     headers:<String, String>{
-    //       "Content-type":"application/json"
-    //     },
-    //     body: JsonReq().loginEncode(username, password)
-    // );
-    response = '{"result":{"errNo":200,"errMsg":"Login Success"},"data":{"userDtls":{"userName":"Test User1","groupNo":3,"userCode":"TestUSer"}}}';
-    final json=jsonDecode(response);
-    // final json=jsonDecode(response.body);
+     response =await http.post(
+         Uri.parse('$baseUrl$loginPosts'),
+        headers:<String, String>{
+          "Content-type":"application/json"
+        },
+        body: JsonReq().loginEncode(username, password)
+    );
+    // response = '{"result":{"errNo":200,"errMsg":"Login Success"},"data":{"userDtls":{"userName":"Test User1","groupNo":3,"userCode":"TestUSer"}}}';
+    // final json=jsonDecode(response);
+    final json=jsonDecode(response.body);
     print(json);
     final resultbody = json['result'];
 print(resultbody);
@@ -79,10 +79,10 @@ print(resultbody['errNo']==200);
   }
 
   loginResponse() {
-    print ("${response} Post Login response");
-    print ("${response} Post Login");
-    final json=jsonDecode(response);
-    // final json=jsonDecode(response.body);
+    // print ("${response} Post Login response");
+    // print ("${response} Post Login");
+    // final json=jsonDecode(response);
+    final json=jsonDecode(response.body);
     // final customer=jsonDecode(response.);
     // final resultbody = json['result'];
     final loginData=json['data'];

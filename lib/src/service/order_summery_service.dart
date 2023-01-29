@@ -26,8 +26,10 @@ class OrderSummeryService{
       print('$listResponse listResponse');
       // final orderval = OrderDetail.fromJson(listResponse);
       // print('$orderval orderval');
-      final orderSummery= listResponse.map<OrderSummery>((e) => OrderSummery.fromJson(e)).toList()  as List<OrderSummery>;
-      print('$orderSummery ===========ordersummery');
+      // final orderSummery= listResponse.map<OrderSummery>((e) => OrderSummery.fromJson(e)).toList as List<OrderSummery>;
+      print("====>${OrderSummery.fromJson(listResponse[0]).itemCode.toString()}  Order Summery ItemCode");
+      final orderSummery=OrderSummery.fromJson(listResponse[0]);
+      print('${orderSummery.itemCode} ===========ordersummery');
       return orderSummery;
     }else{
       // throw Exception('Unable to load data ${response.body}');
