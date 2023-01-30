@@ -14,15 +14,15 @@ class OrderSummeryCubit extends Cubit<OrderSummeryState> {
       ):super(OrderSummeryInitial());
 
   //when ever this method call it emits LoadingScreenLoadState()
-  Future<OrderSummery> loadOrderSummery(refNo)async{
+  Future<void> loadOrderSummery(refNo)async{
     emit(LoadingOrderSummeryState());
     //when gets response
     try{
       print('${orderSummerySevice.getOrderDetail(refNo)} ==================from cubit');
-      OrderSummery response=await orderSummerySevice.getOrderDetail(refNo);
+      final response=await orderSummerySevice.getOrderDetail(refNo);
       print('${response.itemCode} ==================from loadOrderSummery');
       emit(ResponseOrderSummeryState(response));
-      return response;
+      // return response;
     }catch(error){
       emit(ErrorOrderSummeryState(error.toString()));
       rethrow;

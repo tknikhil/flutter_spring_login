@@ -5,7 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_spring_login/src/model/order_summery.dart';
 
 class OrderSummeryService{
-  getOrderDetail(refNo) async{
+  static var orderSummery;
+ Future<dynamic> getOrderDetail(refNo) async{
     //  response =await http.post(
     //     Uri.parse('$testBaseUrl$loginPosts'),
     //     headers:<String, String>{
@@ -14,7 +15,7 @@ class OrderSummeryService{
     //     body: JsonReq().orderDetailEncode(refNo)
     // );
     try{
-    final response='{ "result": { "errNo": 200, "errMsg": "Success" }, "data": { "customerOrdrDtls": [ { "itemCode": "BC", "itemUnit": "grm", "refNo": "41", "rcvSample": false, "returnSample": false, "fixRate": "R0", "orderStatus": 2, "orderTyp": 1, "rowStatus": "Original", "itemPrice": 0.0, "orderDate": "2023-01-22", "custCode": "rajeev" } ] } }';
+    final response='{"result": {"errNo": 200,"errMsg": "Success"},"data": {"custOrdrDtlsByRefNo": {"itemCode": "BC","itemUnit": "grm","weight": 23.0,"qty": 1,"itemSize": "ss","meltPer": 92.0,"hook": "U","stamp": "NK916","refNo": "41","designSample": "payal","sizeSample": "payal","days": 4,"dueDate": "2023-01-26","workshop": "jamil","rcvSample": false,"returnSample": false,"fixRate": "R0","status": "Assigned","orderTyp": 1,"orderNo": 4,"rowStatus": "Original","itemPrice": 0.0,"orderDate": "2023-01-22","custName": "rajeev","type": "Order"}}}';
 // final json=jsonDecode(response.body);
     final json=jsonDecode(response);
     print(json);
@@ -22,13 +23,13 @@ class OrderSummeryService{
     if(resultbody['errNo']==200){
       final json=jsonDecode(response);
       final getData = json['data'];
-      final listResponse=getData['customerOrdrDtls'];
+      final listResponse=getData['custOrdrDtlsByRefNo'];
       print('$listResponse listResponse');
       // final orderval = OrderDetail.fromJson(listResponse);
       // print('$orderval orderval');
       // final orderSummery= listResponse.map<OrderSummery>((e) => OrderSummery.fromJson(e)).toList as List<OrderSummery>;
-      print("====>${OrderSummery.fromJson(listResponse[0]).itemCode.toString()}  Order Summery ItemCode");
-      final orderSummery=OrderSummery.fromJson(listResponse[0]);
+      print("====>${OrderSummery.fromJson(listResponse).itemCode.toString()}  Order Summery ItemCode");
+       orderSummery=OrderSummery.fromJson(listResponse);
       print('${orderSummery.itemCode} ===========ordersummery');
       return orderSummery;
     }else{

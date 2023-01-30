@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spring_login/src/presentation/pages/order_detail.dart';
+import 'package:flutter_spring_login/src/presentation/pages/order_summery.dart';
 import 'package:flutter_spring_login/src/service/order_service.dart';
 import 'package:flutter_spring_login/src/service/order_summery_service.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +13,7 @@ import '../../../cubit/order_summery/order_summery_cubit.dart';
 import '../../../service/login_service.dart';
 
 class OrderListView extends StatefulWidget {
+  static var refnoval;
   const OrderListView({
     Key? key,
     // required this.context,
@@ -23,6 +24,7 @@ class OrderListView extends StatefulWidget {
 }
 
 class _OrderListViewState extends State<OrderListView> {
+
   late OrderSummeryService orderSummeryService;
   late final cubit;
 //initState is called before widget tree
@@ -69,7 +71,7 @@ class _OrderListViewState extends State<OrderListView> {
                 // scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: _orderDetail.length - 1,
+                itemCount: _orderDetail.length ,
                 itemBuilder: (context, index) => SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: buildCard(index),
@@ -99,17 +101,17 @@ class _OrderListViewState extends State<OrderListView> {
       child: buildDataTable(index),
     );
   }
-
+static var refnoval;
   ListTile buildDataTable(int index) {
     return ListTile(
       onTap: (){
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>  OrderDetailPage(refNo: _orderDetail[index].refNo)));
+                builder: (context) =>  OrderSummeryPage(refNo: _orderDetail[index].refNo)));
  // orderSummeryService.getOrderDetail(_orderDetail[index].refNo);
         print('${_orderDetail[index].refNo} refno');
-
+          refnoval=_orderDetail[index].refNo;
         },
       title: DataTable(
         columns: [

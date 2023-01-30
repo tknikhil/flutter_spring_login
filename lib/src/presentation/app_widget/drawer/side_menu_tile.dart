@@ -16,24 +16,20 @@ class SideMenuTile extends StatelessWidget {
             height: 15,
           ),
         ),
-        ListTile(
-          leading: const SizedBox(
-            height: 30,
-            width: 30,
-            child:Icon(Icons.home,color: Colors.brown,),
-          ),
-          title: const Text("Home",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
-          onTap: (){},
-        ),
-        ListTile(
-          leading: const SizedBox(
-            height: 30,
-            width: 30,
-            child:Icon(Icons.settings,color: Colors.brown,),
-          ),
-          title: const Text("Setting",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
-          onTap: (){},
-        ),
+        // ListTile(
+        //   leading: const SizedBox(
+        //     height: 30,
+        //     width: 30,
+        //     child:Icon(Icons.settings,color: Colors.brown,),
+        //   ),
+        //   title: const Text("Setting",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
+        //   onTap: (){
+        //     Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //             builder: (context) => const EditProfilePage()));
+        //   },
+        // ),
         ListTile(
           leading: const SizedBox(
             height: 30,

@@ -87,7 +87,7 @@ print(resultbody['errNo']==200);
     // final resultbody = json['result'];
     final loginData=json['data'];
     // print('$loginData Login Data');
-    final customerDate = loginData['userDtls'];
+    final customerDate = loginData['userDetails'];
      print('$customerDate customer Data');
     // print('$resultbody login result');
     print('${Login.fromJson(customerDate).userName.toString()} Customer Name');
