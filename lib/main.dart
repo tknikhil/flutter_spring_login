@@ -9,12 +9,17 @@ import 'package:provider/provider.dart';
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   var orderSummeryService=OrderSummeryService();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         systemNavigationBarColor: Colors.transparent),
   );
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]);
   print('${OrderListView.refnoval.toString()} ===========>Mina');
   //MultiProvider for more than one cubit
   runApp(MultiProvider(

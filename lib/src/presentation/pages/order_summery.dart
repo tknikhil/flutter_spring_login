@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../cubit/order_summery/order_summery_cubit.dart';
 import '../../model/order_summery.dart';
 import '../app_widget/app_widget.dart';
+import '../app_widget/order_summery/orders_summery_reader.dart';
 
 class OrderSummeryPage extends StatefulWidget {
   var refNo;
@@ -35,7 +36,7 @@ class OrderSummeryPage extends StatefulWidget {
 class _OrderSummeryPageState extends State<OrderSummeryPage> {
   var orderSummeryService=OrderSummeryService();
   String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
-  late OrderSummery _orderSummery;
+  // late OrderSummery _orderSummery;
 
 // var orderSummery=OrderSummery.fromJson(json);
 
@@ -43,72 +44,25 @@ class _OrderSummeryPageState extends State<OrderSummeryPage> {
   Widget build(BuildContext context) {
     OrderSummery orderSummery1;
     print('${OrderListView.refnoval.toString()} ===========>Main()');
-   return
-     BlocProvider(
-        create: (context) => OrderSummeryCubit(OrderSummeryService()),
-    child: Scaffold(
-      backgroundColor: const Color(0xffffbf1de),
-      appBar: AppBarWidget(
-        cdate: cdate,
-        builder: Builder(
-          builder: (context) => IconButton(
-              icon: const Icon(Icons.keyboard_arrow_left),
-              color: Colors.brown,
-              onPressed: () => Navigator.of(context).pop()),
-        ),
-      ),
-      body: Container(
-          child: BlocBuilder<OrderSummeryCubit, OrderSummeryState>(
-            builder: (context, state) {
-              print("$state BlocBuilder");
-              if (state is OrderSummeryInitial || state is LoadingOrderSummeryState) {
-                return const Center(child: CircularProgressIndicator());
-              } //GetScreenLoadInitial, LoadingScreenLoadState
-              else if (state is ResponseOrderSummeryState) {
-                if (kDebugMode) {
-                  print(
-                      "${state.orderSummery.itemCode} else if ResponseScreenLoadState OrderSummey");
-                }
-                _orderSummery = state.orderSummery;
-                print('${_orderSummery.itemPrice.toString()}====orderDetailPage');
-                return Container(
-                    child: Text(_orderSummery.itemPrice.toString()),
+   return Scaffold(
+       backgroundColor: const Color(0xffffbf1de),
+       appBar: AppBarWidget(
+         cdate: cdate,
+         builder: Builder(
+           builder: (context) => IconButton(
+               icon: const Icon(Icons.keyboard_arrow_left),
+               color: Colors.brown,
+               onPressed: () => Navigator.of(context).pop()),
+         ),
+       ),
+       body: BlocProvider(
+         create: (context) => OrderSummeryCubit(OrderSummeryService()),
+         child:OrderSummeryReader(widget.refNo),
 
-                );
-                // ListView.builder(
-                //   // scrollDirection: Axis.vertical,
-                //   // physics: const NeverScrollableScrollPhysics(),
-                //   shrinkWrap: true,
-                //   // itemCount: orderSummery.length - 1,
-                //   itemBuilder: (context, index) => SizedBox(
-                //         width: MediaQuery.of(context).size.width,
-                //         child: buildCard(index),
-                //       ));
-              } //ResponseScreenLoadState
-              else if (state is ErrorOrderSummeryState) {
-                return Center(
-                  child: Text(state.message),
-                );
-              } else {
-                return Center(
-                  child: Text(state.toString()),
-                );
-              }
-            },
-          ),
-        ),
-      ),
-    );
+
+       ),
+       );
   }
 
-  @override
-  void initState() {
-    super.initState();
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        final cubit = context.read<OrderSummeryCubit>();
-        print('$cubit =======>initState of OrderSummeryPage');
-        print('${widget.refNo} =======>initState of OrderSummeryPage');
-        cubit.loadOrderSummery(widget.refNo);
-      });
-  }
+
 }

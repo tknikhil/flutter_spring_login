@@ -67,15 +67,23 @@ class _OrderListViewState extends State<OrderListView> {
           _orderDetail = state.orderDetial;
 
           return SingleChildScrollView(
-            child: ListView.builder(
-                // scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: _orderDetail.length ,
-                itemBuilder: (context, index) => SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: buildCard(index),
-                    )),
+            child: Column(
+              children: [
+                const TextField(decoration: InputDecoration(
+                  labelText: 'Search',suffixIcon: Icon(Icons.search)
+                ),),
+                SizedBox(height: 10,),
+                ListView.builder(
+                    // scrollDirection: Axis.vertical,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: _orderDetail.length ,
+                    itemBuilder: (context, index) => SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: buildCard(index),
+                        )),
+              ],
+            ),
           );
         } //ResponseScreenLoadState
         else if (state is ErrorScreenLoadState) {
