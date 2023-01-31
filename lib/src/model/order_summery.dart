@@ -1,28 +1,59 @@
 class OrderSummery{
-  String? itemCode;
   String? itemUnit;
+  String? itemName;
+  double? weight;
+  int? qty;
+  String? itemSize;
+  double? meltPer;
+  String? hook;
   String? refNo;
-  String? fixRate;
-  int? orderStatus;
-  int? orderTyp;
-  String? rowStatus;
-  double? itemPrice;
+  String? designSample;
+  String? sizeSample;
+  int? days;
+  String? dueDate;
+  String? workshop;
+  String? status;
   String? orderDate;
-  String? custCode;
+  String? custName;
+  String? type;
+
 
   OrderSummery(
-      this.itemCode,
       this.itemUnit,
+      this.itemName,
+      this.weight,
+      this.qty,
+      this.itemSize,
+      this.meltPer,
+      this.hook,
       this.refNo,
-      this.fixRate,
-      this.orderStatus,
-      this.orderTyp,
-      this.rowStatus,
-      this.itemPrice,
+      this.designSample,
+      this.sizeSample,
+      this.days,
+      this.dueDate,
+      this.workshop,
+      this.status,
       this.orderDate,
-      this.custCode);
+      this.custName,
+      this.type);
 
-  OrderSummery.fromJson(Map<String,dynamic> json):itemCode=json['itemCode'],itemUnit=json['itemUnit'],refNo=json['refNo'],fixRate=json['fixRate'],orderStatus=json['orderStatus'],orderTyp=json['orderTyp'],rowStatus=json['rowStatus'],itemPrice=json['itemPrice'],orderDate=json['orderDate'],custCode=json['custCode'];
+  OrderSummery.fromJson(Map<String,dynamic> json):itemUnit=json['itemUnit']
+  ,itemName=json['itemName']
+  ,weight=json['weight']
+  ,qty=json['qty']
+  ,itemSize=json['itemSize']
+  ,meltPer=json['meltPer']
+  ,hook=json['hook']
+  ,refNo=json['refNo']
+  ,designSample=json['designSample']
+  ,sizeSample=json['sizeSample']
+  ,days=json['days']
+  ,dueDate=json['dueDate']
+  ,workshop=json['workshop']
+  ,status=json['status']
+  ,orderDate=json['orderDate']
+  ,custName=json['custName']
+  ,type=json['type'];
 
 
 }

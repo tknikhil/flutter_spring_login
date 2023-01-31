@@ -2,16 +2,16 @@
 class OrderDetail{
   late String? refNo;
   late String? orderDate;
-  late String? itemCode;
-  late int? orderStatus;
+  late String? itemName;
+  late String? status;
 
 
-  OrderDetail(this.refNo, this.orderDate, this.itemCode, this.orderStatus);
+  OrderDetail(this.refNo, this.orderDate, this.itemName, this.status);
 
-  OrderDetail.fromJson(Map<String, dynamic>json):refNo=json['refNo'],orderDate=json['orderDate'],itemCode=json['itemCode'],orderStatus=json['orderStatus'];
+  OrderDetail.fromJson(Map<String, dynamic>json):refNo=json['refNo'],orderDate=json['orderDate'],itemName=json['itemName'],status=json['status'];
 
   @override
   String toString() {
-    return 'OrderDetail{refNo: $refNo, orderDate: $orderDate, itemCode: $itemCode, orderStatus: $orderStatus}';
+    return 'OrderDetail{refNo: $refNo, orderDate: $orderDate, itemCode: $itemName, status: $status}';
   }
 }

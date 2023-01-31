@@ -20,7 +20,7 @@ class OrderSummeryCubit extends Cubit<OrderSummeryState> {
     try{
       print('${orderSummerySevice.getOrderDetail(refNo)} ==================from cubit');
       final response=await orderSummerySevice.getOrderDetail(refNo);
-      print('${response.itemCode} ==================from loadOrderSummery');
+      print('${response.itemUnit} ==================from loadOrderSummery');
       emit(ResponseOrderSummeryState(response));
       // return response;
     }catch(error){

@@ -39,17 +39,14 @@ class _AddItemState extends State<AddItem> {
         backgroundColor: const Color(0xfffd4af37),
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(20),
         child: ListView(
           children: [
             Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    FormAddItemTextField(
-                        inputController: itemCodeController,
-                        label: 'Item Code'),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     FormAddItemTextField(
                         inputController: itemNameController,
                         label: 'Item Name'),
@@ -104,7 +101,7 @@ class _AddItemState extends State<AddItem> {
                           child: FormAddItemTextField(
                               inputController: designController,
                               label: 'Design Sample')),
-                      const SizedBox(width: 25),
+                      const SizedBox(width: 20),
                       SizedBox(
                           width: MediaQuery.of(context).size.width / 2.4,
                           child: FormAddItemTextField(
@@ -119,7 +116,7 @@ class _AddItemState extends State<AddItem> {
                             child: FormAddItemTextField(
                                 inputController: refNoController,
                                 label: 'Customer Refno')),
-                        const SizedBox(width: 25),
+                        const SizedBox(width: 20),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 2.4,
                             child: FormAddItemTextField(
@@ -135,7 +132,7 @@ class _AddItemState extends State<AddItem> {
                             child: FormAddItemTextField(
                                 inputController: daysController,
                                 label: 'Days')),
-                        const SizedBox(width: 25),
+                        const SizedBox(width: 20),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 2.4,
                             child: FormAddItemTextField(

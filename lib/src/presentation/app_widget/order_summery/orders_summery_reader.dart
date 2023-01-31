@@ -29,17 +29,166 @@ class _OrderSummeryReaderState extends State<OrderSummeryReader> {
         else if (state is ResponseOrderSummeryState) {
           if (kDebugMode) {
             print(
-                "${state.orderSummery.itemCode} else if ResponseScreenLoadState OrderSummey");
+                "${state.orderSummery.itemUnit} else if ResponseScreenLoadState OrderSummey");
           }
           final orderSummery = state.orderSummery;
-          print('${orderSummery.itemPrice.toString()}====orderDetailPage');
+          print('${orderSummery.itemUnit.toString()}====orderDetailPage');
           return Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.only(top: 30,left: 8,right: 8),
             child: Container(
-              child: Column(
-                children: [
-                  Text('Item Code : ${orderSummery.itemCode.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                ],
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                elevation: 4,
+                shadowColor: Colors.grey,
+
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: DataTable(
+                          columns: [
+                            DataColumn(
+                                label: Text(
+                                  'Status',
+                                  style: const TextStyle(fontSize: 17,),
+                                )),
+                            DataColumn(
+                                label: Text(
+                                  "${orderSummery.status}",
+                                  style:  TextStyle(fontSize: 17,color:(orderSummery.status=='Assigned')?Colors.green:(orderSummery.status=='Confirmed')?Colors.green:Colors.red ),
+                                )),
+                          ],
+
+                          rows: [
+                          DataRow(cells: [
+                            DataCell(
+                              Text(
+                               ' Customer Name ',
+                                style: const TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                             DataCell(Text(
+                              '  ${orderSummery.custName}',
+                              style: TextStyle(fontSize: 17,),
+                            ))
+                          ]),
+                          DataRow(cells: [
+                              DataCell(
+                                Text(
+                                  'Item Name : ${orderSummery.itemName.toString()}',
+                                  style: const TextStyle(fontSize: 17),
+                                ),
+                              ),
+                            DataCell(
+                              Text(
+                                'Order Type : ${orderSummery.type.toString()}',
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ),
+                            ]),
+                          DataRow(cells: [
+                            DataCell(
+                              Text(
+                                'Item Size : ${orderSummery.itemSize.toString()}',
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ),
+                             DataCell(Text(
+                              'Melt % : ${orderSummery.meltPer.toString()}',
+                              style: TextStyle(fontSize: 17,),
+                            ))
+                          ]),
+                          DataRow(cells: [
+                              DataCell(
+                                Text(
+                                  'Hook : ${orderSummery.hook.toString()}',
+                                  style: const TextStyle(fontSize: 17),
+                                ),
+                              ),
+                              DataCell(Text(
+                                'Ref. Code : ${orderSummery.refNo.toString()}',
+                                style: TextStyle(fontSize: 17,),
+                              ))
+                            ]),
+                          DataRow(cells: [
+                              DataCell(
+                                Text(
+                                  'Design Sample : ${orderSummery.designSample.toString()}',
+                                  style: const TextStyle(fontSize: 17),
+                                ),
+                              ),
+                              DataCell(Text(
+                                'Size Sample : ${orderSummery.sizeSample.toString()}',
+                                style: TextStyle(fontSize: 17,),
+                              ))
+                            ]),
+                          DataRow(cells: [
+                              DataCell(
+                                Text(
+                                  'Total Days : ${orderSummery.days.toString()}',
+                                  style: const TextStyle(fontSize: 17),
+                                ),
+                              ),
+                              DataCell(Text(
+                                'Due Date : ${orderSummery.dueDate.toString()}',
+                                style: TextStyle(fontSize: 17,),
+                              ))
+                            ]),
+                          DataRow(cells: [
+                              DataCell(
+                                Text(
+                                  'Workshop : ${orderSummery.workshop.toString()}',
+                                  style: const TextStyle(fontSize: 17),
+                                ),
+                              ),
+                              DataCell(Text(
+                                'Order Date : ${orderSummery.orderDate.toString()}',
+                                style: TextStyle(fontSize: 17,),
+                              ))
+                            ]),
+                        ],
+                        ),
+                      ),
+                    ),
+
+                    // Text('Customer Name : ${orderSummery.custName}'
+                    //     '\nWeight : ${orderSummery.weight}  ${orderSummery.itemUnit}'
+                    //     '\nQuantity : ${orderSummery.qty}'
+                    //     '\nItem Size : ${orderSummery.itemSize.toString()}'
+                    //     '\nMelt % : ${orderSummery.meltPer.toString()}'
+                    //     '\nHook : ${orderSummery.hook.toString()}'
+                    //     '\nRef. Code : ${orderSummery.refNo.toString()}'
+                    //     '\nDesign Sample : ${orderSummery.designSample.toString()}'
+                    //     '\nSize Sample : ${orderSummery.sizeSample.toString()}'
+                    //     '\nProcessing Days : ${orderSummery.days.toString()}'
+                    //     '\nDue Date : ${orderSummery.dueDate.toString()}'
+                    //     '\nWorkshop : ${orderSummery.workshop.toString()}'
+                    //     '\nStatus : ${orderSummery.status.toString()}'
+                    //     '\nOrder Date : ${orderSummery.orderDate.toString()}'
+                    //     '\nOrder Type : ${orderSummery.type.toString()}'
+                    //   ,style: TextStyle(fontSize: 20,color: Colors.brown,),),
+
+                    // Text('Weight : ${orderSummery.weight}  ${orderSummery.itemUnit}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Quantity : ${orderSummery.qty}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Item Size : ${orderSummery.itemSize.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Melt % : ${orderSummery.meltPer.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Hook : ${orderSummery.hook.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Ref. Code : ${orderSummery.refNo.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Design Sample : ${orderSummery.designSample.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Size Sample : ${orderSummery.sizeSample.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Processing Days : ${orderSummery.days.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Due Date : ${orderSummery.dueDate.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Workshop : ${orderSummery.workshop.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Status : ${orderSummery.status.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Order Date : ${orderSummery.orderDate.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                    // Text('Order Type : ${orderSummery.type.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
+                  ],
+                ),
               ),
 
             ),

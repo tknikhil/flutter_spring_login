@@ -69,10 +69,6 @@ class _OrderListViewState extends State<OrderListView> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                const TextField(decoration: InputDecoration(
-                  labelText: 'Search',suffixIcon: Icon(Icons.search)
-                ),),
-                SizedBox(height: 10,),
                 ListView.builder(
                     // scrollDirection: Axis.vertical,
                     physics: const NeverScrollableScrollPhysics(),
@@ -80,7 +76,10 @@ class _OrderListViewState extends State<OrderListView> {
                     itemCount: _orderDetail.length ,
                     itemBuilder: (context, index) => SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          child: buildCard(index),
+                          child: Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: buildCard(index),
+                          ),
                         )),
               ],
             ),
@@ -126,37 +125,37 @@ static var refnoval;
           DataColumn(
               label: Text(
             'Ref no.:${_orderDetail[index].refNo.toString()}',
-            style: const TextStyle(fontSize: 23),
+            style: const TextStyle(fontSize: 17),
           )),
           DataColumn(
               label: Text(
-            _orderDetail[index].orderStatus.toString(),
-            style: const TextStyle(fontSize: 23),
+            _orderDetail[index].status.toString(),
+            style:  TextStyle(fontSize: 17,color:(_orderDetail[index].status=='Assigned')?Colors.green:(_orderDetail[index].status=='Confirmed')?Colors.green:Colors.red),
           )),
         ],
         rows: [
           DataRow(cells: [
             DataCell(
               Text(
-                'Order Date: ${_orderDetail[index].orderDate.toString()}',
+                'Order Date',
                 style: const TextStyle(fontSize: 17),
               ),
             ),
-            const DataCell(Text(
-              '',
-              style: TextStyle(fontSize: 15, color: Colors.blue),
+             DataCell(Text(
+              '${_orderDetail[index].orderDate.toString()}',
+              style: TextStyle(fontSize: 15, ),
             ))
           ]),
           DataRow(cells: [
             DataCell(
               Text(
-                'Item code: ${_orderDetail[index].itemCode.toString()}',
+                'Item Name',
                 style: const TextStyle(fontSize: 17),
               ),
             ),
-            const DataCell(Text(
-              'Approved ',
-              style: TextStyle(fontSize: 17, color: Colors.green),
+             DataCell(Text(
+              '${_orderDetail[index].itemName.toString()}',
+              style: TextStyle(fontSize: 17, ),
             ))
           ])
         ],
