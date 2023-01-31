@@ -17,17 +17,18 @@ class OrderSummeryService{
     //     body: JsonReq().orderDetailEncode(refNo)
     // );
     try{
-    // final response='{"result": {"errNo": 200,"errMsg": "Success"},"data": {"custOrdrDtlsByRefNo": {"itemCode": "BC","itemUnit": "grm","weight": 23.0,"qty": 1,"itemSize": "ss","meltPer": 92.0,"hook": "U","stamp": "NK916","refNo": "41","designSample": "payal","sizeSample": "payal","days": 4,"dueDate": "2023-01-26","workshop": "jamil","rcvSample": false,"returnSample": false,"fixRate": "R0","status": "Assigned","orderTyp": 1,"orderNo": 4,"rowStatus": "Original","itemPrice": 0.0,"orderDate": "2023-01-22","custName": "rajeev","type": "Order"}}}';
-      final uri= Uri.parse('$baseUrl$dsplyOrdrDtl/$refNo');
-      print(uri);
-      final response= await http.get(uri);
-      final json=jsonDecode(response.body);
+    final response='{"result": {"errNo": 200,"errMsg": "Success"},"data": {"custOrdrDtlsByRefNo": {"itemCode": "BC","itemUnit": "grm","weight": 23.0,"qty": 1,"itemSize": "ss","meltPer": 92.0,"hook": "U","stamp": "NK916","refNo": "41","designSample": "payal","sizeSample": "payal","days": 4,"dueDate": "2023-01-26","workshop": "jamil","rcvSample": false,"returnSample": false,"fixRate": "R0","status": "Assigned","orderTyp": 1,"orderNo": 4,"rowStatus": "Original","itemPrice": 0.0,"orderDate": "2023-01-22","custName": "rajeev","type": "Order"}}}';
+    //   final uri= Uri.parse('$baseUrl$dsplyOrdrDtl/$refNo');
+    //   print(uri);
+    //   final response= await http.get(uri);
+    //   final json=jsonDecode(response.body);
 
-    // final json=jsonDecode(response);
+    final json=jsonDecode(response);
     print(json);
     final resultbody=json['result'];
     if(resultbody['errNo']==200){
-      final json=jsonDecode(response.body);
+      // final json=jsonDecode(response.body);
+      final json=jsonDecode(response);
       final getData = json['data'];
       final listResponse=getData['custOrdrDtlsByRefNo'];
       print('$listResponse listResponse');

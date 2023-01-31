@@ -59,6 +59,7 @@ class _OrderListViewState extends State<OrderListView> {
       builder: (context, state) {
         if (state is GetScreenLoadInitial || state is LoadingScreenLoadState) {
           return const Center(child: CircularProgressIndicator());
+
         } //GetScreenLoadInitial, LoadingScreenLoadState
         else if (state is ResponseScreenLoadState) {
           if (kDebugMode) {

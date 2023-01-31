@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../cubit/cubit.dart';
-import '../../../cubit/order_summery/order_summery_cubit.dart';
+import '../../../../cubit/cubit.dart';
+import '../../../../cubit/order_summery/order_summery_cubit.dart';
 
 class OrderSummeryReader extends StatefulWidget {
   var refNo;

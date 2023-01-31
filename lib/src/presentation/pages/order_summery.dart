@@ -9,7 +9,8 @@ import 'package:provider/provider.dart';
 import '../../cubit/order_summery/order_summery_cubit.dart';
 import '../../model/order_summery.dart';
 import '../app_widget/app_widget.dart';
-import '../app_widget/order_summery/orders_summery_reader.dart';
+import '../app_widget/builder/order_summery/orders_summery_reader.dart';
+
 
 class OrderSummeryPage extends StatefulWidget {
   var refNo;

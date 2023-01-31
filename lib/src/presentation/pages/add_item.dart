@@ -1,10 +1,17 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spring_login/src/cubit/item_name/item_name_cubit.dart';
 import 'package:flutter_spring_login/src/presentation/app_widget/app_widget.dart';
+import 'package:flutter_spring_login/src/service/add_item_service.dart';
 
+import '../../model/ItemName.dart';
+import '../app_widget/builder/add_item/drop_down_builder.dart';
 import '../app_widget/form_field/form_add_item_textfield.dart';
 
 class AddItem extends StatefulWidget {
-  const AddItem({Key? key}) : super(key: key);
+
+   AddItem({ Key? key}) : super(key: key);
 
   @override
   State<AddItem> createState() => _AddItemState();
@@ -27,9 +34,11 @@ final daysController = TextEditingController();
 final dueDateController = TextEditingController();
 
 class _AddItemState extends State<AddItem> {
+
   Widget appBarTitle= const Text("Add Item");
   @override
   Widget build(BuildContext context) {
+    late List<ItemName> items=[];
     return Scaffold(
       backgroundColor: const Color(0xffffbf1de),
 
@@ -47,9 +56,11 @@ class _AddItemState extends State<AddItem> {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    FormAddItemTextField(
-                        inputController: itemNameController,
-                        label: 'Item Name'),
+                    
+                    BlocProvider(
+  create: (context) => ItemNameCubit(AddItemService()),
+  child: DropDownBuilder(),
+),
                     const SizedBox(height: 10),
                     Row(
                       children: [
@@ -159,4 +170,8 @@ class _AddItemState extends State<AddItem> {
       ),
     );
   }
+
+
 }
+
+
