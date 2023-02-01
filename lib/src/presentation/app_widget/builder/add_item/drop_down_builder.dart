@@ -43,7 +43,8 @@ class _DropDownBuilderState extends State<DropDownBuilder> {
             searchDecoration: const InputDecoration(
                 hintText: "enter your custom hint text here"),
             dropdownColor: Color(0xffffbf1de),
-            textStyle: TextStyle(color: Palette.gold),
+
+            textStyle: TextStyle(color:  Palette.text),
             validator: (value) {
               if (value == null) {
                 return "Required field";

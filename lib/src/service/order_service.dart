@@ -62,6 +62,7 @@ class OrderService{
         // final orderval = OrderDetail.fromJson(listResponse);
         // print('$orderval orderval');
         final orderDetails = listResponse.map<OrderDetail>((e) => OrderDetail.fromJson(e)).toList()  as List<OrderDetail>;
+        // final results=listResponse.map<OrderDetail>((e) => OrderDetail.fromJson(e)).toList()  as List<OrderDetail>;
         print('${orderDetails} orderDetails');
         return orderDetails;
       }else{

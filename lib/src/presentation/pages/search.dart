@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spring_login/src/presentation/presentation.dart';
 import 'package:intl/intl.dart';
 
 import '../../model/login.dart';
@@ -17,6 +18,8 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
+    final searchController=TextEditingController();
+    final orderListView=OrderListView();
     return SizedBox(
       //takes host mobile complete screen size
       height: MediaQuery.of(context).size.height,
@@ -40,25 +43,52 @@ class _SearchState extends State<Search> {
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
                   children: [
+                    TextField(
+                      onChanged: (value)=> OrderListView().runFilter(value),
+                      controller: searchController,
+                      onTap: orderListView.search(searchController),
+                      style: TextStyle(
+                        color: Palette.text,
+                        fontSize: 20
+                      ),
+                      decoration: InputDecoration(
+                        hintText: "Search",
+                        prefixIcon: Icon(Icons.search),
+                        hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5),fontSize: 20),
+                        labelStyle: const TextStyle(
+                          fontSize: 20,),
+                        filled: true,
+                        fillColor: Colors.white70,
+                          border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(9
+                              )
+                              )
+                          )
+                      ),
+                    ),
                     const SizedBox(
                       height: 15,
                     ),
                     //  Search Bar
                     Container(
-                      decoration: BoxDecoration(
-                          color: const Color(0xffffbf1de),
-                          borderRadius: BorderRadius.circular(12)),
-                      padding: const EdgeInsets.all(10),
+                      // decoration: BoxDecoration(
+                      //     color: const Color(0xffffbf1de),
+                      //     borderRadius: BorderRadius.circular(12)),
+                      // padding: const EdgeInsets.all(10),
+
                       child: Row(
-                        children: const [
-                          Icon(Icons.search, color: Colors.grey),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Search",
-                            style: TextStyle(fontSize: 20, color: Colors.grey),
-                          )
+                        children:  [
+                          // Icon(Icons.search, color: Colors.grey),
+                          // SizedBox(
+                          //   height: 5,
+                          // ),
+                          // Text(
+                          //   "Search",
+                          //   style: TextStyle(fontSize: 20, color: Colors.grey),
+                          // ),
+
                         ],
                       ),
                     ),

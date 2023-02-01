@@ -21,12 +21,30 @@ class OrderListView extends StatefulWidget {
 
   @override
   State<OrderListView> createState() => _OrderListViewState();
-}
 
+
+}
+search(TextEditingController searchController) {
+
+}
+runFilter(String enteredKeyword) {
+  var results=OrderService().getScreenOnLoad();
+  if(enteredKeyword.isEmpty){
+    results=_orderDetail;
+  }else{
+    results=_orderDetail.where((element) => element.refNo!.toLowerCase().contains(enteredKeyword.toLowerCase())).toList();
+  }
+  setState(() {
+    _orderDetail=results;
+  });
+}
 class _OrderListViewState extends State<OrderListView> {
+
+
 
   late OrderSummeryService orderSummeryService;
   late final cubit;
+  List<OrderDetail> _newOrderDetail=[];
 //initState is called before widget tree
   @override
   void initState() {
@@ -36,10 +54,10 @@ class _OrderListViewState extends State<OrderListView> {
     }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
        cubit = context.read<GetScreenLoadCubit>();
-      if(LoginService.loginval.groupNo==2 )
-      //cubit.loadCustmrOrdrData();
-        print(LoginService.loginval.userName.toString());
-      else
+      // if(LoginService.loginval.groupNo==2 )
+      // //cubit.loadCustmrOrdrData();
+      //   print(LoginService.loginval.userName.toString());
+      // else
         cubit.loadCustmrOrdrData();
     });
   }
