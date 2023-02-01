@@ -90,15 +90,18 @@ class _AddItemState extends State<AddItem> {
                       children: [
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 4,
-                            child: FormAddItemTextField(
+                            child: FormAddItemTextField.withChangeEvent(
                                 inputController: meltController,
-                                label: 'Melt %')),
+                                label: 'Melt %',
+                                onChangeEvent:getStamp)
+                        ),
                         const SizedBox(width: 25),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 4,
-                            child: FormAddItemTextField(
+                            child: FormAddItemTextField.unEditable(
                                 inputController: stampController,
-                                label: 'Stamp')),
+                                label: 'Stamp',
+                            boolval: false,)),
                         const SizedBox(width: 25),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 4,
@@ -204,6 +207,16 @@ print('dropdown val=${DropDownBuilder.itemname} itemname=$itemName weight =$weig
     remarkController.clear();
     daysController.clear();
     dueDateController.clear();
+  }
+
+  getStamp(meltval) {
+     print('$meltval=======>getStamp');
+    if(meltval.isEmpty){
+      stampController.text="";
+    }else {
+      final stampData = AddItemService().getStamp(meltval);
+      stampData.then((value) => stampController.text = value);
+    }// stampController.text();
   }
 
   // void saveItem(String dropdownval, String text, TextEditingController weightController, TextEditingController sizeController, TextEditingController quantityController, TextEditingController meltController, TextEditingController stampController, TextEditingController hookController, TextEditingController designController, TextEditingController sizeSmplController, TextEditingController refNoController, TextEditingController remarkController, TextEditingController daysController, TextEditingController dueDateController, BuildContext context) {

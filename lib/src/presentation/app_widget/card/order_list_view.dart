@@ -14,7 +14,9 @@ import '../../../service/login_service.dart';
 
 class OrderListView extends StatefulWidget {
   static var refnoval;
-  const OrderListView({
+  static List<OrderDetail> orderDetail =[];
+  late List<OrderDetail> filterderOrder=[];
+   OrderListView({
     Key? key,
     // required this.context,
   }) : super(key: key);
@@ -36,25 +38,36 @@ class OrderListViewState extends State<OrderListView> {
 
   }
   runFilter2(String enteredKeyword)async  {
+
     var results= await OrderService().getScreenOnLoad();
     print('${OrderService().getScreenOnLoad()}======>runFilter2');
     print('${results}=========>runFilter2');
     if(enteredKeyword.isEmpty){
-      results=_orderDetail;
+      results=OrderListView.orderDetail;
       print('${results}========>enteredKeyword.isEmpty');
     }else{
-      // results=_orderDetail.where((element) => element.refNo!.contains(enteredKeyword)).toList();
-      results=_orderDetail.map((e) => e.refNo).toList();
+      print('$OrderListView.orderDetail===========>runFilter2 orderDetail');
+      results=OrderListView.orderDetail.where((element)
+      {
+        var resultRefNo=element.refNo;
+        print('$resultRefNo ========resultRefNo');
+          return resultRefNo!.contains(enteredKeyword);
+      }).toList();
+      // results=OrderListView.orderDetail.map((e) => e.refNo).toList();
       // print({
-      //   _orderDetail
+      //   OrderListView.orderDetail
       //       .where((element) => element.refNo.toString())
       // });
-      print(_orderDetail.toString());
+      print(OrderListView.orderDetail.toString());
       print('${results}========>else');
+      if (mounted) {
+        setState(() {
+          OrderListView.orderDetail=results;
+          print('${OrderListView.orderDetail}=======>setState()');
+        });
+      }
     }
-    if (mounted)setState(() {
-      _orderDetail=results;
-    });
+
   }
   late OrderSummeryService orderSummeryService;
   late final cubit;
@@ -76,7 +89,6 @@ class OrderListViewState extends State<OrderListView> {
     });
   }
 
-  List<OrderDetail> _orderDetail = [];
 
   // final BuildContext context ;
   @override
@@ -97,8 +109,8 @@ class OrderListViewState extends State<OrderListView> {
           if (kDebugMode) {
             print("${state.orderDetial} else if ResponseScreenLoadState");
           }
-          _orderDetail = state.orderDetial;
-
+          widget.filterderOrder= state.orderDetial;
+          OrderListView.orderDetail=widget.filterderOrder;
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -106,7 +118,7 @@ class OrderListViewState extends State<OrderListView> {
                     // scrollDirection: Axis.vertical,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: _orderDetail.length ,
+                    itemCount: OrderListView.orderDetail.length ,
                     itemBuilder: (context, index) => SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Padding(
@@ -139,6 +151,7 @@ class OrderListViewState extends State<OrderListView> {
       elevation: 4,
       shadowColor: Colors.grey,
       child: buildDataTable(index),
+
     );
   }
 static var refnoval;
@@ -148,22 +161,22 @@ static var refnoval;
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>  OrderSummeryPage(refNo: _orderDetail[index].refNo)));
- // orderSummeryService.getOrderDetail(_orderDetail[index].refNo);
-        print('${_orderDetail[index].refNo} refno');
-          refnoval=_orderDetail[index].refNo;
+                builder: (context) =>  OrderSummeryPage(refNo: OrderListView.orderDetail[index].refNo)));
+ // orderSummeryService.getOrderDetail(OrderListView.orderDetail[index].refNo);
+        print('${OrderListView.orderDetail[index].refNo} refno');
+          refnoval=OrderListView.orderDetail[index].refNo;
         },
       title: DataTable(
         columns: [
           DataColumn(
               label: Text(
-            'Ref no.:${_orderDetail[index].refNo.toString()}',
+            'Ref no.:${OrderListView.orderDetail[index].refNo.toString()}',
             style: const TextStyle(fontSize: 17),
           )),
           DataColumn(
               label: Text(
-            _orderDetail[index].status.toString(),
-            style:  TextStyle(fontSize: 17,color:(_orderDetail[index].status=='Assigned')?Colors.green:(_orderDetail[index].status=='Confirmed')?Colors.green:Colors.red),
+            OrderListView.orderDetail[index].status.toString(),
+            style:  TextStyle(fontSize: 17,color:(OrderListView.orderDetail[index].status=='Assigned')?Colors.green:(OrderListView.orderDetail[index].status=='Confirmed')?Colors.green:Colors.red),
           )),
         ],
         rows: [
@@ -175,7 +188,7 @@ static var refnoval;
               ),
             ),
              DataCell(Text(
-              '${_orderDetail[index].orderDate.toString()}',
+              '${OrderListView.orderDetail[index].orderDate.toString()}',
               style: TextStyle(fontSize: 15, ),
             ))
           ]),
@@ -187,7 +200,7 @@ static var refnoval;
               ),
             ),
              DataCell(Text(
-              '${_orderDetail[index].itemName.toString()}',
+              '${OrderListView.orderDetail[index].itemName.toString()}',
               style: TextStyle(fontSize: 17, ),
             ))
           ])

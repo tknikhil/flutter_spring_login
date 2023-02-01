@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
 
-class FormTextField extends StatelessWidget {
+class FormTextField extends StatefulWidget {
     final  TextEditingController inputController;
   final String label;
 
- TextEditingController get inputController2 =>inputController;
-  const FormTextField(
+
+   FormTextField(
       {Key? key,
          required this.inputController,
-        required this.label})
+        required this.label,
+      })
       : super(key: key);
 
+
+  @override
+  State<FormTextField> createState() => _FormTextFieldState();
+}
+
+class _FormTextFieldState extends State<FormTextField> {
+
+ TextEditingController get inputController2 =>widget.inputController;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-         controller: inputController,
+         controller: widget.inputController,
 
         validator: (value) {
           if (value!.isEmpty) {
-            return "please enter your $label !";
+            return "please enter your ${widget.label} !";
           }
           return null;
         },
@@ -29,8 +38,8 @@ class FormTextField extends StatelessWidget {
     color: Palette.text,
     ),
     decoration: InputDecoration(
-    labelText:label,
-    hintText: "Please enter your $label ",
+    labelText:widget.label,
+    hintText: "Please enter your ${widget.label} ",
     hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5)),
     labelStyle: const TextStyle(
     fontSize: 25,

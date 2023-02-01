@@ -1,38 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
 
-class FormAddItemTextField extends StatelessWidget {
+class FormAddItemTextField extends StatefulWidget {
     final  TextEditingController inputController;
   final String label;
+  var onChangeEvent;
+  var boolval;
+    FormAddItemTextField.unEditable(
+        {Key? key,
+          required this.inputController,
+          required this.label,
+          required this.boolval})
+        : super(key: key);
 
- TextEditingController get inputController2 =>inputController;
-  const FormAddItemTextField(
+ FormAddItemTextField.withChangeEvent(
       {Key? key,
          required this.inputController,
-        required this.label})
+        required this.label,
+      required this.onChangeEvent})
       : super(key: key);
+
+    FormAddItemTextField(
+        {Key? key,
+          required this.inputController,
+          required this.label})
+        : super(key: key);
+
+  @override
+  State<FormAddItemTextField> createState() => _FormAddItemTextFieldState();
+}
+
+class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
+ TextEditingController get inputController2 =>widget.inputController;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40,
       child: TextFormField(
-           controller: inputController,
+           controller: widget.inputController,
           cursorHeight: 20,
           validator: (value) {
             if (value!.isEmpty) {
-              return "please enter your $label !";
+              return "please enter your ${widget.label} !";
             }
             return null;
           },
-
+        enabled: widget.boolval,
+ onChanged: widget.onChangeEvent,
+ //         onTap: widget.onChangeEvent,
+//       onEditingComplete:widget.onChangeEvent ,
       style: const TextStyle(
       fontSize: 15,
       color: Palette.text,
       ),
       decoration: InputDecoration(
-      labelText:label,
-      hintText: "Please enter your $label ",
+      labelText:widget.label,
+      hintText: "Please enter your ${widget.label} ",
       hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5)),
       labelStyle: const TextStyle(
       fontSize: 15,

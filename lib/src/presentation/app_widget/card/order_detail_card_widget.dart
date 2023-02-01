@@ -20,7 +20,7 @@ class _OrderDetailCardWidgetState extends State<OrderDetailCardWidget> {
 
     return BlocProvider<GetScreenLoadCubit>(
         create: (context)=>GetScreenLoadCubit(OrderService()),
-        child:const OrderListView()
+        child: OrderListView()
     );
   }
 }
