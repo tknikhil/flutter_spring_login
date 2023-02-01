@@ -1,3 +1,4 @@
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_spring_login/src/presentation/app_widget/app_widget.dart
 import 'package:flutter_spring_login/src/service/add_item_service.dart';
 
 import '../../model/ItemName.dart';
+import '../../service/persist_item_service.dart';
 import '../app_widget/builder/add_item/drop_down_builder.dart';
 import '../app_widget/form_field/form_add_item_textfield.dart';
 
@@ -34,7 +36,7 @@ final daysController = TextEditingController();
 final dueDateController = TextEditingController();
 
 class _AddItemState extends State<AddItem> {
-
+  var dropdownval=DropDownBuilderState().cnt.toString();
   Widget appBarTitle= const Text("Add Item");
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,7 @@ class _AddItemState extends State<AddItem> {
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 4,
                             child: FormAddItemTextField(
-                                inputController: sizeSmplController,
+                                inputController: sizeController,
                                 label: 'Size')),
                         const SizedBox(width: 25),
                         SizedBox(
@@ -116,7 +118,7 @@ class _AddItemState extends State<AddItem> {
                       SizedBox(
                           width: MediaQuery.of(context).size.width / 2.4,
                           child: FormAddItemTextField(
-                              inputController: sizeController,
+                              inputController: sizeSmplController,
                               label: 'Size Sample')),
                     ]),
                     const SizedBox(height: 10),
@@ -161,6 +163,19 @@ class _AddItemState extends State<AddItem> {
                       heightSize: 45,
                       widthSize: 200,
                       onPressed: () {
+                         saveItem(dropdownval,itemNameController.text,weightController.text,
+                        sizeController.text,
+                        quantityController.text,
+                        meltController.text,
+                        stampController.text,
+                        hookController.text,
+                        designController.text,
+                        sizeSmplController.text,
+                            refNoController.text,
+                            remarkController.text,
+                            daysController.text,
+                            dueDateController.text,context);
+
                       },
                     ),
                   ],
@@ -170,6 +185,30 @@ class _AddItemState extends State<AddItem> {
       ),
     );
   }
+
+  void saveItem(String dropdownval, String itemName, String weight, String size, String qty, String meltper, String stamp, String hook, String design, String sizeSample, String refNo, String remark, String days, String duedate, BuildContext context) {
+     // final itemName=DropDownValueModel(name: , value: value);
+      var isDataSave = PersisItemService().saveItem(DropDownBuilder.itemname, double.parse(weight), size, int.parse(qty), double.parse(meltper), stamp, hook, design, sizeSample, refNo, remark, int.parse(days), duedate);
+print('dropdown val=${DropDownBuilder.itemname} itemname=$itemName weight =$weight itemsize=$size qty=$qty meltper=$meltper stamp=$stamp  hook=$hook   design=$design   sizeSample=$sizeSample  refNo=$refNo   remark=$remark   days=$days duedate=$duedate ');
+    itemNameController.clear();
+    itemCodeController.clear();
+    weightController.clear();
+    sizeController.clear();
+    quantityController.clear();
+    meltController.clear();
+    stampController.clear();
+    hookController.clear();
+    designController.clear();
+    sizeSmplController.clear();
+    refNoController.clear();
+    remarkController.clear();
+    daysController.clear();
+    dueDateController.clear();
+  }
+
+  // void saveItem(String dropdownval, String text, TextEditingController weightController, TextEditingController sizeController, TextEditingController quantityController, TextEditingController meltController, TextEditingController stampController, TextEditingController hookController, TextEditingController designController, TextEditingController sizeSmplController, TextEditingController refNoController, TextEditingController remarkController, TextEditingController daysController, TextEditingController dueDateController, BuildContext context) {
+  //   weightController.text;
+  // }
 
 
 }

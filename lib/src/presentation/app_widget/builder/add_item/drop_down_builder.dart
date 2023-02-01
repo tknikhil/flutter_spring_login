@@ -12,14 +12,15 @@ class DropDownBuilder extends StatefulWidget {
   const DropDownBuilder({
     Key? key,
   }) : super(key: key);
-
+static var itemname;
   @override
-  State<DropDownBuilder> createState() => _DropDownBuilderState();
+  State<DropDownBuilder> createState() => DropDownBuilderState();
 }
 
-class _DropDownBuilderState extends State<DropDownBuilder> {
+class DropDownBuilderState extends State<DropDownBuilder> {
   late List<ItemName> items=[];
-  final _cnt = SingleValueDropDownController();
+
+  final cnt = SingleValueDropDownController();
   FocusNode textFieldFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -30,15 +31,15 @@ class _DropDownBuilderState extends State<DropDownBuilder> {
         if(state is ResponseItemNameState){
            items=state.itemName;
            final itemval=items.map((e) => DropDownValueModel(name: e.label, value: e.value)).toList();
-
+print(cnt.toString());
             print('${items[0].label.toString()}');
           return DropDownTextField(
             // initialValue: "name4",
-            controller: _cnt,
+            controller: cnt,
             clearOption: true,
-            // textFieldFocusNode: textFieldFocusNode,
-            keyboardType: TextInputType.text,
-             // enableSearch: true,
+             textFieldFocusNode: textFieldFocusNode,
+            // keyboardType: TextInputType.text,
+              enableSearch: true,
             // dropdownColor: Colors.green,
             searchDecoration: const InputDecoration(
                 hintText: "enter your custom hint text here"),
@@ -55,7 +56,13 @@ class _DropDownBuilderState extends State<DropDownBuilder> {
             dropDownItemCount: 6,
 
             dropDownList: itemval,
-            onChanged: (val) {},
+            onChanged: (val) {
+
+             DropDownBuilder.itemname=val.name;
+              print('$itemval========>changeValue');
+               print('$DropDownBuilder.itemname========>changeValue');
+              print('${val.name}========>changeValue');
+            },
           );
         }else{
           return FormAddItemTextField(

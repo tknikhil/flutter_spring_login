@@ -20,28 +20,42 @@ class OrderListView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<OrderListView> createState() => _OrderListViewState();
+  State<OrderListView> createState() => OrderListViewState();
+  //
+  // runFilter(String value) {
+  //  OrderListViewState().runFilter2(value);
+  // }
 
 
 }
-search(TextEditingController searchController) {
 
-}
-runFilter(String enteredKeyword) {
-  var results=OrderService().getScreenOnLoad();
-  if(enteredKeyword.isEmpty){
-    results=_orderDetail;
-  }else{
-    results=_orderDetail.where((element) => element.refNo!.toLowerCase().contains(enteredKeyword.toLowerCase())).toList();
+class OrderListViewState extends State<OrderListView> {
+
+
+  search(TextEditingController searchController) {
+
   }
-  setState(() {
-    _orderDetail=results;
-  });
-}
-class _OrderListViewState extends State<OrderListView> {
-
-
-
+  runFilter2(String enteredKeyword)async  {
+    var results= await OrderService().getScreenOnLoad();
+    print('${OrderService().getScreenOnLoad()}======>runFilter2');
+    print('${results}=========>runFilter2');
+    if(enteredKeyword.isEmpty){
+      results=_orderDetail;
+      print('${results}========>enteredKeyword.isEmpty');
+    }else{
+      // results=_orderDetail.where((element) => element.refNo!.contains(enteredKeyword)).toList();
+      results=_orderDetail.map((e) => e.refNo).toList();
+      // print({
+      //   _orderDetail
+      //       .where((element) => element.refNo.toString())
+      // });
+      print(_orderDetail.toString());
+      print('${results}========>else');
+    }
+    if (mounted)setState(() {
+      _orderDetail=results;
+    });
+  }
   late OrderSummeryService orderSummeryService;
   late final cubit;
   List<OrderDetail> _newOrderDetail=[];

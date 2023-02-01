@@ -12,4 +12,25 @@ class JsonReq{
         }}
     });
   }
+
+  String saveItem(String itemName, double weight,String itemSize,int qty,double meltPer,String stamp,String hook,String designSample,String sizeSample,String refNo,String remark,int days,String dueDate) {
+    return json.encode({
+      "data": {
+        "orderDtls": {
+          'itemName': itemName,
+          'weight': weight,
+          'qty':qty,
+          'itemSize':itemSize,
+          'meltPer':meltPer,
+          'stamp':stamp,
+          'hook':hook,
+          'remark':remark,
+          'refNo':refNo,
+          'designSample':designSample,
+          'sizeSample':sizeSample,
+          'days':days,
+          'dueDate':dueDate
+        }}
+    });
+  }
 }

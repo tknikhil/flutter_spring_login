@@ -44,9 +44,9 @@ class _SearchState extends State<Search> {
                 child: Column(
                   children: [
                     TextField(
-                      onChanged: (value)=> OrderListView().runFilter(value),
+                      onChanged: (value)=> OrderListViewState().runFilter2(value),
                       controller: searchController,
-                      onTap: orderListView.search(searchController),
+                      onTap: OrderListViewState().search(searchController),
                       style: TextStyle(
                         color: Palette.text,
                         fontSize: 20
