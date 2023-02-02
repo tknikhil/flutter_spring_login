@@ -6,7 +6,7 @@ import 'package:flutter_spring_login/src/cubit/item_name/item_name_cubit.dart';
 import 'package:flutter_spring_login/src/presentation/app_widget/app_widget.dart';
 import 'package:flutter_spring_login/src/service/add_item_service.dart';
 
-import '../../model/ItemName.dart';
+import '../../model/item_name.dart';
 import '../../service/persist_item_service.dart';
 import '../app_widget/builder/add_item/drop_down_builder.dart';
 import '../app_widget/form_field/form_add_item_textfield.dart';
@@ -145,15 +145,17 @@ class _AddItemState extends State<AddItem> {
                       children: [
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 2.4,
-                            child: FormAddItemTextField(
+                            child: FormAddItemTextField.withChangeEvent(
                                 inputController: daysController,
-                                label: 'Days')),
+                                label: 'Days',
+                            onChangeEvent: getDueDate,)),
                         const SizedBox(width: 20),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 2.4,
-                            child: FormAddItemTextField(
+                            child: FormAddItemTextField.unEditable(
                                 inputController: dueDateController,
-                                label: 'Due Date')),
+                                label: 'Due Date',
+                            boolval: false,)),
                       ],
                     ),
                     const SizedBox(height:25),
@@ -191,9 +193,14 @@ class _AddItemState extends State<AddItem> {
 
   void saveItem(String dropdownval, String itemName, String weight, String size, String qty, String meltper, String stamp, String hook, String design, String sizeSample, String refNo, String remark, String days, String duedate, BuildContext context) {
      // final itemName=DropDownValueModel(name: , value: value);
-      var isDataSave = PersisItemService().saveItem(DropDownBuilder.itemname, double.parse(weight), size, int.parse(qty), double.parse(meltper), stamp, hook, design, sizeSample, refNo, remark, int.parse(days), duedate);
-print('dropdown val=${DropDownBuilder.itemname} itemname=$itemName weight =$weight itemsize=$size qty=$qty meltper=$meltper stamp=$stamp  hook=$hook   design=$design   sizeSample=$sizeSample  refNo=$refNo   remark=$remark   days=$days duedate=$duedate ');
-    itemNameController.clear();
+      var isDataSave = PersisItemService().saveItem(DropDownBuilder.itemname, double.parse(weight), size, int.parse(qty), double.parse(meltper), stamp, hook, design, sizeSample, refNo, remark, int.parse(days));
+print('dropdown val=${DropDownBuilder.itemname} itemname=$itemName weight =$weight itemsize=$size qty=$qty meltper=$meltper stamp=$stamp  hook=$hook   design=$design   sizeSample=$sizeSample  refNo=$refNo   remark=$remark   days=$days  ');
+      // if(isDataSave=="success"){
+      //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      //     content: Text("item Added... "),
+      //   ));
+      // }
+itemNameController.clear();
     itemCodeController.clear();
     weightController.clear();
     sizeController.clear();
@@ -207,6 +214,12 @@ print('dropdown val=${DropDownBuilder.itemname} itemname=$itemName weight =$weig
     remarkController.clear();
     daysController.clear();
     dueDateController.clear();
+    // if(isDataSave=="success"){
+    //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    //     content: Text("item Added... "),
+    //   ));
+    // }
+
   }
 
   getStamp(meltval) {
@@ -216,6 +229,17 @@ print('dropdown val=${DropDownBuilder.itemname} itemname=$itemName weight =$weig
     }else {
       final stampData = AddItemService().getStamp(meltval);
       stampData.then((value) => stampController.text = value);
+    }// stampController.text();
+  }
+
+  getDueDate(days) {
+    print('$days=======>getdueDate');
+    if(days.isEmpty){
+      dueDateController.text="";
+    }else {
+      final dueDate = AddItemService().getDueDate(days);
+      print('$dueDate=========>getDueDate');
+       dueDate.then((value) => dueDateController.text = value);
     }// stampController.text();
   }
 

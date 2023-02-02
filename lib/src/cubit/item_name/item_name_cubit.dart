@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_spring_login/src/model/ItemName.dart';
+import 'package:flutter_spring_login/src/model/item_name.dart';
 import 'package:flutter_spring_login/src/service/add_item_service.dart';
 import 'package:meta/meta.dart';
 

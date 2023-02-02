@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spring_login/src/presentation/pages/bottom_navigation_bar_page.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
 import 'package:intl/intl.dart';
 
@@ -36,96 +37,107 @@ class _SearchState extends State<Search> {
                     ),
                 )),
         backgroundColor: const Color(0xfffd4af37),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      onChanged: (value)=> OrderListViewState().runFilter2(value),
-                      controller: searchController,
-                      onTap: OrderListViewState().search(searchController),
-                      style: TextStyle(
-                        color: Palette.text,
-                        fontSize: 20
-                      ),
-                      decoration: InputDecoration(
-                        hintText: "Search",
-                        prefixIcon: Icon(Icons.search),
-                        hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5),fontSize: 20),
-                        labelStyle: const TextStyle(
-                          fontSize: 20,),
-                        filled: true,
-                        fillColor: Colors.white70,
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(9
-                              )
-                              )
-                          )
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    //  Search Bar
-                    Container(
-                      // decoration: BoxDecoration(
-                      //     color: const Color(0xffffbf1de),
-                      //     borderRadius: BorderRadius.circular(12)),
-                      // padding: const EdgeInsets.all(10),
+        body: RefreshIndicator(
+          onRefresh: () {
 
-                      child: Row(
-                        children:  [
-                          // Icon(Icons.search, color: Colors.grey),
-                          // SizedBox(
-                          //   height: 5,
-                          // ),
-                          // Text(
-                          //   "Search",
-                          //   style: TextStyle(fontSize: 20, color: Colors.grey),
-                          // ),
-
-                        ],
+            Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (a, b, c) =>  BottomNavigationBarPage(),
+                    transitionDuration: Duration(seconds: 0)));
+            return Future.value(false);
+          },
+          child: SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        onChanged: (value)=> OrderListViewState().runFilter2(value),
+                        controller: searchController,
+                        onTap: OrderListViewState().search(searchController),
+                        style: TextStyle(
+                          color: Palette.text,
+                          fontSize: 20
+                        ),
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          prefixIcon: Icon(Icons.search),
+                          hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5),fontSize: 20),
+                          labelStyle: const TextStyle(
+                            fontSize: 20,),
+                          filled: true,
+                          fillColor: Colors.white70,
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(9
+                                )
+                                )
+                            )
+                        ),
                       ),
-                    ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      //  Search Bar
+                      Container(
+                        // decoration: BoxDecoration(
+                        //     color: const Color(0xffffbf1de),
+                        //     borderRadius: BorderRadius.circular(12)),
+                        // padding: const EdgeInsets.all(10),
 
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50)),
-                  child: Container(
-                    color: const Color(0xffff0ead6),
-                    child: Center(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.all(15.0),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            //card
-                            OrderDetailCardWidget(),
+                        child: Row(
+                          children:  [
+                            // Icon(Icons.search, color: Colors.grey),
+                            // SizedBox(
+                            //   height: 5,
+                            // ),
+                            // Text(
+                            //   "Search",
+                            //   style: TextStyle(fontSize: 20, color: Colors.grey),
+                            // ),
+
                           ],
+                        ),
+                      ),
+
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50)),
+                    child: Container(
+                      color: const Color(0xffff0ead6),
+                      child: Center(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              //card
+                              OrderDetailCardWidget(),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

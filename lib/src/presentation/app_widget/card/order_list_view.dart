@@ -11,47 +11,43 @@ import 'package:flutter_spring_login/src/model/model.dart';
 
 import '../../../cubit/order_summery/order_summery_cubit.dart';
 import '../../../service/login_service.dart';
+import '../../pages/pages.dart';
 
 class OrderListView extends StatefulWidget {
   static var refnoval;
-  static List<OrderDetail> orderDetail =[];
-  late List<OrderDetail> filterderOrder=[];
-   OrderListView({
+  static List<OrderDetail> orderDetail = [];
+  late List<OrderDetail> filterderOrder = [];
+
+  OrderListView({
     Key? key,
     // required this.context,
   }) : super(key: key);
 
   @override
   State<OrderListView> createState() => OrderListViewState();
-  //
-  // runFilter(String value) {
-  //  OrderListViewState().runFilter2(value);
-  // }
-
+//
+// runFilter(String value) {
+//  OrderListViewState().runFilter2(value);
+// }
 
 }
 
 class OrderListViewState extends State<OrderListView> {
+  search(TextEditingController searchController) {}
 
-
-  search(TextEditingController searchController) {
-
-  }
-  runFilter2(String enteredKeyword)async  {
-
-    var results= await OrderService().getScreenOnLoad();
+  runFilter2(String enteredKeyword) async {
+    var results = await OrderService().getScreenOnLoad();
     print('${OrderService().getScreenOnLoad()}======>runFilter2');
     print('${results}=========>runFilter2');
-    if(enteredKeyword.isEmpty){
-      results=OrderListView.orderDetail;
+    if (enteredKeyword.isEmpty) {
+      results = OrderListView.orderDetail;
       print('${results}========>enteredKeyword.isEmpty');
-    }else{
+    } else {
       print('$OrderListView.orderDetail===========>runFilter2 orderDetail');
-      results=OrderListView.orderDetail.where((element)
-      {
-        var resultRefNo=element.refNo;
+      results = OrderListView.orderDetail.where((element) {
+        var resultRefNo = element.refNo;
         print('$resultRefNo ========resultRefNo');
-          return resultRefNo!.contains(enteredKeyword);
+        return resultRefNo!.contains(enteredKeyword);
       }).toList();
       // results=OrderListView.orderDetail.map((e) => e.refNo).toList();
       // print({
@@ -62,16 +58,17 @@ class OrderListViewState extends State<OrderListView> {
       print('${results}========>else');
       if (mounted) {
         setState(() {
-          OrderListView.orderDetail=results;
+          OrderListView.orderDetail = results;
           print('${OrderListView.orderDetail}=======>setState()');
         });
       }
     }
-
   }
+
   late OrderSummeryService orderSummeryService;
   late final cubit;
-  List<OrderDetail> _newOrderDetail=[];
+  List<OrderDetail> _newOrderDetail = [];
+
 //initState is called before widget tree
   @override
   void initState() {
@@ -80,20 +77,18 @@ class OrderListViewState extends State<OrderListView> {
       print('initState()');
     }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-       cubit = context.read<GetScreenLoadCubit>();
+      cubit = context.read<GetScreenLoadCubit>();
       // if(LoginService.loginval.groupNo==2 )
       // //cubit.loadCustmrOrdrData();
       //   print(LoginService.loginval.userName.toString());
       // else
-        cubit.loadCustmrOrdrData();
+      cubit.loadCustmrOrdrData();
     });
   }
-
 
   // final BuildContext context ;
   @override
   Widget build(BuildContext context) {
-
     return Column(children: [buildBlocBuilder()]);
   }
 
@@ -103,14 +98,13 @@ class OrderListViewState extends State<OrderListView> {
       builder: (context, state) {
         if (state is GetScreenLoadInitial || state is LoadingScreenLoadState) {
           return const Center(child: CircularProgressIndicator());
-
         } //GetScreenLoadInitial, LoadingScreenLoadState
         else if (state is ResponseScreenLoadState) {
           if (kDebugMode) {
             print("${state.orderDetial} else if ResponseScreenLoadState");
           }
-          widget.filterderOrder= state.orderDetial;
-          OrderListView.orderDetail=widget.filterderOrder;
+          widget.filterderOrder = state.orderDetial;
+          OrderListView.orderDetail = widget.filterderOrder;
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -118,7 +112,7 @@ class OrderListViewState extends State<OrderListView> {
                     // scrollDirection: Axis.vertical,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: OrderListView.orderDetail.length ,
+                    itemCount: OrderListView.orderDetail.length,
                     itemBuilder: (context, index) => SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Padding(
@@ -151,21 +145,23 @@ class OrderListViewState extends State<OrderListView> {
       elevation: 4,
       shadowColor: Colors.grey,
       child: buildDataTable(index),
-
     );
   }
-static var refnoval;
+
+  static var refnoval;
+
   ListTile buildDataTable(int index) {
     return ListTile(
-      onTap: (){
+      onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>  OrderSummeryPage(refNo: OrderListView.orderDetail[index].refNo)));
- // orderSummeryService.getOrderDetail(OrderListView.orderDetail[index].refNo);
+                builder: (context) => OrderSummeryPage(
+                    refNo: OrderListView.orderDetail[index].refNo)));
+        // orderSummeryService.getOrderDetail(OrderListView.orderDetail[index].refNo);
         print('${OrderListView.orderDetail[index].refNo} refno');
-          refnoval=OrderListView.orderDetail[index].refNo;
-        },
+        refnoval = OrderListView.orderDetail[index].refNo;
+      },
       title: DataTable(
         columns: [
           DataColumn(
@@ -176,7 +172,13 @@ static var refnoval;
           DataColumn(
               label: Text(
             OrderListView.orderDetail[index].status.toString(),
-            style:  TextStyle(fontSize: 17,color:(OrderListView.orderDetail[index].status=='Assigned')?Colors.green:(OrderListView.orderDetail[index].status=='Confirmed')?Colors.green:Colors.red),
+            style: TextStyle(
+                fontSize: 17,
+                color: (OrderListView.orderDetail[index].status == 'Assigned')
+                    ? Colors.green
+                    : (OrderListView.orderDetail[index].status == 'Confirmed')
+                        ? Colors.green
+                        : Colors.red),
           )),
         ],
         rows: [
@@ -187,9 +189,11 @@ static var refnoval;
                 style: const TextStyle(fontSize: 17),
               ),
             ),
-             DataCell(Text(
-              '${OrderListView.orderDetail[index].orderDate.toString()}',
-              style: TextStyle(fontSize: 15, ),
+            DataCell(Text(
+              '${OrderListView.orderDetail[index].formatedDueDate.toString()}',
+              style: TextStyle(
+                fontSize: 15,
+              ),
             ))
           ]),
           DataRow(cells: [
@@ -199,9 +203,11 @@ static var refnoval;
                 style: const TextStyle(fontSize: 17),
               ),
             ),
-             DataCell(Text(
+            DataCell(Text(
               '${OrderListView.orderDetail[index].itemName.toString()}',
-              style: TextStyle(fontSize: 17, ),
+              style: TextStyle(
+                fontSize: 17,
+              ),
             ))
           ])
         ],

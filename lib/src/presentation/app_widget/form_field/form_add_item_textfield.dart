@@ -44,6 +44,9 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
             if (value!.isEmpty) {
               return "please enter your ${widget.label} !";
             }
+            if(value=='INVALID'){
+
+            }
             return null;
           },
         enabled: widget.boolval,

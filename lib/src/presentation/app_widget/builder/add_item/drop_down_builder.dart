@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../cubit/item_name/item_name_cubit.dart';
-import '../../../../model/ItemName.dart';
+import '../../../../model/item_name.dart';
 import '../../../pages/add_item.dart';
 import '../../../presentation.dart';
 import '../../form_field/form_add_item_textfield.dart';
