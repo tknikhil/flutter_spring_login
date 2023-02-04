@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_spring_login/src/constrainst/constraints.dart';
 import 'package:flutter_spring_login/src/model/model.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 
 import 'login_service.dart';
 class OrderService{
@@ -33,7 +34,7 @@ class OrderService{
 //   // }
 //
 //   final Dio _dio=Dio();
-   getScreenOnLoad() async{
+   Future<List<OrderDetail>>getScreenOnLoad() async{
 
     try{
         final uri= Uri.parse('$baseUrl$custOrdrDsplyUrl/${LoginService.loginval.userCode.toString()}');

@@ -127,17 +127,14 @@ class _AddItemState extends State<AddItem> {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.4,
-                            child: FormAddItemTextField(
-                                inputController: refNoController,
-                                label: 'Customer Refno')),
-                        const SizedBox(width: 20),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.4,
-                            child: FormAddItemTextField(
-                                inputController: remarkController,
-                                label: 'Remark')),
+                        Expanded(
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: FormAddItemTextField(
+                                  inputController: refNoController,
+                                  label: 'Customer Refno')),
+                        ),
+
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -158,6 +155,13 @@ class _AddItemState extends State<AddItem> {
                             boolval: false,)),
                       ],
                     ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width ,
+                        height: 80,
+                        child: FormAddItemTextField.multiLine(
+                            inputController: remarkController,
+                            label: 'Remark', mxLine: 5, )),
                     const SizedBox(height:25),
                     FormButton(
                       buttonIcon: Icons.add_shopping_cart,

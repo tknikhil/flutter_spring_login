@@ -56,14 +56,21 @@ class _OrderSummeryPageState extends State<OrderSummeryPage> {
                onPressed: () => Navigator.of(context).pop()),
          ),
        ),
-       body: BlocProvider(
-         create: (context) => OrderSummeryCubit(OrderSummeryService()),
-         child:OrderSummeryReader(widget.refNo),
-
-
-       ),
+       // body: BlocProvider(
+       //    // create: (context) => OrderSummeryCubit(OrderSummeryService()),
+       //   create:(context)=> initState(),
+       //   child:OrderSummeryReader(widget.refNo),
+       //
+       //
+       // ),
        );
   }
 
+  @override
+  void initState() {
 
+      OrderSummeryCubit(OrderSummeryService());
+      OrderSummeryReader(widget.refNo);
+
+  }
 }

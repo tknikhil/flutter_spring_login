@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SideMenuTile extends StatelessWidget {
   const SideMenuTile({
@@ -37,7 +40,13 @@ class SideMenuTile extends StatelessWidget {
             child:Icon(Icons.logout,color: Colors.brown,),
           ),
           title: const Text("LogOut",style: TextStyle(color: Colors.brown,fontSize: 20,fontWeight: FontWeight.bold),),
-          onTap: (){},
+          onTap: (){
+            if(Platform.isAndroid){
+              SystemNavigator.pop();
+            }else{
+              exit(0);
+            }
+          },
         ),
       ],
     );

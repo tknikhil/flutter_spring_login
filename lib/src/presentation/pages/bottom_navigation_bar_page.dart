@@ -14,7 +14,7 @@ class BottomNavigationBarPage extends StatefulWidget {
 class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
   int _index = 0;
   List pages=[
-    Search(),
+    Search2(),
     AddItem()
   ];
   @override

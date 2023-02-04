@@ -12,6 +12,6 @@ class OrderDetail{
 
   @override
   String toString() {
-    return 'OrderDetail{refNo: $refNo, orderDate: $formatedDueDate, itemCode: $itemName, status: $status}';
+    return 'OrderDetail{refNo: $refNo, orderDate: $formatedDueDate, itemName: $itemName, status: $status}';
   }
 }

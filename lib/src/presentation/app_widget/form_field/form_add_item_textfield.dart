@@ -6,6 +6,15 @@ class FormAddItemTextField extends StatefulWidget {
   final String label;
   var onChangeEvent;
   var boolval;
+  var mxLine;
+  // var validation;
+
+    FormAddItemTextField.multiLine(
+        {Key? key,
+          required this.inputController,
+          required this.label,
+        required this.mxLine})
+        : super(key: key);
     FormAddItemTextField.unEditable(
         {Key? key,
           required this.inputController,
@@ -23,7 +32,7 @@ class FormAddItemTextField extends StatefulWidget {
     FormAddItemTextField(
         {Key? key,
           required this.inputController,
-          required this.label})
+          required this.label,})
         : super(key: key);
 
   @override
@@ -40,17 +49,19 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
       child: TextFormField(
            controller: widget.inputController,
           cursorHeight: 20,
-          validator: (value) {
-            if (value!.isEmpty) {
-              return "please enter your ${widget.label} !";
-            }
-            if(value=='INVALID'){
-
-            }
-            return null;
-          },
+        // validator:widget.validation,
+          // validator: (value) {
+          //   if (value!.isEmpty) {
+          //     return "${widget.label} required!";
+          //   }
+          //   if(value=='INVALID'){
+          //
+          //   }
+          //   return null;
+          // },
         enabled: widget.boolval,
  onChanged: widget.onChangeEvent,
+        maxLines: widget.mxLine,
  //         onTap: widget.onChangeEvent,
 //       onEditingComplete:widget.onChangeEvent ,
       style: const TextStyle(
@@ -59,7 +70,7 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
       ),
       decoration: InputDecoration(
       labelText:widget.label,
-      hintText: "Please enter your ${widget.label} ",
+      hintText: "${widget.label} ",
       hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5)),
       labelStyle: const TextStyle(
       fontSize: 15,
