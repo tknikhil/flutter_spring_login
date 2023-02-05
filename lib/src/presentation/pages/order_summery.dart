@@ -11,11 +11,11 @@ import '../../model/order_summery.dart';
 import '../app_widget/app_widget.dart';
 import '../app_widget/builder/order_summery/orders_summery_reader.dart';
 
-
 class OrderSummeryPage extends StatefulWidget {
   var refNo;
 
   OrderSummeryPage({this.refNo, Key? key}) : super(key: key);
+
   // @override
   // void initState() {
   //   super.initState();
@@ -35,8 +35,9 @@ class OrderSummeryPage extends StatefulWidget {
 }
 
 class _OrderSummeryPageState extends State<OrderSummeryPage> {
-  var orderSummeryService=OrderSummeryService();
+  var orderSummeryService = OrderSummeryService();
   String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
+
   // late OrderSummery _orderSummery;
 
 // var orderSummery=OrderSummery.fromJson(json);
@@ -45,32 +46,21 @@ class _OrderSummeryPageState extends State<OrderSummeryPage> {
   Widget build(BuildContext context) {
     OrderSummery orderSummery1;
     print('${OrderListView.refnoval.toString()} ===========>Main()');
-   return Scaffold(
-       backgroundColor: const Color(0xffffbf1de),
-       appBar: AppBarWidget(
-         cdate: cdate,
-         builder: Builder(
-           builder: (context) => IconButton(
-               icon: const Icon(Icons.keyboard_arrow_left),
-               color: Colors.brown,
-               onPressed: () => Navigator.of(context).pop()),
-         ),
-       ),
-       // body: BlocProvider(
-       //    // create: (context) => OrderSummeryCubit(OrderSummeryService()),
-       //   create:(context)=> initState(),
-       //   child:OrderSummeryReader(widget.refNo),
-       //
-       //
-       // ),
-       );
-  }
-
-  @override
-  void initState() {
-
-      OrderSummeryCubit(OrderSummeryService());
-      OrderSummeryReader(widget.refNo);
-
+    return Scaffold(
+      backgroundColor: const Color(0xffffbf1de),
+      appBar: AppBarWidget(
+        cdate: cdate,
+        builder: Builder(
+          builder: (context) => IconButton(
+              icon: const Icon(Icons.keyboard_arrow_left),
+              color: Colors.brown,
+              onPressed: () => Navigator.of(context).pop()),
+        ),
+      ),
+      body: BlocProvider(
+        create: (context) => OrderSummeryCubit(OrderSummeryService()),
+        child: OrderSummeryReader(widget.refNo),
+      ),
+    );
   }
 }

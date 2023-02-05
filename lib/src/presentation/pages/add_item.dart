@@ -19,7 +19,7 @@ class AddItem extends StatefulWidget {
   State<AddItem> createState() => _AddItemState();
 }
 
-final _formKey = GlobalKey<FormState>();
+
 final itemNameController = TextEditingController();
 final itemCodeController = TextEditingController();
 final weightController = TextEditingController();
@@ -36,7 +36,8 @@ final daysController = TextEditingController();
 final dueDateController = TextEditingController();
 
 class _AddItemState extends State<AddItem> {
-  var dropdownval=DropDownBuilderState().cnt.toString();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>()!;
+  var dropdownval=DropDownBuilderState().cnt.toString()!;
   Widget appBarTitle= const Text("Add Item");
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _AddItemState extends State<AddItem> {
         child: ListView(
           children: [
             Form(
-                key: _formKey,
+                key: formKey,
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
@@ -70,19 +71,21 @@ class _AddItemState extends State<AddItem> {
                             width: MediaQuery.of(context).size.width / 4,
                             child: FormAddItemTextField(
                                 inputController: weightController,
-                                label: 'Weight')),
+                                label: 'Weight', mxLine: 1,)),
                         const SizedBox(width: 25),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 4,
                             child: FormAddItemTextField(
                                 inputController: sizeController,
-                                label: 'Size')),
+                                label: 'Size',
+                            mxLine: 1,)),
                         const SizedBox(width: 25),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 4,
                             child: FormAddItemTextField(
                                 inputController: quantityController,
-                                label: 'Quantity')),
+                                label: 'Quantity',
+                            mxLine: 1,)),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -93,21 +96,23 @@ class _AddItemState extends State<AddItem> {
                             child: FormAddItemTextField.withChangeEvent(
                                 inputController: meltController,
                                 label: 'Melt %',
-                                onChangeEvent:getStamp)
+                                onChangeEvent:getStamp, mxLine: 1,)
                         ),
                         const SizedBox(width: 25),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 4,
-                            child: FormAddItemTextField.unEditable(
+                            child: FormAddItemTextField(
                                 inputController: stampController,
                                 label: 'Stamp',
-                            boolval: false,)),
+                            mxLine: 1,
+                           )),
                         const SizedBox(width: 25),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 4,
                             child: FormAddItemTextField(
                                 inputController: hookController,
-                                label: 'Hook')),
+                                label: 'Hook',
+                            mxLine: 1,)),
                       ],
                     ),
                     const SizedBox(height: 10),
@@ -116,13 +121,13 @@ class _AddItemState extends State<AddItem> {
                           width: MediaQuery.of(context).size.width / 2.4,
                           child: FormAddItemTextField(
                               inputController: designController,
-                              label: 'Design Sample')),
+                              label: 'Design Sample',mxLine: 1,)),
                       const SizedBox(width: 20),
                       SizedBox(
                           width: MediaQuery.of(context).size.width / 2.4,
                           child: FormAddItemTextField(
                               inputController: sizeSmplController,
-                              label: 'Size Sample')),
+                              label: 'Size Sample',mxLine: 1,)),
                     ]),
                     const SizedBox(height: 10),
                     Row(
@@ -132,7 +137,7 @@ class _AddItemState extends State<AddItem> {
                               width: MediaQuery.of(context).size.width,
                               child: FormAddItemTextField(
                                   inputController: refNoController,
-                                  label: 'Customer Refno')),
+                                  label: 'Customer Refno',mxLine: 1,)),
                         ),
 
                       ],
@@ -145,13 +150,14 @@ class _AddItemState extends State<AddItem> {
                             child: FormAddItemTextField.withChangeEvent(
                                 inputController: daysController,
                                 label: 'Days',
-                            onChangeEvent: getDueDate,)),
+                            onChangeEvent: getDueDate, mxLine: 1,)),
                         const SizedBox(width: 20),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 2.4,
                             child: FormAddItemTextField.unEditable(
                                 inputController: dueDateController,
                                 label: 'Due Date',
+                            mxLine: 1,
                             boolval: false,)),
                       ],
                     ),
@@ -159,7 +165,7 @@ class _AddItemState extends State<AddItem> {
                     SizedBox(
                         width: MediaQuery.of(context).size.width ,
                         height: 80,
-                        child: FormAddItemTextField.multiLine(
+                        child: FormAddItemTextField(
                             inputController: remarkController,
                             label: 'Remark', mxLine: 5, )),
                     const SizedBox(height:25),
@@ -172,7 +178,7 @@ class _AddItemState extends State<AddItem> {
                       heightSize: 45,
                       widthSize: 200,
                       onPressed: () {
-                         saveItem(dropdownval,itemNameController.text,weightController.text,
+                         saveItem(dropdownval!,itemNameController.text,weightController.text,
                         sizeController.text,
                         quantityController.text,
                         meltController.text,
@@ -184,7 +190,10 @@ class _AddItemState extends State<AddItem> {
                             remarkController.text,
                             daysController.text,
                             dueDateController.text,context);
-
+                         // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                         //   content: Text("Item Added!"),
+                         // ));
+                        validate;
                       },
                     ),
                   ],
@@ -195,7 +204,16 @@ class _AddItemState extends State<AddItem> {
     );
   }
 
-  void saveItem(String dropdownval, String itemName, String weight, String size, String qty, String meltper, String stamp, String hook, String design, String sizeSample, String refNo, String remark, String days, String duedate, BuildContext context) {
+  void validate(){
+
+      if (formKey.currentState!.validate()) {
+        print("Ok");
+      } else {
+        print("Error");
+      }
+  }
+
+  void saveItem(String? dropdownval, String itemName, String weight, String size, String qty, String meltper, String stamp, String hook, String design, String sizeSample, String refNo, String remark, String days, String duedate, BuildContext context) {
      // final itemName=DropDownValueModel(name: , value: value);
       var isDataSave = PersisItemService().saveItem(DropDownBuilder.itemname, double.parse(weight), size, int.parse(qty), double.parse(meltper), stamp, hook, design, sizeSample, refNo, remark, int.parse(days));
 print('dropdown val=${DropDownBuilder.itemname} itemname=$itemName weight =$weight itemsize=$size qty=$qty meltper=$meltper stamp=$stamp  hook=$hook   design=$design   sizeSample=$sizeSample  refNo=$refNo   remark=$remark   days=$days  ');

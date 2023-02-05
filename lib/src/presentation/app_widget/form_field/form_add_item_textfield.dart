@@ -9,30 +9,33 @@ class FormAddItemTextField extends StatefulWidget {
   var mxLine;
   // var validation;
 
-    FormAddItemTextField.multiLine(
-        {Key? key,
-          required this.inputController,
-          required this.label,
-        required this.mxLine})
-        : super(key: key);
+    // FormAddItemTextField.multiLine(
+    //     {Key? key,
+    //       required this.inputController,
+    //       required this.label,
+    //     required this.mxLine})
+    //     : super(key: key);
     FormAddItemTextField.unEditable(
         {Key? key,
           required this.inputController,
           required this.label,
-          required this.boolval})
+          required this.boolval,
+        required this.mxLine})
         : super(key: key);
 
  FormAddItemTextField.withChangeEvent(
       {Key? key,
          required this.inputController,
         required this.label,
-      required this.onChangeEvent})
+      required this.onChangeEvent,
+      required this.mxLine})
       : super(key: key);
 
     FormAddItemTextField(
         {Key? key,
           required this.inputController,
-          required this.label,})
+          required this.label,
+        required this.mxLine})
         : super(key: key);
 
   @override
@@ -50,15 +53,15 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
            controller: widget.inputController,
           cursorHeight: 20,
         // validator:widget.validation,
-          // validator: (value) {
-          //   if (value!.isEmpty) {
-          //     return "${widget.label} required!";
-          //   }
-          //   if(value=='INVALID'){
-          //
-          //   }
-          //   return null;
-          // },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "${widget.label} required!";
+            }
+            if(value=='INVALID'){
+              return "wrong Melt %";
+            }
+            return null;
+          },
         enabled: widget.boolval,
  onChanged: widget.onChangeEvent,
         maxLines: widget.mxLine,
@@ -71,7 +74,7 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
       decoration: InputDecoration(
       labelText:widget.label,
       hintText: "${widget.label} ",
-      hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5)),
+      hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5), ),
       labelStyle: const TextStyle(
       fontSize: 15,
       color: Palette.text,

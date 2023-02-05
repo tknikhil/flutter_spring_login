@@ -20,9 +20,9 @@ class DropDownBuilder extends StatefulWidget {
 }
 
 class DropDownBuilderState extends State<DropDownBuilder> {
-  late List<ItemName> items = [];
+   List<ItemName> items = [];
 
-  final cnt = SingleValueDropDownController();
+  final cnt = SingleValueDropDownController()!;
   FocusNode textFieldFocusNode = FocusNode();
 
   @override
@@ -89,8 +89,8 @@ class DropDownBuilderState extends State<DropDownBuilder> {
             ),
           );
         } else {
-          return FormAddItemTextField(
-              inputController: itemNameController, label: "Hi",);
+          return FormAddItemTextField.unEditable(
+              inputController: itemNameController, label: "Unable to find Item!", boolval: false,mxLine: 1,);
         }
       },
     );
