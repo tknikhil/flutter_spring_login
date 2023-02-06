@@ -8,7 +8,7 @@ import 'login_service.dart';
 
 class PersisItemService {
   Future saveItem(
-      String? itemName,
+      String itemName,
       double? weight,
       String? itemSize,
       int? qty,
@@ -28,7 +28,7 @@ class PersisItemService {
 
         headers: <String, String>{"Content-type":"application/json"},
         body: JsonReq().saveItem(
-            itemName!,
+            itemName,
             weight!,
             itemSize!,
             qty!,

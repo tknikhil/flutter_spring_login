@@ -21,7 +21,7 @@ class AddItem extends StatefulWidget {
    AddItem({ Key? key}) : super(key: key);
 
   @override
-  State<AddItem> createState() => _AddItemState();
+  State<AddItem> createState() => AddItemState();
 }
 
 
@@ -40,9 +40,9 @@ final remarkController = TextEditingController();
 final daysController = TextEditingController();
 final dueDateController = TextEditingController();
 
-class _AddItemState extends State<AddItem> {
+class AddItemState extends State<AddItem> {
    XFile? _image;
-
+   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Future<XFile?> getImage(bool isCamera) async{
     XFile? img;
     // final ImagePicker _picker = ImagePicker();
@@ -59,8 +59,8 @@ setState(() {
   _image=img;
 });
   }
-  GlobalKey<FormState> formKey = GlobalKey<FormState>()!;
-  var dropdownval=DropDownBuilderState()?.cnt.toString();
+
+  // var dropdownval=DropDownBuilderState(formKey).cnt.toString();
   Widget appBarTitle= const Text("Add Item");
   @override
   Widget build(BuildContext context) {
@@ -247,6 +247,7 @@ getImage(false);
                       heightSize: 45,
                       widthSize: 200,
                       onPressed: () {
+                        formKey.currentState!.validate();
                          saveItem(itemNameController.text,weightController.text,
                         sizeController.text,
                         quantityController.text,
@@ -262,7 +263,7 @@ getImage(false);
                          // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                          //   content: Text("Item Added!"),
                          // ));
-                        validate;
+
                       },
                     ),
                   ],
@@ -273,18 +274,19 @@ getImage(false);
     );
   }
 
-  void validate(){
-
-      if (formKey.currentState!.validate()) {
-        print("Ok");
-      } else {
-        print("Error");
-      }
-  }
+  // void validate(){
+  //
+  //     if (formKey.currentState!.validate()) {
+  //       print("Ok");
+  //     } else {
+  //       print("Error");
+  //     }
+  // }
 
   void saveItem( String itemName, String weight, String size, String qty, String meltper, String stamp, String hook, String design, String sizeSample, String refNo, String remark, String days, String duedate, BuildContext context) {
      // final itemName=DropDownValueModel(name: , value: value);
-      var isDataSave = PersisItemService()?.saveItem(DropDownBuilder?.itemname,
+    days='0';
+      var isDataSave = PersisItemService().saveItem(itemName,
           double.tryParse(weight),
           size, int.tryParse(qty),
           double.tryParse(meltper),
@@ -294,8 +296,8 @@ getImage(false);
           sizeSample,
           refNo,
           remark,
-          int?.parse(days));
-print('dropdown val=${DropDownBuilder.itemname} itemname=$itemName weight =$weight itemsize=$size qty=$qty meltper=$meltper stamp=$stamp  hook=$hook   design=$design   sizeSample=$sizeSample  refNo=$refNo   remark=$remark   days=$days  ');
+          int.tryParse(days)!);
+print('dropdown val=${itemName} itemname=$itemName weight =$weight itemsize=$size qty=$qty meltper=$meltper stamp=$stamp  hook=$hook   design=$design   sizeSample=$sizeSample  refNo=$refNo   remark=$remark   days=$days  ');
 print('$isDataSave save item result');
 // if(isDataSave=="success"){
 //         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -317,7 +319,7 @@ itemNameController.clear();
     remarkController.clear();
     daysController.clear();
     dueDateController.clear();
-DropDownBuilderState().clearVal=true;
+// DropDownBuilderState().clearVal=true;
     // if(isDataSave=="success"){
     //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
     //     content: Text("item Added... "),

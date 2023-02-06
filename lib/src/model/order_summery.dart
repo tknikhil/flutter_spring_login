@@ -1,6 +1,6 @@
 class OrderSummery{
   String? itemUnit;
-  String? itemName;
+  String itemName;
   double? weight;
   int? qty;
   String? itemSize;

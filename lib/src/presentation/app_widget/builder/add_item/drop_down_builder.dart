@@ -10,10 +10,11 @@ import '../../../presentation.dart';
 import '../../form_field/form_add_item_textfield.dart';
 
 class DropDownBuilder extends StatefulWidget {
-  const DropDownBuilder({
+  // GlobalKey<FormState>  formval;
+   DropDownBuilder({
     Key? key,
   }) : super(key: key);
-  static String? itemname;
+   var itemname;
 
 
   @override
@@ -21,11 +22,13 @@ class DropDownBuilder extends StatefulWidget {
 }
 
 class DropDownBuilderState extends State<DropDownBuilder> {
-   List<ItemName>? items = [];
+   List<ItemName> items = [];
    bool clearVal=false;
   // final cnt = SingleValueDropDownController();
    final cnt=SingleValueDropDownController()!;
   FocusNode? textFieldFocusNode = FocusNode();
+   // GlobalKey<FormState>  formval;
+  DropDownBuilderState();
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +37,9 @@ class DropDownBuilderState extends State<DropDownBuilder> {
         // context.read<ItemNameCubit>().loadItemService();
 
         if (state is ResponseItemNameState) {
-          items = state?.itemName;
+          items = state.itemName;
           final itemval = items
-              ?.map((e) => DropDownValueModel(name: e.label, value: e.value))
+              .map((e) => DropDownValueModel(name: e.label, value: e.value))
               .toList();
           print(cnt.toString());
           print('${items?[0].label.toString()}');
@@ -62,10 +65,10 @@ class DropDownBuilderState extends State<DropDownBuilder> {
                     borderRadius: BorderRadius.all(Radius.circular(9))),
               ),
 
-              controller: cnt!,
-              clearOption: clearVal,
+              controller: cnt,
               textFieldFocusNode: textFieldFocusNode,
-              // keyboardType: TextInputType.text,
+              clearOption: true,
+              keyboardType: TextInputType.text,
               enableSearch: true,
               // dropdownColor: Colors.green,
               searchDecoration:
@@ -73,10 +76,20 @@ class DropDownBuilderState extends State<DropDownBuilder> {
               dropdownColor: Color(0xffffbf1de),
               textStyle: TextStyle(color: Palette.text),
               dropDownItemCount: 6,
-
+validator: (value){
+                if(value==null||value.isEmpty){
+                  return "reqiured";
+                }else{
+                  return null ;
+                }
+},
               dropDownList: itemval!,
               onChanged: (val) {
-                DropDownBuilder?.itemname = val?.name;
+                setState(() {
+                  widget.itemname = val.name;
+                });
+
+               // formval.currentState!.validate();
                 print('$itemval========>changeValue');
                 print('$DropDownBuilder.itemname========>changeValue');
                 print('${val.name}========>changeValue');
@@ -104,4 +117,6 @@ class DropDownBuilderState extends State<DropDownBuilder> {
       cubit?.loadItemService().then((value) => items = value!);
     });
   }
+
+
 }
