@@ -55,7 +55,7 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
         // validator:widget.validation,
           validator: (value) {
             if (value!.isEmpty) {
-              return "${widget.label} required!";
+              return "${widget!.label} required!";
             }
             if(value=='INVALID'){
               return "wrong Melt %";

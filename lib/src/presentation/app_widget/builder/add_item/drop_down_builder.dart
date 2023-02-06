@@ -13,17 +13,18 @@ class DropDownBuilder extends StatefulWidget {
   const DropDownBuilder({
     Key? key,
   }) : super(key: key);
-  static var itemname;
+  static String? itemname;
 
   @override
   State<DropDownBuilder> createState() => DropDownBuilderState();
 }
 
 class DropDownBuilderState extends State<DropDownBuilder> {
-   List<ItemName> items = [];
+   List<ItemName>? items = [];
 
-  final cnt = SingleValueDropDownController()!;
-  FocusNode textFieldFocusNode = FocusNode();
+  // final cnt = SingleValueDropDownController();
+   late SingleValueDropDownController? cnt;
+  FocusNode? textFieldFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +33,12 @@ class DropDownBuilderState extends State<DropDownBuilder> {
         // context.read<ItemNameCubit>().loadItemService();
 
         if (state is ResponseItemNameState) {
-          items = state.itemName;
+          items = state?.itemName;
           final itemval = items
-              .map((e) => DropDownValueModel(name: e.label, value: e.value))
+              ?.map((e) => DropDownValueModel(name: e.label, value: e.value))
               .toList();
           print(cnt.toString());
-          print('${items[0].label.toString()}');
+          print('${items?[0].label.toString()}');
           return SizedBox(
             height: 40,
             child: DropDownTextField(
@@ -60,7 +61,7 @@ class DropDownBuilderState extends State<DropDownBuilder> {
                     borderRadius: BorderRadius.all(Radius.circular(9))),
               ),
 
-              controller: cnt,
+              controller: cnt!,
               clearOption: true,
               textFieldFocusNode: textFieldFocusNode,
               // keyboardType: TextInputType.text,
@@ -70,18 +71,11 @@ class DropDownBuilderState extends State<DropDownBuilder> {
                   const InputDecoration(hintText: "Search Item Name"),
               dropdownColor: Color(0xffffbf1de),
               textStyle: TextStyle(color: Palette.text),
-              validator: (value) {
-                if (value == null) {
-                  return "Required field";
-                } else {
-                  return null;
-                }
-              },
               dropDownItemCount: 6,
 
-              dropDownList: itemval,
+              dropDownList: itemval!,
               onChanged: (val) {
-                DropDownBuilder.itemname = val.name;
+                DropDownBuilder?.itemname = val?.name;
                 print('$itemval========>changeValue');
                 print('$DropDownBuilder.itemname========>changeValue');
                 print('${val.name}========>changeValue');
@@ -103,10 +97,10 @@ class DropDownBuilderState extends State<DropDownBuilder> {
       print('initState()');
     }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final cubit = context.read<ItemNameCubit>();
-      cubit.loadItemService();
+      final cubit = context?.read<ItemNameCubit>();
+      cubit?.loadItemService();
 
-      cubit.loadItemService().then((value) => items = value);
+      cubit?.loadItemService().then((value) => items = value!);
     });
   }
 }

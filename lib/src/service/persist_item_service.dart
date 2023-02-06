@@ -8,17 +8,17 @@ import 'login_service.dart';
 
 class PersisItemService {
   Future saveItem(
-      String itemName,
-      double weight,
-      String itemSize,
-      int qty,
-      double meltPer,
-      String stamp,
-      String hook,
-      String designSample,
-      String sizeSample,
-      String refNo,
-      String remark,
+      String? itemName,
+      double? weight,
+      String? itemSize,
+      int? qty,
+      double? meltPer,
+      String? stamp,
+      String? hook,
+      String? designSample,
+      String? sizeSample,
+      String? refNo,
+      String? remark,
       int days) async {
     print('itemname =$itemName , weight=$weight, itemSize=$itemSize, qty=$qty, meltPer=$meltPer, stamp=$stamp,  hook=$hook, designSample=$designSample, sizeSample=$sizeSample, refNo=$refNo, remark=$remark, days=$days ===========>saveItem() ');
     Object val;
@@ -28,17 +28,17 @@ class PersisItemService {
 
         headers: <String, String>{"Content-type":"application/json"},
         body: JsonReq().saveItem(
-            itemName,
-            weight,
-            itemSize,
-            qty,
-            meltPer,
-            stamp,
-            hook,
-            designSample,
-            sizeSample,
-            refNo,
-            remark,
+            itemName!,
+            weight!,
+            itemSize!,
+            qty!,
+            meltPer!,
+            stamp!,
+            hook!,
+            designSample!,
+            sizeSample!,
+            refNo!,
+            remark!,
             days));
 
         print('${response.body}======>response of add');

@@ -37,7 +37,7 @@ final dueDateController = TextEditingController();
 
 class _AddItemState extends State<AddItem> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>()!;
-  var dropdownval=DropDownBuilderState().cnt.toString()!;
+  var dropdownval=DropDownBuilderState()?.cnt.toString();
   Widget appBarTitle= const Text("Add Item");
   @override
   Widget build(BuildContext context) {
@@ -178,7 +178,7 @@ class _AddItemState extends State<AddItem> {
                       heightSize: 45,
                       widthSize: 200,
                       onPressed: () {
-                         saveItem(dropdownval!,itemNameController.text,weightController.text,
+                         saveItem(dropdownval,itemNameController.text,weightController.text,
                         sizeController.text,
                         quantityController.text,
                         meltController.text,
@@ -215,7 +215,7 @@ class _AddItemState extends State<AddItem> {
 
   void saveItem(String? dropdownval, String itemName, String weight, String size, String qty, String meltper, String stamp, String hook, String design, String sizeSample, String refNo, String remark, String days, String duedate, BuildContext context) {
      // final itemName=DropDownValueModel(name: , value: value);
-      var isDataSave = PersisItemService().saveItem(DropDownBuilder.itemname, double.parse(weight), size, int.parse(qty), double.parse(meltper), stamp, hook, design, sizeSample, refNo, remark, int.parse(days));
+      var isDataSave = PersisItemService()?.saveItem(DropDownBuilder?.itemname, double.parse(weight!), size, int.parse(qty), double.parse(meltper), stamp, hook, design, sizeSample, refNo, remark, int.parse(days));
 print('dropdown val=${DropDownBuilder.itemname} itemname=$itemName weight =$weight itemsize=$size qty=$qty meltper=$meltper stamp=$stamp  hook=$hook   design=$design   sizeSample=$sizeSample  refNo=$refNo   remark=$remark   days=$days  ');
       // if(isDataSave=="success"){
       //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
