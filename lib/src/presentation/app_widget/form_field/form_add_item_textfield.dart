@@ -7,6 +7,7 @@ class FormAddItemTextField extends StatefulWidget {
   var onChangeEvent;
   var boolval;
   var mxLine;
+  var textType;
   // var validation;
 
     // FormAddItemTextField.multiLine(
@@ -28,14 +29,16 @@ class FormAddItemTextField extends StatefulWidget {
          required this.inputController,
         required this.label,
       required this.onChangeEvent,
-      required this.mxLine})
+      required this.mxLine,
+      required this.textType})
       : super(key: key);
 
     FormAddItemTextField(
         {Key? key,
           required this.inputController,
           required this.label,
-        required this.mxLine})
+        required this.mxLine,
+        required this.textType})
         : super(key: key);
 
   @override
@@ -63,6 +66,7 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
             return null;
           },
         enabled: widget.boolval,
+        keyboardType: widget.textType,
  onChanged: widget.onChangeEvent,
         maxLines: widget.mxLine,
  //         onTap: widget.onChangeEvent,

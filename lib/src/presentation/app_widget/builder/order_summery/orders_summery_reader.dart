@@ -68,12 +68,12 @@ class _OrderSummeryReaderState extends State<OrderSummeryReader> {
                           DataRow(cells: [
                             DataCell(
                               Text(
-                               ' Customer Name ',
-                                style: const TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
+                               ' Customer Name: ${orderSummery.custName}',
+                                style: const TextStyle(fontSize: 17),
                               ),
                             ),
                              DataCell(Text(
-                              '  ${orderSummery.custName}',
+                              'Stamp : ${orderSummery.stamp}  ',
                               style: TextStyle(fontSize: 17,),
                             ))
                           ]),
@@ -142,7 +142,7 @@ class _OrderSummeryReaderState extends State<OrderSummeryReader> {
                           DataRow(cells: [
                               DataCell(
                                 Text(
-                                  'Workshop : ${orderSummery.workshop.toString()}',
+                                  'Workshop : ${(orderSummery.workshop=="null")?"Not Assigned":orderSummery.workshop.toString()}',
                                   style: const TextStyle(fontSize: 17),
                                 ),
                               ),
@@ -155,38 +155,6 @@ class _OrderSummeryReaderState extends State<OrderSummeryReader> {
                         ),
                       ),
                     ),
-
-                    // Text('Customer Name : ${orderSummery.custName}'
-                    //     '\nWeight : ${orderSummery.weight}  ${orderSummery.itemUnit}'
-                    //     '\nQuantity : ${orderSummery.qty}'
-                    //     '\nItem Size : ${orderSummery.itemSize.toString()}'
-                    //     '\nMelt % : ${orderSummery.meltPer.toString()}'
-                    //     '\nHook : ${orderSummery.hook.toString()}'
-                    //     '\nRef. Code : ${orderSummery.refNo.toString()}'
-                    //     '\nDesign Sample : ${orderSummery.designSample.toString()}'
-                    //     '\nSize Sample : ${orderSummery.sizeSample.toString()}'
-                    //     '\nProcessing Days : ${orderSummery.days.toString()}'
-                    //     '\nDue Date : ${orderSummery.dueDate.toString()}'
-                    //     '\nWorkshop : ${orderSummery.workshop.toString()}'
-                    //     '\nStatus : ${orderSummery.status.toString()}'
-                    //     '\nOrder Date : ${orderSummery.orderDate.toString()}'
-                    //     '\nOrder Type : ${orderSummery.type.toString()}'
-                    //   ,style: TextStyle(fontSize: 20,color: Colors.brown,),),
-
-                    // Text('Weight : ${orderSummery.weight}  ${orderSummery.itemUnit}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Quantity : ${orderSummery.qty}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Item Size : ${orderSummery.itemSize.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Melt % : ${orderSummery.meltPer.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Hook : ${orderSummery.hook.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Ref. Code : ${orderSummery.refNo.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Design Sample : ${orderSummery.designSample.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Size Sample : ${orderSummery.sizeSample.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Processing Days : ${orderSummery.days.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Due Date : ${orderSummery.dueDate.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Workshop : ${orderSummery.workshop.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Status : ${orderSummery.status.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Order Date : ${orderSummery.orderDate.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
-                    // Text('Order Type : ${orderSummery.type.toString()}',style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold,color: Colors.brown),),
                   ],
                 ),
               ),

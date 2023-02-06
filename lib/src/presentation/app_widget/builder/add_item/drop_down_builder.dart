@@ -15,15 +15,16 @@ class DropDownBuilder extends StatefulWidget {
   }) : super(key: key);
   static String? itemname;
 
+
   @override
   State<DropDownBuilder> createState() => DropDownBuilderState();
 }
 
 class DropDownBuilderState extends State<DropDownBuilder> {
    List<ItemName>? items = [];
-
+   bool clearVal=false;
   // final cnt = SingleValueDropDownController();
-   late SingleValueDropDownController? cnt;
+   final cnt=SingleValueDropDownController()!;
   FocusNode? textFieldFocusNode = FocusNode();
 
   @override
@@ -62,7 +63,7 @@ class DropDownBuilderState extends State<DropDownBuilder> {
               ),
 
               controller: cnt!,
-              clearOption: true,
+              clearOption: clearVal,
               textFieldFocusNode: textFieldFocusNode,
               // keyboardType: TextInputType.text,
               enableSearch: true,

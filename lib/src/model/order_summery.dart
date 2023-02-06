@@ -10,6 +10,7 @@ class OrderSummery{
   String? designSample;
   String? sizeSample;
   int? days;
+  String? stamp;
   String? dueDate;
   String? workshop;
   String? status;
@@ -35,12 +36,14 @@ class OrderSummery{
       this.status,
       this.orderDate,
       this.custName,
-      this.type);
+      this.type,
+      this.stamp);
 
   OrderSummery.fromJson(Map<String,dynamic> json):itemUnit=json['itemUnit']
   ,itemName=json['itemName']
   ,weight=json['weight']
   ,qty=json['qty']
+  ,stamp=json['stamp']
   ,itemSize=json['itemSize']
   ,meltPer=json['meltPer']
   ,hook=json['hook']
@@ -48,10 +51,10 @@ class OrderSummery{
   ,designSample=json['designSample']
   ,sizeSample=json['sizeSample']
   ,days=json['days']
-  ,dueDate=json['dueDate']
-  ,workshop=json['workshop']
+  ,dueDate=json['formatedDueDate']
+  ,workshop=json['wrkshpCode']
   ,status=json['status']
-  ,orderDate=json['orderDate']
+  ,orderDate=json['formatedOrdrDate']
   ,custName=json['custName']
   ,type=json['type'];
 
