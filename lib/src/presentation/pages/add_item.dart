@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dropdown_textfield/dropdown_textfield.dart';
@@ -42,25 +43,30 @@ final dueDateController = TextEditingController();
 
 class AddItemState extends State<AddItem> {
    static List<XFile>? _image=[];
-   var imgItmSize=_image?.length;
 
    GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Future<XFile?> getImage(bool isCamera) async{
-    XFile? img;
-    // final ImagePicker _picker = ImagePicker();
+    // if(_image!.length<=5) {
+      XFile? img;
+      // final ImagePicker _picker = ImagePicker();
 
-    if (isCamera) {
-      img =(await ImagePicker().pickImage(source: ImageSource.camera)) as XFile? ;
-    }else{
-      img =(await ImagePicker().pickImage(source: ImageSource.gallery)) as XFile? ;
-    }
-    if (img != null) {
-      File imageFile = File(img.path);
-    }
+      if (isCamera) {
+        img = (await ImagePicker().pickImage(source: ImageSource.camera))
+            as XFile?;
+      } else {
+        img = (await ImagePicker().pickImage(source: ImageSource.gallery))
+            as XFile?;
+      }
+    // }
+    // if (img != null) {
+    //   File imageFile = File(img.path);
+    // }
+    // AddItemState._image?.add(img!);
 setState(() {
   // _image![imgItmSize!]=img!;
 
   AddItemState._image?.add(img!);
+
   print('${AddItemState._image![0].path}=======>image Path');
   Image.file(File(AddItemState._image![0].path) ,);
 });
@@ -88,7 +94,7 @@ setState(() {
                 child: Column(
                   children: [
                     const SizedBox(height: 20),
-                    
+
                     BlocProvider(
   create: (context) => ItemNameCubit(AddItemService()),
   child: DropDownBuilder(),
@@ -205,11 +211,11 @@ setState(() {
                     Row(children: [
                       SizedBox(
                           width: MediaQuery.of(context).size.width / 5,
-                          child: IconButton(icon: Icon(Icons.camera_alt_outlined,
+                          child:IconButton(icon: Icon(Icons.camera_alt_outlined,
                             color:Palette.text),
                               splashColor: Color(0xfffd4af37),
                               onPressed: (){
-                          getImage(true);
+                         _image!.length<2?getImage(true):null;
                               },)),
                       const SizedBox(width: 5),
                       SizedBox(
@@ -220,13 +226,12 @@ setState(() {
                             splashColor: Color(0xfffd4af37),
 
                             onPressed: (){
-getImage(false);
+                              _image!.length<2?getImage(false):print(_image!.length);
                             },)),
                     ]),
                     const SizedBox(height: 10),
                     Row(children: [
-                     if (_image==null) Container(
-                     ) else Expanded(
+                   Expanded(
                        child: Align(
                          alignment: Alignment.centerLeft,
                          child: Container(
@@ -236,7 +241,7 @@ getImage(false);
                              height: 44.0,
                              child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                 itemCount: imgItmSize,
+                                 itemCount: _image!.length,
                                  itemBuilder: (context,index) => Card(
                                    semanticContainer: true,
                                    clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -249,7 +254,7 @@ getImage(false);
                                                     File(AddItemState._image![index].path),
                                                     fit: BoxFit.fill,
                                                   ),
-                                    
+
                                     // Row (
                                     //     children:List.generate
                                     //       (index,
@@ -279,7 +284,8 @@ getImage(false);
                       heightSize: 45,
                       widthSize: 200,
                       onPressed: () {
-                        formKey.currentState!.validate();
+                         formKey.currentState!.validate();
+                        // imgToBase64(_image);
                          saveItem(itemNameController.text,weightController.text,
                         sizeController.text,
                         quantityController.text,
@@ -325,7 +331,7 @@ getImage(false);
           double.tryParse(meltper),
           stamp,
           hook,
-          design,
+          imgToBase64(_image),
           sizeSample,
           refNo,
           remark,
@@ -352,12 +358,17 @@ itemNameController.clear();
     remarkController.clear();
     daysController.clear();
     dueDateController.clear();
-// DropDownBuilderState().clearVal=true;
-    // if(isDataSave=="success"){
-    //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-    //     content: Text("item Added... "),
-    //   ));
-    // }
+
+    setState(() {
+      _image!.clear();
+    });
+
+
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("item Added... "),
+      ));
+
 
   }
 
@@ -380,6 +391,24 @@ itemNameController.clear();
       print('$dueDate=========>getDueDate');
        dueDate.then((value) => dueDateController.text = value);
     }// stampController.text();
+  }
+
+  List<String> imgToBase64(List<XFile>? image) {
+    // image
+    List<String> listBase64Img=[];
+    // image?.forEach((element) {
+    //   element.readAsBytes().then(
+    //   (value) => listBase64Img.add(base64Encode(value))
+    // );});
+    image?.map((e) => File(e.path)).forEach(
+            (element) {listBase64Img.add(base64Encode(element.readAsBytesSync()));
+            });
+    return listBase64Img;
+    print(listBase64Img.length);
+    print('${listBase64Img}=========>imgBS64');
+    print('${listBase64Img[0]}=========>imgBS64-0');
+    print('${listBase64Img[1]}=========>imgBS64-1');
+
   }
 
   // void saveItem(String dropdownval, String text, TextEditingController weightController, TextEditingController sizeController, TextEditingController quantityController, TextEditingController meltController, TextEditingController stampController, TextEditingController hookController, TextEditingController designController, TextEditingController sizeSmplController, TextEditingController refNoController, TextEditingController remarkController, TextEditingController daysController, TextEditingController dueDateController, BuildContext context) {

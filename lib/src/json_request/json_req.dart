@@ -17,7 +17,7 @@ class JsonReq {
       double meltPer,
       String stamp,
       String hook,
-      String designSample,
+      List<String> designSample,
       String sizeSample,
       String refNo,
       String remark,
