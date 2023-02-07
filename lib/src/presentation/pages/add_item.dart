@@ -41,7 +41,9 @@ final daysController = TextEditingController();
 final dueDateController = TextEditingController();
 
 class AddItemState extends State<AddItem> {
-   XFile? _image;
+   static List<XFile>? _image=[];
+   var imgItmSize=_image?.length;
+
    GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Future<XFile?> getImage(bool isCamera) async{
     XFile? img;
@@ -56,7 +58,11 @@ class AddItemState extends State<AddItem> {
       File imageFile = File(img.path);
     }
 setState(() {
-  _image=img;
+  // _image![imgItmSize!]=img!;
+
+  AddItemState._image?.add(img!);
+  print('${AddItemState._image![0].path}=======>image Path');
+  Image.file(File(AddItemState._image![0].path) ,);
 });
   }
 
@@ -219,20 +225,46 @@ getImage(false);
                     ]),
                     const SizedBox(height: 10),
                     Row(children: [
-                     _image==null?Container(
-                     ):Expanded(
-                       child: SizedBox(
-                         height: MediaQuery.of(context).size.height/7,
-                         width: MediaQuery.of(context).size.width/15,
-                         child: Card(
-                           semanticContainer: true,
-                           clipBehavior: Clip.antiAliasWithSaveLayer,
-                           child: Image.file(File(_image!.path), fit: BoxFit.fitWidth,),
-                           shape: RoundedRectangleBorder(
-                             borderRadius: BorderRadius.circular(10.0),
+                     if (_image==null) Container(
+                     ) else Expanded(
+                       child: Align(
+                         alignment: Alignment.centerLeft,
+                         child: Container(
+                           height: 150.0,
+                           width: MediaQuery.of(context).size.width,
+                           child:  Container(
+                             height: 44.0,
+                             child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                 itemCount: imgItmSize,
+                                 itemBuilder: (context,index) => Card(
+                                   semanticContainer: true,
+                                   clipBehavior: Clip.antiAliasWithSaveLayer,
+                                   shape: RoundedRectangleBorder(
+                                     borderRadius: BorderRadius.circular(10.0),
+                                   ),
+                                   elevation: 5,
+                                   margin: EdgeInsets.all(10.0),
+                                    child:Image.file(
+                                                    File(AddItemState._image![index].path),
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                    
+                                    // Row (
+                                    //     children:List.generate
+                                    //       (index,
+                                    //             (i)=>Image.file(
+                                    //               File(AddItemState._image![index].path),
+                                    //               fit: BoxFit.fill,
+                                    //             )
+                                    //     )
+                                    // )
+
+                                   // child: Image.file(File(AddItemState._image![index].path), fit: BoxFit.fill,),
+                                 ),
+                               ),
                            ),
-                           elevation: 5,
-                           margin: EdgeInsets.all(10),
+
                          ),
                        ),
                      ),
@@ -285,6 +317,7 @@ getImage(false);
 
   void saveItem( String itemName, String weight, String size, String qty, String meltper, String stamp, String hook, String design, String sizeSample, String refNo, String remark, String days, String duedate, BuildContext context) {
      // final itemName=DropDownValueModel(name: , value: value);
+    print('${Image.file(File(AddItemState._image![0].path))}======>image Path');
     days='0';
       var isDataSave = PersisItemService().saveItem(itemName,
           double.tryParse(weight),
