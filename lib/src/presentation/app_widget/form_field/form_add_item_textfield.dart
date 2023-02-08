@@ -51,14 +51,14 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      // height: 40,
       child: TextFormField(
            controller: widget.inputController,
           cursorHeight: 20,
         // validator:widget.validation,
           validator: (value) {
             if (value!.isEmpty) {
-              return "${widget!.label} required!";
+              return "required!";
             }
             if(value=='INVALID'){
               return "wrong Melt %";
@@ -76,6 +76,7 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
       color: Palette.text,
       ),
       decoration: InputDecoration(
+
       labelText:widget.label,
       hintText: "${widget.label} ",
       hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5), ),

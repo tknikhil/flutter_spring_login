@@ -44,7 +44,7 @@ class DropDownBuilderState extends State<DropDownBuilder> {
           print(cnt.toString());
           print('${items?[0].label.toString()}');
           return SizedBox(
-            height: 40,
+            // height: 40,
             child: DropDownTextField(
               // initialValue: "name4",
               textFieldDecoration: const InputDecoration(
@@ -57,7 +57,7 @@ class DropDownBuilderState extends State<DropDownBuilder> {
                     const TextStyle(color: Color.fromRGBO(105, 105, 105, 0.5)),
                 enabledBorder: OutlineInputBorder(
                     //<-- SEE HERE
-                    // borderSide: BorderSide(color: Palette.gold),
+                     borderSide: BorderSide(color: Palette.gold),
                     borderRadius: BorderRadius.all(Radius.circular(9))),
                 focusedBorder: OutlineInputBorder(
                     //<-- SEE HERE

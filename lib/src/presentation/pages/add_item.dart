@@ -209,25 +209,48 @@ setState(() {
                             label: 'Remark', mxLine: 5,textType: TextInputType.text, )),
                     const SizedBox(height: 10),
                     Row(children: [
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width / 5,
-                          child:IconButton(icon: Icon(Icons.camera_alt_outlined,
-                            color:Palette.text),
-                              splashColor: Color(0xfffd4af37),
-                              onPressed: (){
-                         _image!.length<2?getImage(true):null;
-                              },)),
-                      const SizedBox(width: 5),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width / 5,
-                          child: IconButton(icon: Icon(Icons.image_outlined,
-                              color:Palette.text,
-                              ),
-                            splashColor: Color(0xfffd4af37),
+                      Column(
+                        children:[Text("Take Design Sample :",style: const TextStyle(
+                          fontSize: 15,
+                          color: Palette.text,
+                        ),),]),
+                      const SizedBox(width: 20),
+                      Column(
+                        children: [
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 5,
+                              child:IconButton(icon: Icon(Icons.camera_alt_outlined,
+                                  color:Palette.text),
+                                splashColor: Color(0xfffd4af37),
+                                onPressed: (){
+                                  _image!.length<2?getImage(true):null;
+                                },)),
+                          Text("Camera",style: const TextStyle(
+                            fontSize: 15,
+                            color: Palette.text,
+                          ),)
+                        ],
+                      ),
+                      const SizedBox(width: 20),
+                      Column(
+                        children: [
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 5,
+                              child: IconButton(icon: Icon(Icons.image_outlined, color:Palette.text,),
+                                splashColor: Color(0xfffd4af37),
+                                onPressed: (){
+                                  _image!.length<2?getImage(false):print(_image!.length);
+                                },)),
+                          Text("Gallery",style: const TextStyle(
+                            fontSize: 15,
+                            color: Palette.text,
+                          ),)
+                        ],
+                      ),
 
-                            onPressed: (){
-                              _image!.length<2?getImage(false):print(_image!.length);
-                            },)),
+
+
+
                     ]),
                     const SizedBox(height: 10),
                     Row(children: [
