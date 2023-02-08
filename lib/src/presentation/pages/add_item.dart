@@ -203,7 +203,7 @@ setState(() {
                     const SizedBox(height: 10),
                     SizedBox(
                         width: MediaQuery.of(context).size.width ,
-                        height: 80,
+                        height: 100,
                         child: FormAddItemTextField(
                             inputController: remarkController,
                             label: 'Remark', mxLine: 5,textType: TextInputType.text, )),
@@ -307,20 +307,22 @@ setState(() {
                       heightSize: 45,
                       widthSize: 200,
                       onPressed: () {
-                         formKey.currentState!.validate();
+                         if(formKey.currentState!.validate()){
+                           saveItem(itemNameController.text,weightController.text,
+                               sizeController.text,
+                               quantityController.text,
+                               meltController.text,
+                               stampController.text,
+                               hookController.text,
+                               designController.text,
+                               sizeSmplController.text,
+                               refNoController.text,
+                               remarkController.text,
+                               daysController.text,
+                               dueDateController.text,context);
+                         }
                         // imgToBase64(_image);
-                         saveItem(itemNameController.text,weightController.text,
-                        sizeController.text,
-                        quantityController.text,
-                        meltController.text,
-                        stampController.text,
-                        hookController.text,
-                        designController.text,
-                        sizeSmplController.text,
-                            refNoController.text,
-                            remarkController.text,
-                            daysController.text,
-                            dueDateController.text,context);
+
                          // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                          //   content: Text("Item Added!"),
                          // ));

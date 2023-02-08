@@ -14,6 +14,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   var orderSummeryService=OrderSummeryService();
   var addItemService=AddItemService();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,

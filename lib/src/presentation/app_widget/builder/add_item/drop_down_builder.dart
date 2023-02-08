@@ -47,14 +47,20 @@ class DropDownBuilderState extends State<DropDownBuilder> {
             // height: 40,
             child: DropDownTextField(
               // initialValue: "name4",
-              textFieldDecoration: const InputDecoration(
+              textFieldDecoration:  const InputDecoration(
+                errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                    borderRadius: BorderRadius.all(Radius.circular(9))),
+                focusedErrorBorder:  OutlineInputBorder(
+                    borderSide: BorderSide(color:Colors.red),
+                    borderRadius: BorderRadius.all(Radius.circular(9))),
                 label: Text("Select Item"),
-                labelStyle: const TextStyle(
+                labelStyle: TextStyle(
                   fontSize: 15,
                   color: Palette.text,
                 ),
                 hintStyle:
-                    const TextStyle(color: Color.fromRGBO(105, 105, 105, 0.5)),
+                    TextStyle(color: Color.fromRGBO(105, 105, 105, 0.5)),
                 enabledBorder: OutlineInputBorder(
                     //<-- SEE HERE
                      borderSide: BorderSide(color: Palette.gold),
@@ -74,15 +80,10 @@ class DropDownBuilderState extends State<DropDownBuilder> {
               searchDecoration:
                   const InputDecoration(hintText: "Search Item Name"),
               dropdownColor: Color(0xffffbf1de),
-              textStyle: TextStyle(color: Palette.text),
+              textStyle: const TextStyle(color: Palette.text),
               dropDownItemCount: 6,
-validator: (value){
-                if(value==null||value.isEmpty){
-                  return "reqiured";
-                }else{
-                  return null ;
-                }
-},
+validator: (value)=> value==null||value.isEmpty?'required':null,
+
               dropDownList: itemval!,
               onChanged: (val) {
                 setState(() {
