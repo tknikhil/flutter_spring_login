@@ -22,6 +22,25 @@ class JsonReq {
       String refNo,
       String remark,
       int days) {
+    print({
+      "data": {
+        "ordersDtls":
+        {
+          "itemName": itemName,
+          "weight": weight,
+          "qty": qty,
+          "itemSize": itemSize,
+          "meltPer": meltPer,
+          "stamp": stamp,
+          "hook": hook,
+          "remark": remark,
+          "refNo": refNo,
+          "designSample": designSample,
+          "sizeSample": sizeSample,
+          "days": days
+        }
+      }
+    });
     return json.encode({
       "data": {
         "ordersDtls":
@@ -41,5 +60,6 @@ class JsonReq {
           }
       }
     });
+
   }
 }

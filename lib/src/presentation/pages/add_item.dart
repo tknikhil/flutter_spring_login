@@ -77,261 +77,270 @@ setState(() {
   @override
   Widget build(BuildContext context) {
     late List<ItemName> items=[];
-    return Scaffold(
-      backgroundColor: const Color(0xffffbf1de),
+    return WillPopScope(
+      onWillPop: ()async{
+       final val=await  showDialog<bool>(context: context, builder: (context){
+         return AlertDialog(
+           title: const Text("Alert"),
+           content: const Text('Do you want to exit?'),
+           actions: [
+             ElevatedButton(onPressed: ()=>Navigator.of(context).pop(true), child: Text('Yes')),
+             ElevatedButton(onPressed: ()=>Navigator.of(context).pop(false), child: Text('No')),
+           ],
+         );
+        });
+       if(val!=null){
+         return Future.value(val);
+       }else{
+         return Future.value(false);
+       }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xffffbf1de),
 
-      appBar:  AppBar(
-        title: Center(child: appBarTitle),
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xfffd4af37),
-      ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: ListView(
-          children: [
-            Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
+        appBar:  AppBar(
+          title: Center(child: appBarTitle),
+          automaticallyImplyLeading: false,
+          backgroundColor: const Color(0xfffd4af37),
+        ),
+        body: Container(
+          padding: EdgeInsets.all(20),
+          child: ListView(
+            children: [
+              Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
 
-                    BlocProvider(
+                      BlocProvider(
   create: (context) => ItemNameCubit(AddItemService()),
   child: DropDownBuilder(),
 ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width / 4,
-                            child: FormAddItemTextField(
-                                inputController: weightController,
-                                label: 'Weight', mxLine: 1, textType: TextInputType.number,)),
-                        const SizedBox(width: 25),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width / 4,
-                            child: FormAddItemTextField(
-                                inputController: sizeController,
-                                label: 'Size',
-                            mxLine: 1, textType: TextInputType.text,)),
-                        const SizedBox(width: 25),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width / 4,
-                            child: FormAddItemTextField(
-                                inputController: quantityController,
-                                label: 'Quantity',
-                              textType: TextInputType.number,
-                            mxLine: 1,)),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width / 4,
-                            child: FormAddItemTextField.withChangeEvent(
-                                inputController: meltController,
-                                label: 'Melt %',
-                              textType: TextInputType.number,
-                                onChangeEvent:getStamp, mxLine: 1,)
-                        ),
-                        const SizedBox(width: 25),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width / 4,
-                            child: FormAddItemTextField(
-                                inputController: stampController,
-                                label: 'Stamp',
-                              textType: TextInputType.text,
-                            mxLine: 1,
-                           )),
-                        const SizedBox(width: 25),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width / 4,
-                            child: FormAddItemTextField(
-                                inputController: hookController,
-                                label: 'Hook',
-                              textType: TextInputType.text,
-                            mxLine: 1,)),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(children: [
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.4,
-                          child: FormAddItemTextField(
-                              inputController: designController,
-                              label: 'Design Sample',mxLine: 1,textType: TextInputType.text,)),
-                      const SizedBox(width: 20),
-                      SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.4,
-                          child: FormAddItemTextField(
-                              inputController: sizeSmplController,
-                              label: 'Size Sample',mxLine: 1,textType: TextInputType.text,)),
-                    ]),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 4,
                               child: FormAddItemTextField(
-                                  inputController: refNoController,
-                                  label: 'Customer Refno',textType: TextInputType.text,mxLine: 1,)),
+                                  inputController: weightController,
+                                  label: 'Weight', mxLine: 1, textType: TextInputType.number, )),
+                          const SizedBox(width: 25),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 4,
+                              child: FormAddItemTextField(
+                                  inputController: sizeController,
+                                  label: 'Size',
+                              mxLine: 1, textType: TextInputType.text,)),
+                          const SizedBox(width: 25),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 4,
+                              child: FormAddItemTextField(
+                                  inputController: quantityController,
+                                  label: 'Quantity',
+                                textType: TextInputType.number,
+                              mxLine: 1,)),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 4,
+                              child: FormAddItemTextField.withChangeEvent(
+                                  inputController: meltController,
+                                  label: 'Melt %',
+                                textType: TextInputType.number,
+                                  onChangeEvent:getStamp, mxLine: 1,)
+                          ),
+                          const SizedBox(width: 25),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 4,
+                              child: FormAddItemTextField(
+                                  inputController: stampController,
+                                  label: 'Stamp',
+                                textType: TextInputType.text,
+                              mxLine: 1,
+                             )),
+                          const SizedBox(width: 25),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 4,
+                              child: FormAddItemTextField(
+                                  inputController: hookController,
+                                  label: 'Hook',
+                                textType: TextInputType.text,
+                              mxLine: 1,)),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(children: [
+                      //   SizedBox(
+                      //       width: MediaQuery.of(context).size.width / 2.4,
+                      //       // child: FormAddItemTextField(
+                      //       //     inputController: designController,
+                      //       //     label: 'Design Sample',mxLine: 1,textType: TextInputType.text,)),
+                      //   // const SizedBox(width: 20),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width / 2.4,
+                            child: FormAddItemTextField(
+                                inputController: sizeSmplController,
+                                label: 'Size Sample',mxLine: 1,textType: TextInputType.text,)),
+                      ]),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: FormAddItemTextField(
+                                    inputController: refNoController,
+                                    label: 'Customer Refno',textType: TextInputType.text,mxLine: 1,)),
+                          ),
+
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 2.4,
+                              child: FormAddItemTextField.withChangeEvent(
+                                  inputController: daysController,
+                                  label: 'Days',
+                              onChangeEvent: getDueDate,textType: TextInputType.number, mxLine: 1,)),
+                          const SizedBox(width: 20),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 2.4,
+                              child: FormAddItemTextField.unEditable(
+                                  inputController: dueDateController,
+                                  label: 'Due Date',
+                              mxLine: 1,
+                              boolval: false,)),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width ,
+                          height: 100,
+                          child: FormAddItemTextField(
+                              inputController: remarkController,
+                              label: 'Remark', mxLine: 5,textType: TextInputType.text, )),
+                      const SizedBox(height: 10),
+                      Row(children: [
+                        Column(
+                          children:[Text("Take Design Sample :",style: const TextStyle(
+                            fontSize: 15,
+                            color: Palette.text,
+                          ),),]),
+                        const SizedBox(width: 20),
+                        Column(
+                          children: [
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width / 5,
+                                child:IconButton(icon: Icon(Icons.camera_alt_outlined,
+                                    color:Palette.text),
+                                  splashColor: Color(0xfffd4af37),
+                                  onPressed: (){
+                                    _image!.length<2?getImage(true):null;
+                                  },)),
+                            Text("Camera",style: const TextStyle(
+                              fontSize: 15,
+                              color: Palette.text,
+                            ),)
+                          ],
+                        ),
+                        const SizedBox(width: 20),
+                        Column(
+                          children: [
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width / 5,
+                                child: IconButton(icon: Icon(Icons.image_outlined, color:Palette.text,),
+                                  splashColor: Color(0xfffd4af37),
+                                  onPressed: (){
+                                    _image!.length<2?getImage(false):print(_image!.length);
+                                  },)),
+                            Text("Gallery",style: const TextStyle(
+                              fontSize: 15,
+                              color: Palette.text,
+                            ),)
+                          ],
                         ),
 
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.4,
-                            child: FormAddItemTextField.withChangeEvent(
-                                inputController: daysController,
-                                label: 'Days',
-                            onChangeEvent: getDueDate,textType: TextInputType.number, mxLine: 1,)),
-                        const SizedBox(width: 20),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.4,
-                            child: FormAddItemTextField.unEditable(
-                                inputController: dueDateController,
-                                label: 'Due Date',
-                            mxLine: 1,
-                            boolval: false,)),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                        width: MediaQuery.of(context).size.width ,
-                        height: 100,
-                        child: FormAddItemTextField(
-                            inputController: remarkController,
-                            label: 'Remark', mxLine: 5,textType: TextInputType.text, )),
-                    const SizedBox(height: 10),
-                    Row(children: [
-                      Column(
-                        children:[Text("Take Design Sample :",style: const TextStyle(
-                          fontSize: 15,
-                          color: Palette.text,
-                        ),),]),
-                      const SizedBox(width: 20),
-                      Column(
-                        children: [
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width / 5,
-                              child:IconButton(icon: Icon(Icons.camera_alt_outlined,
-                                  color:Palette.text),
-                                splashColor: Color(0xfffd4af37),
-                                onPressed: (){
-                                  _image!.length<2?getImage(true):null;
-                                },)),
-                          Text("Camera",style: const TextStyle(
-                            fontSize: 15,
-                            color: Palette.text,
-                          ),)
-                        ],
-                      ),
-                      const SizedBox(width: 20),
-                      Column(
-                        children: [
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width / 5,
-                              child: IconButton(icon: Icon(Icons.image_outlined, color:Palette.text,),
-                                splashColor: Color(0xfffd4af37),
-                                onPressed: (){
-                                  _image!.length<2?getImage(false):print(_image!.length);
-                                },)),
-                          Text("Gallery",style: const TextStyle(
-                            fontSize: 15,
-                            color: Palette.text,
-                          ),)
-                        ],
-                      ),
 
 
 
+                      ]),
+                      const SizedBox(height: 10),
+                      Row(children: [
+                     Expanded(
+                         child: Align(
+                           alignment: Alignment.centerLeft,
+                           child: Container(
+                             height: 150.0,
+                             width: MediaQuery.of(context).size.width,
+                               child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                   itemCount: _image!.length,
+                                   itemBuilder: (context,index) => InkWell(
 
-                    ]),
-                    const SizedBox(height: 10),
-                    Row(children: [
-                   Expanded(
-                       child: Align(
-                         alignment: Alignment.centerLeft,
-                         child: Container(
-                           height: 150.0,
-                           width: MediaQuery.of(context).size.width,
-                           child:  Container(
-                             height: 44.0,
-                             child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                 itemCount: _image!.length,
-                                 itemBuilder: (context,index) => Card(
-                                   semanticContainer: true,
-                                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                                   shape: RoundedRectangleBorder(
-                                     borderRadius: BorderRadius.circular(10.0),
+                                     child: Card(
+                                       semanticContainer: true,
+                                       clipBehavior: Clip.antiAliasWithSaveLayer,
+                                       shape: RoundedRectangleBorder(
+                                         borderRadius: BorderRadius.circular(10.0),
+                                       ),
+                                       elevation: 5,
+                                       margin: EdgeInsets.all(10.0),
+                                        child:Image.file(
+                                                        File(AddItemState._image![index].path),
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                     ),
+                                     onTap: () => WidgetsBinding.instance.addPostFrameCallback((timeStamp) { showImages(context,_image![index]);})
                                    ),
-                                   elevation: 5,
-                                   margin: EdgeInsets.all(10.0),
-                                    child:Image.file(
-                                                    File(AddItemState._image![index].path),
-                                                    fit: BoxFit.fill,
-                                                  ),
-
-                                    // Row (
-                                    //     children:List.generate
-                                    //       (index,
-                                    //             (i)=>Image.file(
-                                    //               File(AddItemState._image![index].path),
-                                    //               fit: BoxFit.fill,
-                                    //             )
-                                    //     )
-                                    // )
-
-                                   // child: Image.file(File(AddItemState._image![index].path), fit: BoxFit.fill,),
                                  ),
-                               ),
-                           ),
 
+
+                           ),
                          ),
                        ),
-                     ),
-                    ]),
-                    const SizedBox(height:25),
-                    FormButton(
-                      buttonIcon: Icons.add_shopping_cart,
-                      textcolor: Colors.white,
-                      backgroundColor: Colors.brown,
-                      borderColor: Colors.brown,
-                      text: "Add Item",
-                      heightSize: 45,
-                      widthSize: 200,
-                      onPressed: () {
-                         if(formKey.currentState!.validate()){
-                           saveItem(itemNameController.text,weightController.text,
-                               sizeController.text,
-                               quantityController.text,
-                               meltController.text,
-                               stampController.text,
-                               hookController.text,
-                               designController.text,
-                               sizeSmplController.text,
-                               refNoController.text,
-                               remarkController.text,
-                               daysController.text,
-                               dueDateController.text,context);
-                         }
-                        // imgToBase64(_image);
+                      ]),
+                      const SizedBox(height:25),
+                      FormButton(
+                        buttonIcon: Icons.add_shopping_cart,
+                        textcolor: Colors.white,
+                        backgroundColor: Colors.brown,
+                        borderColor: Colors.brown,
+                        text: "Add Item",
+                        heightSize: 45,
+                        widthSize: 200,
+                        onPressed: () {
+                          formKey.currentState!.validate();
+                             saveItem(itemNameController.text,weightController.text,
+                                 sizeController.text,
+                                 quantityController.text,
+                                 meltController.text,
+                                 stampController.text,
+                                 hookController.text,
+                                 designController.text,
+                                 sizeSmplController.text,
+                                 refNoController.text,
+                                 remarkController.text,
+                                 daysController.text,
+                                 dueDateController.text,context);
+                           }
+                          // imgToBase64(_image);
 
-                         // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                         //   content: Text("Item Added!"),
-                         // ));
+                           // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                           //   content: Text("Item Added!"),
+                           // ));
 
-                      },
-                    ),
-                  ],
-                )),
-          ],
+
+                      ),
+                    ],
+                  )),
+            ],
+          ),
         ),
       ),
     );
@@ -434,6 +443,32 @@ itemNameController.clear();
     print('${listBase64Img[0]}=========>imgBS64-0');
     print('${listBase64Img[1]}=========>imgBS64-1');
 
+  }
+
+  showImages(BuildContext context, XFile? images) {
+    print("======image=====");
+return showDialog(context: context, builder: (context){
+  return Center(
+    child: Material(
+      type: MaterialType.transparency,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white70
+        ),
+        padding: EdgeInsets.all(15),
+        width: MediaQuery.of(context).size.width*0.8,
+        height: 350,
+child: Column(
+  crossAxisAlignment: CrossAxisAlignment.center,
+  children: [
+    Image.file(File(images!.path))
+  ],
+),
+      ),
+    ),
+  );
+});
   }
 
   // void saveItem(String dropdownval, String text, TextEditingController weightController, TextEditingController sizeController, TextEditingController quantityController, TextEditingController meltController, TextEditingController stampController, TextEditingController hookController, TextEditingController designController, TextEditingController sizeSmplController, TextEditingController refNoController, TextEditingController remarkController, TextEditingController daysController, TextEditingController dueDateController, BuildContext context) {

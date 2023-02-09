@@ -47,9 +47,10 @@ class DropDownBuilderState extends State<DropDownBuilder> {
             // height: 40,
             child: DropDownTextField(
               // initialValue: "name4",
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               textFieldDecoration:  const InputDecoration(
                 errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.red),
+                    borderSide: BorderSide(color:Palette.gold),
                     borderRadius: BorderRadius.all(Radius.circular(9))),
                 focusedErrorBorder:  OutlineInputBorder(
                     borderSide: BorderSide(color:Colors.red),

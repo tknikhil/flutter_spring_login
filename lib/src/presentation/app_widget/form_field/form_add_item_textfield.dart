@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spring_login/src/presentation/presentation.dart';
 
@@ -8,6 +11,7 @@ class FormAddItemTextField extends StatefulWidget {
   var boolval;
   var mxLine;
   var textType;
+  var errorMessage;
   // var validation;
 
     // FormAddItemTextField.multiLine(
@@ -47,7 +51,7 @@ class FormAddItemTextField extends StatefulWidget {
 
 class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
  TextEditingController get inputController2 =>widget.inputController;
-
+ _FormAddItemTextFieldState();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -60,27 +64,30 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
             if (value!.isEmpty) {
               return "required!";
             }
-            if(value=='INVALID'){
+            else if(value=='INVALID'){
               return "wrong Melt %";
             }
             return null;
           },
+        autovalidateMode:AutovalidateMode.disabled,
         enabled: widget.boolval,
         keyboardType: widget.textType,
  onChanged: widget.onChangeEvent,
-        maxLines: widget.mxLine,
- //         onTap: widget.onChangeEvent,
+   maxLines: widget.mxLine,
+   //         onTap: widget.onChangeEvent,
 //       onEditingComplete:widget.onChangeEvent ,
-      style: const TextStyle(
-      fontSize: 15,
-      color: Palette.text,
-      ),
-      decoration: InputDecoration(
-
-      labelText:widget.label,
-      hintText: "${widget.label} ",
-      hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5), ),
-      labelStyle: const TextStyle(
+   style: const TextStyle(
+   fontSize: 15,
+   color: Palette.text,
+   ),
+   decoration: InputDecoration(
+   errorBorder:  OutlineInputBorder(
+   borderSide: BorderSide(color:Palette.gold),
+   borderRadius: BorderRadius.all(Radius.circular(9))),
+   labelText:widget.label,
+   hintText: "${widget.label} ",
+   hintStyle: const TextStyle(color: Color.fromRGBO(105, 105,105, 0.5), ),
+       labelStyle: const TextStyle(
       fontSize: 15,
       color: Palette.text,
       ),
@@ -103,4 +110,5 @@ class _FormAddItemTextFieldState extends State<FormAddItemTextField> {
       ),
     );
   }
+
 }

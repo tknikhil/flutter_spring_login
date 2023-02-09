@@ -33,77 +33,97 @@ class _Search2State extends State<Search2> {
     String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
     final searchController=TextEditingController();
     final orderListView=OrderListView();
-    return SizedBox(
-      //takes host mobile complete screen size
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Scaffold(
-        //drawer
-        drawer: const MenuDrawer(),
-        //appbar
-        appBar: AppBarWidget(cdate: cdate,builder: Builder(builder: (context) =>
-                    IconButton(
-                        icon: const Icon(Icons.menu),
-                        color: Colors.brown,
-                        onPressed: () => Scaffold.of(context).openDrawer()
-                    ),
-                )),
-        backgroundColor: const Color(0xfffd4af37),
-        body:RefreshIndicator(
-          onRefresh: () {
+    return WillPopScope(
+      //for system navigation bar back button ask permission to exit
+      onWillPop: ()async{
+        final val=await  showDialog<bool>(context: context, builder: (context){
+          return AlertDialog(
+            title: const Text("Alert"),
+            content: const Text('Do you want to exit?'),
+            actions: [
+              ElevatedButton(onPressed: ()=>Navigator.of(context).pop(true), child: Text('Yes')),
+              ElevatedButton(onPressed: ()=>Navigator.of(context).pop(false), child: Text('No')),
+            ],
+          );
+        });
+        if(val!=null){
+          return Future.value(val);
+        }else{
+          return Future.value(false);
+        }
+      },
+      child: SizedBox(
+        //takes host mobile complete screen size
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Scaffold(
+          //drawer
+          drawer: const MenuDrawer(),
+          //appbar
+          appBar: AppBarWidget(cdate: cdate,builder: Builder(builder: (context) =>
+                      IconButton(
+                          icon: const Icon(Icons.menu),
+                          color: Colors.brown,
+                          onPressed: () => Scaffold.of(context).openDrawer()
+                      ),
+                  )),
+          backgroundColor: const Color(0xfffd4af37),
+          body:RefreshIndicator(
+            onRefresh: () {
 
-            Navigator.pushReplacement(
-                context,
-                PageRouteBuilder(
-                    pageBuilder: (a, b, c) =>  BottomNavigationBarPage(),
-                    transitionDuration: Duration(seconds: 0)));
-            return Future.value(false);
-          },
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  children: [
-                    searchByRef(),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
+              Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                      pageBuilder: (a, b, c) =>  BottomNavigationBarPage(),
+                      transitionDuration: Duration(seconds: 0)));
+              return Future.value(false);
+            },
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    children: [
+                      searchByRef(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50)),
-                  child: Container(
-                    color: const Color(0xffff0ead6),
-                    child: Center(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children:  [
-                            Padding(
-                              padding: EdgeInsets.all(15.0),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            // Text("${getOrderData().response as List<OrderDetail>}")
-                            //card
-                            buildSingleChildScrollView(),
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50)),
+                    child: Container(
+                      color: const Color(0xffff0ead6),
+                      child: Center(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children:  [
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              // Text("${getOrderData().response as List<OrderDetail>}")
+                              //card
+                              buildSingleChildScrollView(),
 //                             ListView.builder{
 // var orderData=getOrderData().response;
 // print(orderData);
 //                             })
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
