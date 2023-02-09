@@ -174,17 +174,23 @@ setState(() {
                       ),
                       const SizedBox(height: 10),
                       Row(children: [
-                      //   SizedBox(
-                      //       width: MediaQuery.of(context).size.width / 2.4,
-                      //       // child: FormAddItemTextField(
-                      //       //     inputController: designController,
-                      //       //     label: 'Design Sample',mxLine: 1,textType: TextInputType.text,)),
-                      //   // const SizedBox(width: 20),
                         SizedBox(
                             width: MediaQuery.of(context).size.width / 2.4,
                             child: FormAddItemTextField(
-                                inputController: sizeSmplController,
-                                label: 'Size Sample',mxLine: 1,textType: TextInputType.text,)),
+                                inputController: designController,
+                                label: 'Design Sample',mxLine: 1,textType: TextInputType.text,)),
+                        const SizedBox(width: 20),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 2.4,
+                              child: FormAddItemTextField(
+                                  inputController: sizeSmplController,
+                                  label: 'Size Sample',mxLine: 1,textType: TextInputType.text,)),
+                          // const SizedBox(width: 20),
+                      //   SizedBox(
+                      //       width: MediaQuery.of(context).size.width / 2.4,
+                      //       child: FormAddItemTextField(
+                      //         inputController: refNoController,
+                      //         label: 'Customer Refno',textType: TextInputType.text,mxLine: 1,)),
                       ]),
                       const SizedBox(height: 10),
                       Row(
@@ -237,12 +243,19 @@ setState(() {
                           children: [
                             SizedBox(
                                 width: MediaQuery.of(context).size.width / 5,
-                                child:IconButton(icon: Icon(Icons.camera_alt_outlined,
-                                    color:Palette.text),
-                                  splashColor: Color(0xfffd4af37),
+                                child:ElevatedButton(
                                   onPressed: (){
                                     _image!.length<2?getImage(true):null;
-                                  },)),
+                                  }, child: Icon(Icons.camera_alt_outlined,
+                                    color:Palette.white,
+                                  ),
+                                    style: ElevatedButton.styleFrom(
+                                      shape: CircleBorder(),
+                                      shadowColor: Palette.gold,
+                                      elevation: 5,
+                                      padding: EdgeInsets.all(10),
+                                      backgroundColor: Palette.text, // <-- Splash color
+                                    ))),
                             Text("Camera",style: const TextStyle(
                               fontSize: 15,
                               color: Palette.text,
@@ -254,11 +267,16 @@ setState(() {
                           children: [
                             SizedBox(
                                 width: MediaQuery.of(context).size.width / 5,
-                                child: IconButton(icon: Icon(Icons.image_outlined, color:Palette.text,),
-                                  splashColor: Color(0xfffd4af37),
+                                child: ElevatedButton(
                                   onPressed: (){
                                     _image!.length<2?getImage(false):print(_image!.length);
-                                  },)),
+                                  }, child: Icon(Icons.image_outlined, color:Palette.white,), style: ElevatedButton.styleFrom(
+                                  shape: CircleBorder(),
+                                  shadowColor: Palette.gold,
+                                  elevation: 5,
+                                  padding: EdgeInsets.all(10),
+                                  backgroundColor: Palette.text, // <-- Splash color
+                                ))),
                             Text("Gallery",style: const TextStyle(
                               fontSize: 15,
                               color: Palette.text,
@@ -276,6 +294,10 @@ setState(() {
                          child: Align(
                            alignment: Alignment.centerLeft,
                            child: Container(
+                             decoration: BoxDecoration(
+                               border: Border.all(color: Palette.gold),
+                               borderRadius: BorderRadius.circular(10)
+                             ),
                              height: 150.0,
                              width: MediaQuery.of(context).size.width,
                                child: ListView.builder(
@@ -315,7 +337,7 @@ setState(() {
                         heightSize: 45,
                         widthSize: 200,
                         onPressed: () {
-                          formKey.currentState!.validate();
+                           formKey.currentState!.validate();
                              saveItem(itemNameController.text,weightController.text,
                                  sizeController.text,
                                  quantityController.text,
@@ -326,6 +348,7 @@ setState(() {
                                  sizeSmplController.text,
                                  refNoController.text,
                                  remarkController.text,
+                                 'test base64',
                                  daysController.text,
                                  dueDateController.text,context);
                            }
@@ -355,19 +378,20 @@ setState(() {
   //     }
   // }
 
-  void saveItem( String itemName, String weight, String size, String qty, String meltper, String stamp, String hook, String design, String sizeSample, String refNo, String remark, String days, String duedate, BuildContext context) {
+  void saveItem( String itemName, String weight, String size, String qty, String meltper, String stamp, String hook,String design, String sizeSample, String refNo,  String imageData1,String remark, String days, String duedate,BuildContext context) {
      // final itemName=DropDownValueModel(name: , value: value);
     print('${Image.file(File(AddItemState._image![0].path))}======>image Path');
-    days='0';
+    // days='0';
       var isDataSave = PersisItemService().saveItem(itemName,
           double.tryParse(weight),
           size, int.tryParse(qty),
           double.tryParse(meltper),
           stamp,
           hook,
-          imgToBase64(_image),
+          design,
           sizeSample,
           refNo,
+          imgToBase64(_image),
           remark,
           int.tryParse(days)!);
 print('dropdown val=${itemName} itemname=$itemName weight =$weight itemsize=$size qty=$qty meltper=$meltper stamp=$stamp  hook=$hook   design=$design   sizeSample=$sizeSample  refNo=$refNo   remark=$remark   days=$days  ');
@@ -462,7 +486,7 @@ return showDialog(context: context, builder: (context){
 child: Column(
   crossAxisAlignment: CrossAxisAlignment.center,
   children: [
-    Image.file(File(images!.path))
+    Image.file(File(images!.path),)
   ],
 ),
       ),

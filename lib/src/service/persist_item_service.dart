@@ -15,9 +15,10 @@ class PersisItemService {
       double? meltPer,
       String? stamp,
       String? hook,
-      List<String>? designSample,
+      String? designSample,
       String? sizeSample,
       String? refNo,
+      List<String>? imageData,
       String? remark,
       int days) async {
     print('itemname =$itemName , weight=$weight, itemSize=$itemSize, qty=$qty, meltPer=$meltPer, stamp=$stamp,  hook=$hook, designSample=$designSample, sizeSample=$sizeSample, refNo=$refNo, remark=$remark, days=$days ===========>saveItem() ');
@@ -38,6 +39,7 @@ class PersisItemService {
             designSample!,
             sizeSample!,
             refNo!,
+            imageData!,
             remark!,
             days));
 

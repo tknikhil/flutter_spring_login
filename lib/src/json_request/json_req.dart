@@ -17,9 +17,10 @@ class JsonReq {
       double meltPer,
       String stamp,
       String hook,
-      List<String> designSample,
+      String designSample,
       String sizeSample,
       String refNo,
+      List<String> imageData,
       String remark,
       int days) {
     print({
@@ -37,6 +38,7 @@ class JsonReq {
           "refNo": refNo,
           "designSample": designSample,
           "sizeSample": sizeSample,
+          "imageData":imageData,
           "days": days
         }
       }
@@ -55,6 +57,7 @@ class JsonReq {
             "remark": remark,
             "refNo": refNo,
             "designSample": designSample,
+            "imageData":imageData,
             "sizeSample": sizeSample,
             "days": days
           }
