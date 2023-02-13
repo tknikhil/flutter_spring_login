@@ -10,6 +10,8 @@ import 'package:flutter_spring_login/src/cubit/item_name/item_name_cubit.dart';
 import 'package:flutter_spring_login/src/presentation/app_widget/app_widget.dart';
 import 'package:flutter_spring_login/src/service/add_item_service.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 
 import '../../model/item_name.dart';
 import '../../service/persist_item_service.dart';
@@ -41,7 +43,14 @@ final remarkController = TextEditingController();
 final daysController = TextEditingController();
 final dueDateController = TextEditingController();
 
-class AddItemState extends State<AddItem> {
+class AddItemState extends State<AddItem> with SingleTickerProviderStateMixin {
+  //image zoom
+ TransformationController? imgCtrl;
+ TapDownDetails? tapDowDetails;
+//zoom with animation
+ late AnimationController animationController;
+ Animation<Matrix4>? animation;
+
    static List<XFile>? _image=[];
 
    GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -185,7 +194,7 @@ setState(() {
                               child: FormAddItemTextField(
                                   inputController: sizeSmplController,
                                   label: 'Size Sample',mxLine: 1,textType: TextInputType.text,)),
-                          // const SizedBox(width: 20),
+                        // const SizedBox(width: 20),
                       //   SizedBox(
                       //       width: MediaQuery.of(context).size.width / 2.4,
                       //       child: FormAddItemTextField(
@@ -283,10 +292,6 @@ setState(() {
                             ),)
                           ],
                         ),
-
-
-
-
                       ]),
                       const SizedBox(height: 10),
                       Row(children: [
@@ -318,7 +323,8 @@ setState(() {
                                                         fit: BoxFit.fill,
                                                       ),
                                      ),
-                                     onTap: () => WidgetsBinding.instance.addPostFrameCallback((timeStamp) { showImages(context,_image![index]);})
+                                      onTap: () => WidgetsBinding.instance.addPostFrameCallback((timeStamp) { showImages(context,_image![index]);})
+
                                    ),
                                  ),
 
@@ -469,6 +475,8 @@ itemNameController.clear();
 
   }
 
+
+  //Show Image
   showImages(BuildContext context, XFile? images) {
     print("======image=====");
 return showDialog(context: context, builder: (context){
@@ -484,10 +492,42 @@ return showDialog(context: context, builder: (context){
         width: MediaQuery.of(context).size.width*0.8,
         height: 350,
 child: Column(
-  crossAxisAlignment: CrossAxisAlignment.center,
   children: [
-    Image.file(File(images!.path),)
+
+    GestureDetector(
+      onDoubleTapDown: (details)=>tapDowDetails=details,
+
+      onDoubleTap: (){
+        print("image double tap");
+        final position=tapDowDetails!.localPosition;
+        final double scale=3;
+        final x=-position.dx*(scale-1);
+        final y=-position.dy*(scale-1);
+        final zoomed=Matrix4.identity()
+          ..translate(x,y)
+          ..scale(scale);
+        final zoomEnd=imgCtrl!.value.isIdentity()?zoomed:Matrix4.identity();
+        // imgCtrl?.value=zoomEnd;
+        animation=Matrix4Tween(
+          begin: imgCtrl?.value,
+          end: zoomEnd
+        ).animate(
+          CurveTween(curve: Curves.easeOut).animate(animationController)
+        );
+        animationController.forward(from:0);
+
+      },
+     child: InteractiveViewer(
+          transformationController: imgCtrl,
+           clipBehavior: Clip.none,
+          panEnabled: false,
+          scaleEnabled: false,child: AspectRatio(
+         aspectRatio: 1,
+         child: ClipRRect(child: Image.file(File(images!.path),)))),
+   )
+
   ],
+
 ),
       ),
     ),
@@ -495,7 +535,21 @@ child: Column(
 });
   }
 
-  // void saveItem(String dropdownval, String text, TextEditingController weightController, TextEditingController sizeController, TextEditingController quantityController, TextEditingController meltController, TextEditingController stampController, TextEditingController hookController, TextEditingController designController, TextEditingController sizeSmplController, TextEditingController refNoController, TextEditingController remarkController, TextEditingController daysController, TextEditingController dueDateController, BuildContext context) {
+  @override
+  void initState() {
+    super.initState();
+    imgCtrl=TransformationController();
+    animationController=AnimationController(vsync: this,duration: Duration(milliseconds: 300))..addListener(() {imgCtrl!.value=animation!.value;});
+  }
+
+  @override
+  void dispose() {
+super.dispose();
+imgCtrl?.dispose();
+animationController.dispose();
+  }
+
+// void saveItem(String dropdownval, String text, TextEditingController weightController, TextEditingController sizeController, TextEditingController quantityController, TextEditingController meltController, TextEditingController stampController, TextEditingController hookController, TextEditingController designController, TextEditingController sizeSmplController, TextEditingController refNoController, TextEditingController remarkController, TextEditingController daysController, TextEditingController dueDateController, BuildContext context) {
   //   weightController.text;
   // }
 
