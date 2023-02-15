@@ -407,7 +407,7 @@ print('$isDataSave save item result');
 //           content: Text("item Added... "),
 //         ));
 //       }
-
+formKey.currentState!.reset();
 itemNameController.clear();
     itemCodeController.clear();
     weightController.clear();
@@ -425,6 +425,7 @@ itemNameController.clear();
 
     setState(() {
       _image!.clear();
+      DropDownBuilderState().initState();
     });
 
 

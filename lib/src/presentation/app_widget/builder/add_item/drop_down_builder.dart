@@ -23,7 +23,7 @@ class DropDownBuilder extends StatefulWidget {
 
 class DropDownBuilderState extends State<DropDownBuilder> {
    List<ItemName> items = [];
-   bool clearVal=false;
+   bool clearVal=true;
   // final cnt = SingleValueDropDownController();
    final cnt=SingleValueDropDownController()!;
   FocusNode? textFieldFocusNode = FocusNode();
@@ -74,7 +74,7 @@ class DropDownBuilderState extends State<DropDownBuilder> {
 
               controller: cnt,
               textFieldFocusNode: textFieldFocusNode,
-              clearOption: true,
+              // clearOption: clearVal,
               keyboardType: TextInputType.text,
               enableSearch: true,
               // dropdownColor: Colors.green,
@@ -120,5 +120,9 @@ validator: (value)=> value==null||value.isEmpty?'required':null,
     });
   }
 
-
+   @override
+  void dispose() {
+     textFieldFocusNode?.dispose();
+     super.dispose();
+  }
 }

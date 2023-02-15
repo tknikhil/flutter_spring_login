@@ -16,7 +16,7 @@ class OrderSummeryReader extends StatefulWidget {
 class _OrderSummeryReaderState extends State<OrderSummeryReader> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [blockBuilder()],);
+    return SingleChildScrollView(child: Column(children: [blockBuilder()],));
   }
 
   BlocBuilder<OrderSummeryCubit, OrderSummeryState> blockBuilder() {
@@ -36,6 +36,8 @@ class _OrderSummeryReaderState extends State<OrderSummeryReader> {
           return Padding(
             padding: const EdgeInsets.only(top: 30,left: 8,right: 8),
             child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
@@ -46,113 +48,216 @@ class _OrderSummeryReaderState extends State<OrderSummeryReader> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: DataTable(
-                          columns: [
-                            DataColumn(
-                                label: Text(
-                                  'Status',
-                                  style: const TextStyle(fontSize: 17,),
-                                )),
-                            DataColumn(
-                                label: Text(
-                                  "${orderSummery.status}",
-                                  style:  TextStyle(fontSize: 17,color:(orderSummery.status=='Assigned')?Colors.green:(orderSummery.status=='Confirmed')?Colors.green:Colors.red ),
-                                )),
-                          ],
-
-                          rows: [
-                          DataRow(cells: [
-                            DataCell(
-                              Text(
-                               ' Customer Name: ${orderSummery.custName}',
-                                style: const TextStyle(fontSize: 17),
-                              ),
-                            ),
-                             DataCell(Text(
-                              'Stamp : ${orderSummery.stamp}  ',
-                              style: TextStyle(fontSize: 17,),
-                            ))
-                          ]),
-                          DataRow(cells: [
-                              DataCell(
-                                Text(
-                                  'Item Name : ${orderSummery.itemName.toString()}',
-                                  style: const TextStyle(fontSize: 17),
-                                ),
-                              ),
-                            DataCell(
-                              Text(
-                                'Order Type : ${orderSummery.type.toString()}',
-                                style: const TextStyle(fontSize: 17),
-                              ),
-                            ),
-                            ]),
-                          DataRow(cells: [
-                            DataCell(
-                              Text(
-                                'Item Size : ${orderSummery.itemSize.toString()}',
-                                style: const TextStyle(fontSize: 17),
-                              ),
-                            ),
-                             DataCell(Text(
-                              'Melt % : ${orderSummery.meltPer.toString()}',
-                              style: TextStyle(fontSize: 17,),
-                            ))
-                          ]),
-                          DataRow(cells: [
-                              DataCell(
-                                Text(
-                                  'Hook : ${orderSummery.hook.toString()}',
-                                  style: const TextStyle(fontSize: 17),
-                                ),
-                              ),
-                              DataCell(Text(
-                                'Ref. Code : ${orderSummery.refNo.toString()}',
-                                style: TextStyle(fontSize: 17,),
-                              ))
-                            ]),
-                          DataRow(cells: [
-                              DataCell(
-                                Text(
-                                  'Design Sample : ${orderSummery.designSample.toString()}',
-                                  style: const TextStyle(fontSize: 17),
-                                ),
-                              ),
-                              DataCell(Text(
-                                'Size Sample : ${orderSummery.sizeSample.toString()}',
-                                style: TextStyle(fontSize: 17,),
-                              ))
-                            ]),
-                          DataRow(cells: [
-                              DataCell(
-                                Text(
-                                  'Total Days : ${orderSummery.days.toString()}',
-                                  style: const TextStyle(fontSize: 17),
-                                ),
-                              ),
-                              DataCell(Text(
-                                'Due Date : ${orderSummery.dueDate.toString()}',
-                                style: TextStyle(fontSize: 17,),
-                              ))
-                            ]),
-                          DataRow(cells: [
-                              DataCell(
-                                Text(
-                                  'Workshop : ${(orderSummery.workshop=="null")?"Not Assigned":orderSummery.workshop.toString()}',
-                                  style: const TextStyle(fontSize: 17),
-                                ),
-                              ),
-                              DataCell(Text(
-                                'Order Date : ${orderSummery.orderDate.toString()}',
-                                style: TextStyle(fontSize: 17,),
-                              ))
-                            ]),
+                    Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: DataTable(
+                        columns: [
+                          DataColumn(
+                              label: Text(
+                                'Status',
+                                style: const TextStyle(fontSize: 17,),
+                              )),
+                          DataColumn(
+                              label: Text(
+                                "${orderSummery.status}",
+                                style:  TextStyle(fontSize: 17,color:(orderSummery.status=='Assigned')?Colors.green:(orderSummery.status=='Confirmed')?Colors.green:Colors.red ),
+                              )),
                         ],
-                        ),
+
+                        rows: [
+                        DataRow(cells: [
+                          DataCell(
+                            Text(
+                             ' Customer Name:',
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                          ),
+                           DataCell(Text(
+                            ' ${orderSummery.custName} ',
+                            style: TextStyle(fontSize: 17,),
+                          ))
+                        ]),
+                        DataRow(cells: [
+                          DataCell(Text(
+                            'Stamp : ',
+                            style: TextStyle(fontSize: 17,),
+                          )),
+
+              DataCell(Text(
+                '${orderSummery.stamp}',
+                style: TextStyle(fontSize: 17,),
+              )),
+                          ]),
+                        DataRow(cells: [
+
+                          DataCell(
+                            Text(
+                              'Item Name :',
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              '${orderSummery.itemName.toString()}',
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                          ),
+
+                        ]),
+                          DataRow(cells: [
+
+                            DataCell(
+                              Text(
+                                'Item Size : ',
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                '${orderSummery.itemSize.toString()}',
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ),
+                            //  DataCell(Text(
+                            //   'Melt % : ${orderSummery.meltPer.toString()}',
+                            //   style: TextStyle(fontSize: 17,),
+                            // ))
+                          ]),
+                          DataRow(cells: [
+
+                             DataCell(Text(
+                              'Melt % : ',
+                              style: TextStyle(fontSize: 17,),
+                            )),
+                            DataCell(Text(
+                              '${orderSummery.meltPer.toString()}',
+                              style: TextStyle(fontSize: 17,),
+                            ))
+                          ]),
+                        DataRow(cells: [
+
+                          DataCell(
+                            Text(
+                              'Order Type : ',
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              '${orderSummery.type.toString()}',
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                          ),
+
+
+                          ]),
+                        DataRow(cells: [
+                          DataCell(
+                            Text(
+                              'Hook :',
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              '${orderSummery.hook.toString()}',
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                          ),
+
+                          ]),
+                        DataRow(cells: [
+                          DataCell(Text(
+                            'Ref. Code : ',
+                            style: TextStyle(fontSize: 17,),
+                          )),
+                          DataCell(Text(
+                            ' ${orderSummery.refNo.toString()}',
+                            style: TextStyle(fontSize: 17,),
+                          ))
+
+                          ]),
+                        DataRow(cells: [
+                          DataCell(
+                            Text(
+                              'Design Sample : ',
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                          ),
+                          DataCell(
+                            Text(
+                              '${orderSummery.designSample.toString()}',
+                              style: const TextStyle(fontSize: 17),
+                            ),
+                          ),
+
+                          ]),
+                          DataRow(cells: [
+                            DataCell(Text(
+                              'Size Sample :',
+                              style: TextStyle(fontSize: 17,),
+                            )),
+                            DataCell(Text(
+                              '${orderSummery.sizeSample.toString()}',
+                              style: TextStyle(fontSize: 17,),
+                            ))
+
+                          ]),
+                          DataRow(cells: [
+                            DataCell(
+                              Text(
+                                'Total Days :',
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                ' ${orderSummery.days.toString()}',
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ),
+
+                          ]),
+                          DataRow(cells: [
+                            DataCell(
+                              Text(
+                                'Due Date :',
+                                style: TextStyle(fontSize: 17,),
+                              )),
+                            DataCell(
+                                Text(
+                                  '${orderSummery.dueDate.toString()}',
+                                  style: TextStyle(fontSize: 17,),
+                                )),
+
+                          ]),
+                          DataRow(cells: [
+                            DataCell(
+                              Text(
+                                'Workshop : ',
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                '${(orderSummery.workshop=="null")?"Not Assigned":orderSummery.workshop.toString()}',
+                                style: const TextStyle(fontSize: 17),
+                              ),
+                            ),
+
+                          ]),
+                          DataRow(cells: [
+                            DataCell(Text(
+                              'Order Date :',
+                              style: TextStyle(fontSize: 17,),
+                            )),
+                            DataCell(Text(
+                              ' ${orderSummery.orderDate.toString()}',
+                              style: TextStyle(fontSize: 17,),
+                            )),
+
+                          ]),
+                      ],
                       ),
                     ),
                   ],
