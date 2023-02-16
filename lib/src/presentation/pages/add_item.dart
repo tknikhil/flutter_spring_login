@@ -10,8 +10,6 @@ import 'package:flutter_spring_login/src/cubit/item_name/item_name_cubit.dart';
 import 'package:flutter_spring_login/src/presentation/app_widget/app_widget.dart';
 import 'package:flutter_spring_login/src/service/add_item_service.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
 
 import '../../model/item_name.dart';
 import '../../service/persist_item_service.dart';
@@ -402,11 +400,9 @@ setState(() {
           int.tryParse(days)!);
 print('dropdown val=${itemName} itemname=$itemName weight =$weight itemsize=$size qty=$qty meltper=$meltper stamp=$stamp  hook=$hook   design=$design   sizeSample=$sizeSample  refNo=$refNo   remark=$remark   days=$days  ');
 print('$isDataSave save item result');
-// if(isDataSave=="success"){
-//         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-//           content: Text("item Added... "),
-//         ));
-//       }
+if(isDataSave=="success"){
+      print(isDataSave.toString());
+      }
 formKey.currentState!.reset();
 itemNameController.clear();
     itemCodeController.clear();
@@ -429,10 +425,29 @@ itemNameController.clear();
     });
 
 
+      AlertDialog alert=AlertDialog(
+        backgroundColor: const Color(0xfffd4af37),
+        title: const Text("Alert"),
+        content: const Text('Item added '),
+        actions: [
+          ElevatedButton(
 
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("item Added... "),
-      ));
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text('Ok')),
+        ],
+      );
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+
+
+    // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      //   content: Text("item Added... "),
+      // ));
 
 
   }
