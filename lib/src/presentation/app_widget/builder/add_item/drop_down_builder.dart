@@ -11,24 +11,29 @@ import '../../form_field/form_add_item_textfield.dart';
 
 class DropDownBuilder extends StatefulWidget {
   // GlobalKey<FormState>  formval;
+  var cnt;
    DropDownBuilder({
     Key? key,
+     required final cnt,
   }) : super(key: key);
    var itemname;
 
 
   @override
   State<DropDownBuilder> createState() => DropDownBuilderState();
+
 }
 
 class DropDownBuilderState extends State<DropDownBuilder> {
    List<ItemName> items = [];
    bool clearVal=true;
   // final cnt = SingleValueDropDownController();
-   final cnt=SingleValueDropDownController()!;
+  //  SingleValueDropDownController cnt=SingleValueDropDownController();
   FocusNode? textFieldFocusNode = FocusNode();
+   // FormFieldValidator<String>? validator;
+   FormFieldValidator<String> validator  = (value)=> value!.isEmpty?'required':null;
    // GlobalKey<FormState>  formval;
-  DropDownBuilderState();
+  // DropDownBuilderState();=======
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +52,7 @@ class DropDownBuilderState extends State<DropDownBuilder> {
             // height: 40,
             child: DropDownTextField(
               // initialValue: "name4",
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+              //  autovalidateMode: AutovalidateMode.onUserInteraction,
               textFieldDecoration:  const InputDecoration(
                 errorBorder: OutlineInputBorder(
                     borderSide: BorderSide(color:Palette.gold),
@@ -74,7 +79,7 @@ class DropDownBuilderState extends State<DropDownBuilder> {
 
               controller: cnt,
               textFieldFocusNode: textFieldFocusNode,
-              // clearOption: clearVal,
+               clearOption: clearVal,
               keyboardType: TextInputType.text,
               enableSearch: true,
               // dropdownColor: Colors.green,
@@ -83,13 +88,15 @@ class DropDownBuilderState extends State<DropDownBuilder> {
               dropdownColor: Color(0xffffbf1de),
               textStyle: const TextStyle(color: Palette.text),
               dropDownItemCount: 6,
-validator: (value)=> value==null||value.isEmpty?'required':null,
-
+               validator: validator,
               dropDownList: itemval!,
               onChanged: (val) {
                 setState(() {
                   widget.itemname = val.name;
+                   // validator =  (val.name.isEmpty?'required':null) as FormFieldValidator<String>;
+
                 });
+
 
                // formval.currentState!.validate();
                 print('$itemval========>changeValue');
@@ -125,4 +132,5 @@ validator: (value)=> value==null||value.isEmpty?'required':null,
      textFieldFocusNode?.dispose();
      super.dispose();
   }
+
 }

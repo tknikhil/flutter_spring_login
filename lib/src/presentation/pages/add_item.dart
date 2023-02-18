@@ -40,9 +40,11 @@ final refNoController = TextEditingController();
 final remarkController = TextEditingController();
 final daysController = TextEditingController();
 final dueDateController = TextEditingController();
+final cnt=SingleValueDropDownController();
 
 class AddItemState extends State<AddItem> with SingleTickerProviderStateMixin {
   //image zoom
+  // final dropDownBuilder=DropDownBuilder(cnt);
  TransformationController? imgCtrl;
  TapDownDetails? tapDowDetails;
 //zoom with animation
@@ -122,7 +124,7 @@ setState(() {
 
                       BlocProvider(
   create: (context) => ItemNameCubit(AddItemService()),
-  child: DropDownBuilder(),
+  child: DropDownBuilder(cnt: cnt,),
 ),
                       const SizedBox(height: 10),
                       Row(
@@ -342,6 +344,7 @@ setState(() {
                         widthSize: 200,
                         onPressed: () {
                            formKey.currentState!.validate();
+                           // cnt.dropDownValue.name.isEmpty?"required"
                              saveItem(itemNameController.text,weightController.text,
                                  sizeController.text,
                                  quantityController.text,
@@ -417,12 +420,18 @@ itemNameController.clear();
     refNoController.clear();
     remarkController.clear();
     daysController.clear();
+    cnt.dropDownValue=null;
     dueDateController.clear();
+
 
     setState(() {
       _image!.clear();
-      DropDownBuilderState().initState();
+      // DropDownBuilderState().initState();
+      // DropDownBuilderState().widget.itemname=;
+      // DropDownBuilderState().cnt.notifyListeners();
     });
+
+
 
 
       AlertDialog alert=AlertDialog(
